@@ -272,22 +272,14 @@ export default function WWMUnique() {
       >
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          <div
-            className={`absolute top-20 left-[10%] w-64 h-64 ${
-              darkMode ? 'bg-blue-500/10' : 'bg-blue-500/20'
-            } rounded-full blur-3xl float-animation`}
-          ></div>
-          <div
-            className={`absolute bottom-20 right-[15%] w-96 h-96 ${
-              darkMode ? 'bg-purple-500/10' : 'bg-purple-500/20'
-            } rounded-full blur-3xl float-animation`}
-            style={{ animationDelay: '2s' }}
-          ></div>
-          <div
-            className={`absolute top-1/2 left-1/2 w-[500px] h-[500px] border ${
-              darkMode ? 'border-white/5' : 'border-gray-900/5'
-            } rounded-full rotate-slow`}
-          ></div>
+          {/* Animated Background Elements */}
+<div className="absolute inset-0">
+  {/* subtle neutral glow only */}
+  <div className={`absolute inset-0 ${
+    darkMode ? 'bg-white/5' : 'bg-black/5'
+  } blur-3xl`}></div>
+</div>
+
         </div>
 
         <div className="relative z-10 text-center px-6">
