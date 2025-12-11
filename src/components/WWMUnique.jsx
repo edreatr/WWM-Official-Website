@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Sun, Moon } from 'lucide-react';
 import wwmLogo from '../assets/WWM_WHITELOGO_PNG.png';
-import wwmLogoDark from '../assets/WWM_BLACKTEXT.png'; // You'll need a black version
+import wwmLogoDark from '../assets/WWM_BLACKTEXT.png'; // Black version
+import pavilionImg from '../assets/PAVILLION.jpg'; // Project image
 
 export default function WWMUnique() {
   const [scrolled, setScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [activeProject, setActiveProject] = useState(0);
+  const [activeProject, setActiveProject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   const [visibleSections, setVisibleSections] = useState({});
   const [hoveredService, setHoveredService] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
-  const [activeLocation, setActiveLocation] = useState('sg'); // 🆕 for map
 
   // Loading animation
   useEffect(() => {
@@ -76,40 +76,57 @@ export default function WWMUnique() {
     { id: 6, title: 'Master Planning', color: '#C7CEEA', angle: -15 },
   ];
 
+  // enriched projects so details + image can show inline
   const projects = [
-    { title: 'Coming Soon', scale: 1.2, color: '#2C3E50' },
-    { title: 'Coming Soon', scale: 0.9, color: '#E67E22' },
-    { title: 'Coming Soon', scale: 1.4, color: '#16A085' },
-    { title: 'Coming Soon', scale: 1.1, color: '#8E44AD' },
+    {
+      title: 'NEOM Phase 1',
+      scale: 1.2,
+      color: '#2C3E50',
+      image: pavilionImg,
+      location: 'Saudi Arabia',
+      sector: 'Mixed-use smart city masterplan',
+      role: 'Structural engineering, smart city integration',
+      status: 'Ongoing',
+      summary:
+        'Large-scale future city development focusing on resilient infrastructure, integrated mobility, and smart public realm systems.',
+    },
+    {
+      title: 'Dubai Marina Tower',
+      scale: 0.9,
+      color: '#E67E22',
+      image: pavilionImg,
+      location: 'Dubai, UAE',
+      sector: 'High-rise residential / mixed-use',
+      role: 'Structural and façade engineering',
+      status: 'Completed',
+      summary:
+        'High-rise tower overlooking Dubai Marina, designed with optimised structural systems and coordinated with complex façade geometry.',
+    },
+    {
+      title: 'Riyadh Metro Hub',
+      scale: 1.4,
+      color: '#16A085',
+      image: pavilionImg,
+      location: 'Riyadh, Saudi Arabia',
+      sector: 'Transport & infrastructure',
+      role: 'Structural design, concourse integration',
+      status: 'In Design',
+      summary:
+        'Transit hub connecting metro, public realm and retail podiums, with large-span structures and integrated passenger flows.',
+    },
+    {
+      title: 'Abu Dhabi Cultural Center',
+      scale: 1.1,
+      color: '#8E44AD',
+      image: pavilionImg,
+      location: 'Abu Dhabi, UAE',
+      sector: 'Cultural / civic',
+      role: 'Structural design, roof geometry',
+      status: 'Concept',
+      summary:
+        'Cultural venue with expressive roof forms and flexible gallery spaces, integrating structure, daylight and public circulation.',
+    },
   ];
-
-  // 🆕 Multiple company locations (edit these as needed)
-  const locations = [
-    {
-      id: 'sg',
-      label: 'Singapore Studio',
-      subtitle: '48B Club Street, Singapore',
-      mapUrl:
-        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.481906912115!2d103.838!3d1.282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da190fdcd96c3f%3A0x8a1a9da6af7d2a3e!2sClub%20St%2C%20Singapore!5e0!3m2!1sen!2ssg!4v1700000000000!5m2!1sen!2ssg',
-    },
-    {
-      id: 'uk',
-      label: 'London Studio',
-      subtitle: 'London, United Kingdom',
-      mapUrl:
-        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19801.79373464748!2d-0.140!3d51.507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b3333333333%3A0xaaaaaaaaaaaaaaa!2sLondon!5e0!3m2!1sen!2suk!4v1700000000001!5m2!1sen!2suk',
-    },
-    {
-      id: 'ae',
-      label: 'Middle East Studio',
-      subtitle: 'Dubai, UAE',
-      mapUrl:
-        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23097.87857096935!2d55.2708!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f434333333333%3A0xbbbbbbbbbbbbbbbb!2sDowntown%20Dubai!5e0!3m2!1sen!2sae!4v1700000000002!5m2!1sen!2sae',
-    },
-  ];
-
-  const activeLocationData =
-    locations.find((loc) => loc.id === activeLocation) || locations[0];
 
   return (
     <div
@@ -145,12 +162,12 @@ export default function WWMUnique() {
           }`}
         >
           <div className="relative z-10 text-center px-6">
-            {/* same logo wrapper & parallax as hero */}
+            {/* SAME EXACT LOGO WRAPPER AS HERO */}
             <div
               className="mb-8 transition-transform duration-300"
               style={{
-                transform: `translate(${mousePosition.x * 25}px, ${
-                  mousePosition.y * 25
+                transform: `translate(${mousePosition.x * 10}px, ${
+                  mousePosition.y * 10
                 }px)`,
               }}
             >
@@ -161,7 +178,7 @@ export default function WWMUnique() {
               />
             </div>
 
-            {/* invisible metrics block to match hero vertical height */}
+            {/* Invisible metrics block to keep same vertical spacing */}
             <div className="mt-16 flex justify-center gap-8 opacity-0 pointer-events-none select-none">
               <div className="text-center">
                 <div className="text-4xl font-light mb-1">XX+</div>
@@ -272,22 +289,30 @@ export default function WWMUnique() {
       >
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          {/* Animated Background Elements */}
-<div className="absolute inset-0">
-  {/* subtle neutral glow only */}
-  <div className={`absolute inset-0 ${
-    darkMode ? 'bg-white/5' : 'bg-black/5'
-  } blur-3xl`}></div>
-</div>
-
+          <div
+            className={`absolute top-20 left-[10%] w-64 h-64 ${
+              darkMode ? 'bg-blue-500/10' : 'bg-blue-500/20'
+            } rounded-full blur-3xl float-animation`}
+          ></div>
+          <div
+            className={`absolute bottom-20 right-[15%] w-96 h-96 ${
+              darkMode ? 'bg-purple-500/10' : 'bg-purple-500/20'
+            } rounded-full blur-3xl float-animation`}
+            style={{ animationDelay: '2s' }}
+          ></div>
+          <div
+            className={`absolute top-1/2 left-1/2 w-[500px] h-[500px] border ${
+              darkMode ? 'border-white/5' : 'border-gray-900/5'
+            } rounded-full rotate-slow`}
+          ></div>
         </div>
 
         <div className="relative z-10 text-center px-6">
           <div
             className="mb-8 transition-transform duration-300"
             style={{
-              transform: `translate(${mousePosition.x * 25}px, ${
-                mousePosition.y * 25
+              transform: `translate(${mousePosition.x * 10}px, ${
+                mousePosition.y * 10
               }px)`,
             }}
           >
@@ -384,9 +409,7 @@ export default function WWMUnique() {
                 Design
                 <br />
                 <span
-                  className={
-                    darkMode ? 'text-white/40' : 'text-gray-900/40'
-                  }
+                  className={darkMode ? 'text-white/40' : 'text-gray-900/40'}
                 >
                   Different
                 </span>
@@ -444,87 +467,76 @@ export default function WWMUnique() {
         </div>
       </section>
 
-      {/* Services - List Style */}
+      {/* Services - Experimental Grid */}
       <section
         id="services"
         className="min-h-screen py-32 px-6 lg:px-12 relative overflow-hidden"
       >
         <div className="max-w-7xl mx-auto">
-          <div className="mb-20">
-            <div
-              className={`inline-block text-xs tracking-[0.3em] ${
-                darkMode ? 'text-white/50' : 'text-gray-900/50'
-              } mb-6`}
-            >
+          <div className="text-center mb-20">
+            <div className="inline-block text-xs tracking-[0.3em] text-white/50 mb-6">
               02 — SERVICES
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold">Capabilities</h2>
           </div>
 
-          <div className="space-y-1">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
             {services.map((service, index) => (
               <div
                 key={service.id}
                 onMouseEnter={() => setHoveredService(service.id)}
                 onMouseLeave={() => setHoveredService(null)}
-                className={`group relative ${
-                  darkMode ? 'border-white/10' : 'border-gray-900/10'
-                } border-b transition-all duration-700 ${
+                className={`relative aspect-square rounded-2xl border border-white/10 overflow-hidden cursor-pointer group transition-all duration-700 ${
                   visibleSections.services
-                    ? 'opacity-100 translate-x-0'
-                    : 'opacity-0 -translate-x-20'
+                    ? 'opacity-100 scale-100'
+                    : 'opacity-0 scale-90'
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                style={{
+                  transitionDelay: `${index * 100}ms`,
+                  background:
+                    hoveredService === service.id
+                      ? `linear-gradient(${service.angle}deg, ${service.color}40, transparent)`
+                      : 'transparent',
+                }}
               >
-                <div
-                  className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                  style={{
-                    background: `linear-gradient(90deg, ${service.color}25, transparent)`,
-                  }}
-                ></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-                <div className="relative flex items-center justify-between py-8 px-6 cursor-pointer">
-                  <div className="flex items-center gap-8 lg:gap-12">
-                    <div
-                      className={`text-xl lg:text-2xl font-light ${
-                        darkMode
-                          ? 'text-white/30 group-hover:text-white'
-                          : 'text-gray-900/30 group-hover:text-gray-900'
-                      } transition-colors duration-500 w-12`}
-                    >
-                      {String(service.id).padStart(2, '0')}
-                    </div>
-                    <h3 className="text-2xl lg:text-4xl font-semibold tracking-tight group-hover:translate-x-4 transition-transform duration-500">
-                      {service.title}
-                    </h3>
+                <div className="relative h-full flex flex-col items-center justify-center p-6 text-center">
+                  <div className="text-6xl mb-4 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
+                    {String(service.id).padStart(2, '0')}
                   </div>
-
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-3 h-3 rounded-full transition-all duration-500"
-                      style={{
-                        backgroundColor:
-                          hoveredService === service.id
-                            ? service.color
-                            : darkMode
-                            ? 'rgba(255,255,255,0.2)'
-                            : 'rgba(0,0,0,0.2)',
-                      }}
-                    ></div>
-                  </div>
+                  <h3 className="text-lg font-semibold tracking-wide">
+                    {service.title}
+                  </h3>
                 </div>
+
+                <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-white/30 group-hover:bg-white transition-colors duration-500"></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Projects - Carousel Style */}
+      {/* Projects - Elevated Design */}
       <section
         id="projects"
-        className="min-h-screen py-32 px-6 lg:px-12 relative"
+        className="min-h-screen py-32 px-6 lg:px-12 relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto">
+        {/* Ambient Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] ${
+              darkMode ? 'bg-blue-500/5' : 'bg-blue-500/10'
+            } rounded-full blur-3xl`}
+          ></div>
+          <div
+            className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] ${
+              darkMode ? 'bg-purple-500/5' : 'bg-purple-500/10'
+            } rounded-full blur-3xl`}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-20">
             <div
               className={`inline-block text-xs tracking-[0.3em] ${
@@ -533,51 +545,366 @@ export default function WWMUnique() {
             >
               03 — PROJECTS
             </div>
-            <h2 className="text-5xl lg:text-6xl font-bold">Our Projects</h2>
+            <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+              Featured Work
+            </h2>
+            <p
+              className={`text-lg ${
+                darkMode ? 'text-white/50' : 'text-gray-900/50'
+              } max-w-2xl mx-auto`}
+            >
+              Transforming visions into reality across the MENA region
+            </p>
           </div>
 
-          <div className="relative">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                onClick={() => setActiveProject(index)}
-                className={`mb-8 transition-all duration-700 cursor-pointer ${
-                  activeProject === index
-                    ? 'opacity-100 scale-100'
-                    : 'opacity-30 scale-95 hover:opacity-60'
-                }`}
-              >
-                <div className="flex items-center gap-8 lg:gap-16">
+          <div className="relative space-y-4">
+            {projects.map((project, index) => {
+              const isActive = activeProject === index;
+              const isOtherActive = activeProject !== null && !isActive;
+
+              return (
+                <div
+                  key={index}
+                  className={`transition-all duration-700 ${
+                    isOtherActive ? 'opacity-30 blur-sm' : 'opacity-100'
+                  }`}
+                >
+                  {/* Main project row - Enhanced */}
                   <div
-                    className={`text-8xl lg:text-[12rem] font-bold ${
-                      darkMode ? 'text-white/5' : 'text-gray-900/5'
-                    } leading-none`}
+                    onClick={() =>
+                      setActiveProject((prev) =>
+                        prev === index ? null : index,
+                      )
+                    }
+                    className={`group relative cursor-pointer transition-all duration-700 ${
+                      isActive ? 'mb-8' : 'mb-0 hover:scale-[1.01]'
+                    }`}
                   >
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-
-                  <div className="flex-1">
-                    <h3 className="text-3xl lg:text-5xl font-bold mb-4">
-                      {project.title}
-                    </h3>
+                    {/* Background glow effect */}
                     <div
-                      className={`h-px w-full bg-gradient-to-r ${
-                        darkMode ? 'from-white/50' : 'from-gray-900/50'
-                      } to-transparent`}
+                      className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl -z-10`}
+                      style={{
+                        background: `radial-gradient(circle at center, ${project.color}30, transparent 70%)`,
+                      }}
                     ></div>
+
+                    <div
+                      className={`relative rounded-3xl border ${
+                        darkMode
+                          ? 'border-white/5 bg-white/[0.02]'
+                          : 'border-gray-900/5 bg-gray-900/[0.02]'
+                      } backdrop-blur-sm p-6 lg:p-8 transition-all duration-700 ${
+                        isActive
+                          ? darkMode
+                            ? 'border-white/20 bg-white/5'
+                            : 'border-gray-900/20 bg-gray-900/5'
+                          : ''
+                      } group-hover:${
+                        darkMode ? 'border-white/10' : 'border-gray-900/10'
+                      }`}
+                    >
+                      <div className="flex items-center gap-6 lg:gap-12">
+                        {/* Enhanced index number */}
+                        <div className="relative">
+                          <div
+                            className={`text-6xl lg:text-8xl font-bold transition-all duration-700 ${
+                              darkMode ? 'text-white/5' : 'text-gray-900/5'
+                            } ${isActive ? 'scale-110' : 'scale-100'}`}
+                          >
+                            {String(index + 1).padStart(2, '0')}
+                          </div>
+                          <div
+                            className="absolute inset-0 text-6xl lg:text-8xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                            style={{ color: project.color }}
+                          >
+                            {String(index + 1).padStart(2, '0')}
+                          </div>
+                        </div>
+
+                        {/* Content area */}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-2xl lg:text-4xl font-bold mb-3 transition-all duration-700 group-hover:translate-x-2">
+                            {project.title}
+                          </h3>
+                          <div className="flex flex-wrap gap-3 mb-4">
+                            <span
+                              className={`text-xs px-3 py-1 rounded-full ${
+                                darkMode
+                                  ? 'bg-white/5 text-white/60'
+                                  : 'bg-gray-900/5 text-gray-900/60'
+                              }`}
+                            >
+                              {project.location}
+                            </span>
+                            <span
+                              className={`text-xs px-3 py-1 rounded-full ${
+                                darkMode
+                                  ? 'bg-white/5 text-white/60'
+                                  : 'bg-gray-900/5 text-gray-900/60'
+                              }`}
+                            >
+                              {project.status}
+                            </span>
+                          </div>
+                          <div
+                            className={`h-px w-full bg-gradient-to-r ${
+                              darkMode ? 'from-white/20' : 'from-gray-900/20'
+                            } to-transparent transition-all duration-700 ${
+                              isActive ? 'opacity-0' : 'opacity-100'
+                            }`}
+                          ></div>
+                        </div>
+
+                        {/* Preview thumbnail - Enhanced */}
+                        <div className="hidden lg:block relative">
+                          <div
+                            className="w-48 h-48 rounded-2xl overflow-hidden transition-all duration-700 border border-white/10"
+                            style={{
+                              transform: isActive
+                                ? 'scale(1.1)'
+                                : 'scale(0.95)',
+                            }}
+                          >
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div
+                              className="absolute inset-0 opacity-60 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-30"
+                              style={{ backgroundColor: project.color }}
+                            ></div>
+                          </div>
+
+                          {/* Expand indicator */}
+                          <div
+                            className={`absolute -bottom-3 -right-3 w-10 h-10 rounded-full ${
+                              darkMode
+                                ? 'bg-white text-black'
+                                : 'bg-gray-900 text-white'
+                            } flex items-center justify-center transition-all duration-700 ${
+                              isActive
+                                ? 'rotate-180 scale-110'
+                                : 'rotate-0 scale-100'
+                            }`}
+                          >
+                            <ArrowUpRight
+                              size={20}
+                              className="transition-transform duration-700"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Expanded detail panel - Enhanced */}
                   <div
-                    className="hidden lg:block w-64 h-64 rounded-2xl transition-all duration-700"
-                    style={{
-                      background: `linear-gradient(135deg, ${project.color}, ${project.color}80)`,
-                      transform:
-                        activeProject === index ? 'scale(1)' : 'scale(0.8)',
-                    }}
-                  ></div>
+                    className={`overflow-hidden transition-all duration-700 ${
+                      isActive
+                        ? 'max-h-[2000px] opacity-100'
+                        : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="pl-4 sm:pl-8 lg:pl-24 pt-0 pb-8">
+                      <div
+                        className={`rounded-3xl p-6 lg:p-10 border ${
+                          darkMode
+                            ? 'border-white/10 bg-gradient-to-br from-white/5 to-transparent'
+                            : 'border-gray-900/10 bg-gradient-to-br from-gray-900/5 to-transparent'
+                        } backdrop-blur-xl`}
+                      >
+                        {/* Large image showcase with overlay */}
+                        {project.image && (
+                          <div className="mb-8 lg:mb-12">
+                            <div className="relative aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 group/img">
+                              <img
+                                src={project.image}
+                                alt={project.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
+                              />
+                              {/* Gradient overlay */}
+                              <div
+                                className="absolute inset-0 opacity-40"
+                                style={{
+                                  background: `linear-gradient(to bottom, transparent 50%, ${project.color}40)`,
+                                }}
+                              ></div>
+                              {/* Corner accent */}
+                              <div
+                                className="absolute top-6 right-6 w-16 h-16 rounded-full opacity-20 blur-xl"
+                                style={{ backgroundColor: project.color }}
+                              ></div>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+                          {/* Summary - Enhanced typography */}
+                          <div className="lg:col-span-2 space-y-6">
+                            <div>
+                              <div
+                                className={`text-xs tracking-[0.3em] uppercase mb-4 flex items-center gap-3 ${
+                                  darkMode
+                                    ? 'text-white/50'
+                                    : 'text-gray-900/60'
+                                }`}
+                              >
+                                <div
+                                  className="w-8 h-px"
+                                  style={{ backgroundColor: project.color }}
+                                ></div>
+                                Overview
+                              </div>
+                              <p
+                                className={`text-base lg:text-lg leading-relaxed ${
+                                  darkMode
+                                    ? 'text-white/80'
+                                    : 'text-gray-900/80'
+                                }`}
+                              >
+                                {project.summary}
+                              </p>
+                            </div>
+
+                            {/* Additional project stats */}
+                            <div className="grid grid-cols-2 gap-4 pt-6">
+                              <div
+                                className={`p-4 rounded-xl ${
+                                  darkMode
+                                    ? 'bg-white/5'
+                                    : 'bg-gray-900/5'
+                                }`}
+                              >
+                                <div
+                                  className={`text-xs tracking-wider mb-1 ${
+                                    darkMode
+                                      ? 'text-white/40'
+                                      : 'text-gray-900/50'
+                                  }`}
+                                >
+                                  SECTOR
+                                </div>
+                                <div className="font-medium">
+                                  {project.sector}
+                                </div>
+                              </div>
+                              <div
+                                className={`p-4 rounded-xl ${
+                                  darkMode
+                                    ? 'bg-white/5'
+                                    : 'bg-gray-900/5'
+                                }`}
+                              >
+                                <div
+                                  className={`text-xs tracking-wider mb-1 ${
+                                    darkMode
+                                      ? 'text-white/40'
+                                      : 'text-gray-900/50'
+                                  }`}
+                                >
+                                  OUR ROLE
+                                </div>
+                                <div className="font-medium">
+                                  {project.role}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Meta info - Enhanced cards */}
+                          <div className="space-y-6">
+                            <div
+                              className={`p-6 rounded-2xl border ${
+                                darkMode
+                                  ? 'border-white/10 bg-white/5'
+                                  : 'border-gray-900/10 bg-gray-900/5'
+                              }`}
+                            >
+                              <div
+                                className={`text-xs tracking-[0.25em] uppercase mb-4 ${
+                                  darkMode
+                                    ? 'text-white/40'
+                                    : 'text-gray-900/50'
+                                }`}
+                              >
+                                Project Details
+                              </div>
+                              <div className="space-y-4 text-sm">
+                                <div className="flex justify-between items-center">
+                                  <span
+                                    className={
+                                      darkMode
+                                        ? 'text-white/60'
+                                        : 'text-gray-900/60'
+                                    }
+                                  >
+                                    Location
+                                  </span>
+                                  <span className="font-medium">
+                                    {project.location}
+                                  </span>
+                                </div>
+                                <div
+                                  className={`h-px ${
+                                    darkMode
+                                      ? 'bg-white/10'
+                                      : 'bg-gray-900/10'
+                                  }`}
+                                ></div>
+                                <div className="flex justify-between items-center">
+                                  <span
+                                    className={
+                                      darkMode
+                                        ? 'text-white/60'
+                                        : 'text-gray-900/60'
+                                    }
+                                  >
+                                    Status
+                                  </span>
+                                  <span
+                                    className="px-3 py-1 rounded-full text-xs font-medium"
+                                    style={{
+                                      backgroundColor: `${project.color}20`,
+                                      color: project.color,
+                                    }}
+                                  >
+                                    {project.status}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* CTA Button */}
+                            <button
+                              className={`w-full group/btn relative px-6 py-4 border ${
+                                darkMode
+                                  ? 'border-white/20 hover:border-white/40'
+                                  : 'border-gray-900/20 hover:border-gray-900/40'
+                              } rounded-xl transition-all duration-500 overflow-hidden`}
+                            >
+                              <span className="relative z-10 flex items-center justify-center gap-2 text-sm tracking-wider font-medium">
+                                VIEW FULL CASE STUDY
+                                <ArrowUpRight
+                                  size={16}
+                                  className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300"
+                                />
+                              </span>
+                              <div
+                                className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500"
+                                style={{
+                                  background: `linear-gradient(135deg, ${project.color}10, transparent)`,
+                                }}
+                              ></div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -664,9 +991,7 @@ export default function WWMUnique() {
                   >
                     LOCATION
                   </div>
-                  <div className="text-xl">
-                    48B Club Street, Singapore
-                  </div>
+                  <div className="text-xl">48B Club Street, Singapore</div>
                 </div>
               </div>
             </div>
@@ -732,69 +1057,6 @@ export default function WWMUnique() {
                     } opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
                   ></div>
                 </button>
-              </div>
-            </div>
-          </div>
-
-          {/* 🆕 Interactive Map for Multiple Locations */}
-          <div className="mt-16 space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <div className="text-sm tracking-[0.2em] uppercase">
-                Studios
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {locations.map((loc) => (
-                  <button
-                    key={loc.id}
-                    type="button"
-                    onClick={() => setActiveLocation(loc.id)}
-                    className={`px-4 py-2 text-xs md:text-sm rounded-full border transition-all duration-300 ${
-                      activeLocation === loc.id
-                        ? darkMode
-                          ? 'bg-white text-black border-white'
-                          : 'bg-black text-white border-black'
-                        : darkMode
-                        ? 'border-white/20 text-white/60 hover:border-white/40 hover:text-white'
-                        : 'border-gray-900/20 text-gray-700 hover:border-gray-900/40 hover:text-gray-900'
-                    }`}
-                  >
-                    {loc.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div
-              className={`rounded-3xl overflow-hidden border ${
-                darkMode ? 'border-white/10' : 'border-gray-900/10'
-              } shadow-lg`}
-            >
-              <div className="px-6 py-4 flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-medium">
-                    {activeLocationData.label}
-                  </div>
-                  <div
-                    className={`text-xs ${
-                      darkMode ? 'text-white/60' : 'text-gray-600'
-                    }`}
-                  >
-                    {activeLocationData.subtitle}
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full h-[320px] md:h-[420px]">
-                <iframe
-                  key={activeLocationData.id}
-                  src={activeLocationData.mapUrl}
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full"
-                  title={`Map - ${activeLocationData.label}`}
-                ></iframe>
               </div>
             </div>
           </div>
