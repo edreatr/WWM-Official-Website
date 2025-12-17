@@ -444,11 +444,7 @@ export default function WWMUnique() {
             className={`absolute bottom-20 right-[15%] w-96 h-96 rounded-full blur-3xl float-animation`}
             style={{ animationDelay: '2s' }}
           ></div>
-          <div
-            className={`absolute top-1/2 left-1/2 w-[500px] h-[500px] border ${
-              darkMode ? 'border-white/5' : 'border-gray-900/5'
-            } rounded-full rotate-slow`}
-          ></div>
+          
         </div>
 
         <div className="relative z-10 text-center px-6">
