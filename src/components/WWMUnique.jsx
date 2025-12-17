@@ -27,8 +27,6 @@ function useSpinningNumber(min = 10, max = 99, interval = 1200) {
   return value;
 }
 
-
-
 export default function WWMUnique() {
   const [scrolled, setScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -41,9 +39,6 @@ export default function WWMUnique() {
   const teamsCount = useSpinningNumber(8, 35, 900);
   const projectsCount = useSpinningNumber(40, 180, 1000);
   const countriesCount = useSpinningNumber(6, 25, 1100);
-
-  
-
 
   // Loading animation
   useEffect(() => {
@@ -99,54 +94,51 @@ export default function WWMUnique() {
   }, []);
 
   const services = [
-  { id: 1, title: 'Structure', color: '#FF6B6B', angle: 45, image: null },
-
-  {
-    id: 2,
-    title: 'Smart Technology',
-    color: '#4ECDC4',
-    angle: -30,
-    image: smartTechImg,
-  },
-  {
-    id: 3,
-    title: 'Sustainability',
-    color: '#45B7D1',
-    angle: 15,
-    image: sustainabilityImg,
-  },
-  {
-    id: 4,
-    title: 'Masterplanning',
-    color: '#FFA07A',
-    angle: -45,
-    image: masterplanningImg,
-  },
-  { id: 5, title: 'MEP', color: '#98D8C8', angle: 30, image: null },
-
-  {
-    id: 6,
-    title: 'Tall Building',
-    color: '#C7CEEA',
-    angle: -15,
-    image: tallBuildingImg,
-  },
-  {
-    id: 7,
-    title: 'Industrialized Design & Construction',
-    color: '#F6C453',
-    angle: 35,
-    image: idcImg,
-  },
-  {
-    id: 8,
-    title: 'Digital Design', // (fixed typo from “Digital Drsign”)
-    color: '#FF9FF3',
-    angle: -25,
-    image: digitalDesignImg,
-  },
-];
-
+    { id: 1, title: 'Structure', color: '#FF6B6B', angle: 45, image: null },
+    {
+      id: 2,
+      title: 'Smart Technology',
+      color: '#4ECDC4',
+      angle: -30,
+      image: smartTechImg,
+    },
+    {
+      id: 3,
+      title: 'Sustainability',
+      color: '#45B7D1',
+      angle: 15,
+      image: sustainabilityImg,
+    },
+    {
+      id: 4,
+      title: 'Masterplanning',
+      color: '#FFA07A',
+      angle: -45,
+      image: masterplanningImg,
+    },
+    { id: 5, title: 'MEP', color: '#98D8C8', angle: 30, image: null },
+    {
+      id: 6,
+      title: 'Tall Building',
+      color: '#C7CEEA',
+      angle: -15,
+      image: tallBuildingImg,
+    },
+    {
+      id: 7,
+      title: 'Industrialized Design & Construction',
+      color: '#F6C453',
+      angle: 35,
+      image: idcImg,
+    },
+    {
+      id: 8,
+      title: 'Digital Design', // (fixed typo from “Digital Drsign”)
+      color: '#FF9FF3',
+      angle: -25,
+      image: digitalDesignImg,
+    },
+  ];
 
   // enriched projects so details + image can show inline
   const projects = [
@@ -197,6 +189,75 @@ export default function WWMUnique() {
       status: 'Concept',
       summary:
         'Cultural venue with expressive roof forms and flexible gallery spaces, integrating structure, daylight and public circulation.',
+    },
+  ];
+
+  const teamMembers = [
+    {
+      name: 'Shonn Mills',
+      role: 'Managing Director',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/shonnmills/',
+    },
+    {
+      name: 'Giovanni Vigano',
+      role: 'Design Director',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/giovanni-viganò-81a78250/',
+    },
+    {
+      name: 'Angelo Perini',
+      role: 'Senior Associate',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/angelo-perini-745634ab/',
+    },
+    {
+      name: 'Samuel Halim',
+      role: 'Lead Designer',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/samuel-previano-halim-b98223167/',
+    },
+    {
+      name: 'Aish Saboo',
+      role: 'Sustainability Specialist',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/aishwarya-saboo-a671271b4/',
+    },
+    {
+      name: 'Jaimin Korat',
+      role: 'Senior Structural Engineer',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/jaiminkorat/',
+    },
+    {
+      name: 'Hao Yang Lim',
+      role: 'Designer',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/limhaoyang/',
+    },
+    {
+      name: 'Jun Rong Tan',
+      role: 'Structural Engineer',
+      location: 'Singapore',
+      linkedin: 'hhttps://www.linkedin.com/in/tjunrong96/',
+    },
+    {
+      name: 'Jun Rong Tan',
+      role: 'Structural Engineer',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/tjunrong96/',
+    },
+    {
+      name: 'Sylvester Tze Feng Sia',
+      role: 'Civil & Structural Engineer',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/sylvestertfs/',
+    },
+    {
+      name: 'Clarence Rebeka',
+      role: 'Structural Engineer',
+      location: 'Singapore',
+      linkedin: 'https://www.linkedin.com/in/clarencerebeka/',
     },
   ];
 
@@ -297,80 +358,86 @@ export default function WWMUnique() {
           scrolled ? 'scale-90' : 'scale-100'
         }`}
       >
-        <div
-          className={`flex items-center gap-1 ${
-            darkMode
-              ? 'bg-white/5 border-white/10'
-              : 'bg-gray-900/5 border-gray-900/10'
-          } backdrop-blur-xl border rounded-full px-6 py-3`}
-        >
-          <a
-            href="#hero"
-            className={`px-4 py-2 text-xs tracking-wider ${
-              darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-            } transition-colors`}
-          >
-            HOME
-          </a>
+        {/* ✅ NEW wrapper so logo can sit ABOVE the pill */}
+        <div className="flex flex-col items-center gap-3">
+          {/* ✅ Small logo ONLY after scrolling past hero */}
+          {scrolled && (
+            <a
+              href="#hero"
+              className={`transition-opacity duration-300 ${
+                darkMode
+                  ? 'opacity-90 hover:opacity-60'
+                  : 'opacity-90 hover:opacity-60'
+              }`}
+              aria-label="Back to top"
+            >
+              <img
+                src={darkMode ? wwmLogo : wwmLogoDark}
+                alt="WWM"
+                className="h-6 w-auto"
+              />
+            </a>
+          )}
+
+          {/* NAV PILL (HOME removed) */}
           <div
-            className={`w-px h-4 ${
-              darkMode ? 'bg-white/20' : 'bg-gray-900/20'
-            }`}
-          ></div>
-
-    
-          <a
-            href="#about"
-            className={`px-4 py-2 text-xs tracking-wider ${
-              darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-            } transition-colors`}
+            className={`flex items-center gap-1 ${
+              darkMode
+                ? 'bg-white/5 border-white/10'
+                : 'bg-gray-900/5 border-gray-900/10'
+            } backdrop-blur-xl border rounded-full px-6 py-3`}
           >
-            ABOUT
-          </a>
-          <div
-            className={`w-px h-4 ${
-              darkMode ? 'bg-white/20' : 'bg-gray-900/20'
-            }`}
-          ></div>
+            <a
+              href="#about"
+              className={`px-4 py-2 text-xs tracking-wider ${
+                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+              } transition-colors`}
+            >
+              ABOUT
+            </a>
+            <div
+              className={`w-px h-4 ${
+                darkMode ? 'bg-white/20' : 'bg-gray-900/20'
+              }`}
+            ></div>
 
-          {/* NEW: Capabilities link */}
-    <a
-      href="#services" // your Capabilities section uses id="services"
-      className={`px-4 py-2 text-xs tracking-wider ${
-        darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-      } transition-colors`}
-    >
-      CAPABILITIES
-    </a>
-    <div
-      className={`w-px h-4 ${
-        darkMode ? 'bg-white/20' : 'bg-gray-900/20'
-      }`}
-    ></div>
+            <a
+              href="#services"
+              className={`px-4 py-2 text-xs tracking-wider ${
+                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+              } transition-colors`}
+            >
+              CAPABILITIES
+            </a>
+            <div
+              className={`w-px h-4 ${
+                darkMode ? 'bg-white/20' : 'bg-gray-900/20'
+              }`}
+            ></div>
 
+            <a
+              href="#projects"
+              className={`px-4 py-2 text-xs tracking-wider ${
+                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+              } transition-colors`}
+            >
+              PROJECTS
+            </a>
+            <div
+              className={`w-px h-4 ${
+                darkMode ? 'bg-white/20' : 'bg-gray-900/20'
+              }`}
+            />
 
-          <a
-            href="#projects"
-            className={`px-4 py-2 text-xs tracking-wider ${
-              darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-            } transition-colors`}
-          >
-            PROJECTS
-          </a>
-          <div
-            className={`w-px h-4 ${
-              darkMode ? 'bg-white/20' : 'bg-gray-900/20'
-            }`}
-          />
-
-          <a
-            href="#contact"
-            className={`px-4 py-2 text-xs tracking-wider ${
-              darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-            } transition-colors`}
-          >
-            CONTACT
-          </a>
+            <a
+              href="#contact"
+              className={`px-4 py-2 text-xs tracking-wider ${
+                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+              } transition-colors`}
+            >
+              CONTACT
+            </a>
+          </div>
         </div>
       </nav>
 
@@ -382,14 +449,10 @@ export default function WWMUnique() {
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <div
-            className={`absolute top-20 left-[10%] w-64 h-64 ${
-              darkMode ? 'bg-blue-500/10' : 'bg-blue-500/20'
-            } rounded-full blur-3xl float-animation`}
+            className={`absolute top-20 left-[10%] w-64 h-64 rounded-full blur-3xl float-animation`}
           ></div>
           <div
-            className={`absolute bottom-20 right-[15%] w-96 h-96 ${
-              darkMode ? 'bg-purple-500/10' : 'bg-purple-500/20'
-            } rounded-full blur-3xl float-animation`}
+            className={`absolute bottom-20 right-[15%] w-96 h-96 rounded-full blur-3xl float-animation`}
             style={{ animationDelay: '2s' }}
           ></div>
           <div
@@ -461,7 +524,7 @@ export default function WWMUnique() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+        <div className="absolute bottom-12 inset-x-0 flex flex-col items-center gap-2 animate-bounce">
           <div
             className={`text-xs tracking-widest ${
               darkMode ? 'text-white/50' : 'text-gray-900/50'
@@ -521,15 +584,22 @@ export default function WWMUnique() {
               <p
                 className={`text-lg ${
                   darkMode ? 'text-white/70' : 'text-gray-900/70'
-                } leading-relaxed text-justify`}
+                } leading-relaxed mb-6 text-justify`}
               >
                 Our global project teams are sourced from the best and most
                 suitable talents, wherever they are. This makes us fast, agile,
                 and adaptive.
-                 </p>
-                <p> We foster collaboration, commitment, personal development, and flexibility. ​</p>
-                <p> We design, co-create, enable, and disrupt, driven by a common goal: to make things better. </p>
-            
+              </p>
+              <p >
+                {' '}
+                We foster collaboration, commitment, personal development, and
+                flexibility. ​
+              </p>
+              <p>
+                {' '}
+                We design, co-create, enable, and disrupt, driven by a common
+                goal: to make things better.{' '}
+              </p>
             </div>
 
             <div
@@ -551,7 +621,7 @@ export default function WWMUnique() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               <div
                 className={`absolute -top-6 -left-6 w-24 h-24 ${
                   darkMode ? 'bg-white/5' : 'bg-gray-900/5'
@@ -559,6 +629,82 @@ export default function WWMUnique() {
               ></div>
             </div>
           </div>
+
+          {/* ✅ OUR TEAM (after image/text grid) */}
+          <div
+            className={`mt-16 transition-all duration-1000 ${
+              visibleSections.about
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <div
+              className={`text-xs tracking-[0.3em] uppercase mb-6 ${
+                darkMode ? 'text-white/50' : 'text-gray-900/50'
+              }`}
+            >
+              Our Team
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+              {teamMembers.map((m, i) => (
+                <div
+                  key={i}
+                  className={`rounded-2xl border ${
+                    darkMode
+                      ? 'border-white/10 bg-white/5'
+                      : 'border-gray-900/10 bg-gray-900/5'
+                  } p-6 transition-all duration-500 hover:scale-[1.02]`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <div className="text-lg font-semibold leading-tight truncate">
+                        {m.name}
+                      </div>
+                      <div
+                        className={`text-sm mt-1 ${
+                          darkMode ? 'text-white/60' : 'text-gray-900/60'
+                        }`}
+                      >
+                        {m.role}
+                      </div>
+                    </div>
+
+                    <div
+                      className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${
+                        darkMode
+                          ? 'bg-white/10 text-white/70'
+                          : 'bg-gray-900/10 text-gray-900/70'
+                      }`}
+                    >
+                      {m.location}
+                    </div>
+                  </div>
+
+                  <div
+                    className={`mt-4 h-px ${
+                      darkMode ? 'bg-white/10' : 'bg-gray-900/10'
+                    }`}
+                  ></div>
+
+                  {/* ✅ Each member’s LinkedIn */}
+                  <a
+                    href={m.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mt-4 inline-block text-xs tracking-widest ${
+                      darkMode
+                        ? 'text-white/50 hover:text-white'
+                        : 'text-gray-900/50 hover:text-gray-900'
+                    } transition-colors`}
+                  >
+                    LinkedIn
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* ✅ END OUR TEAM */}
         </div>
       </section>
 
@@ -596,14 +742,14 @@ export default function WWMUnique() {
               >
                 {/* Image layer – appears on hover, in black & white */}
                 <img
-    src={service.image || servicebg}
-    alt={service.title}
-    className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-80 transition-opacity duration-700 filter grayscale ${
-      service.title === 'Sustainability'
-        ? 'object-cover scale-125'
-        : 'object-cover'
-    }`}
-  />
+                  src={service.image || servicebg}
+                  alt={service.title}
+                  className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-80 transition-opacity duration-700 filter grayscale ${
+                    service.title === 'Sustainability'
+                      ? 'object-cover scale-125'
+                      : 'object-cover'
+                  }`}
+                />
 
                 {/* Soft highlight overlay on hover (keeps the color feel) */}
                 <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -634,14 +780,10 @@ export default function WWMUnique() {
         {/* Ambient Background */}
         <div className="absolute inset-0 pointer-events-none">
           <div
-            className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] ${
-              darkMode ? 'bg-blue-500/5' : 'bg-blue-500/10'
-            } rounded-full blur-3xl`}
+            className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] \rounded-full blur-3xl`}
           ></div>
           <div
-            className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] ${
-              darkMode ? 'bg-purple-500/5' : 'bg-purple-500/10'
-            } rounded-full blur-3xl`}
+            className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl`}
           ></div>
         </div>
 
@@ -997,8 +1139,6 @@ export default function WWMUnique() {
         </div>
       </section>
 
-      
-
       {/* Contact - Minimalist */}
       <section
         id="contact"
@@ -1013,8 +1153,6 @@ export default function WWMUnique() {
                   : 'opacity-0 translate-y-20'
               }`}
             >
-
-              
               <div
                 className={`inline-block text-xs tracking-[0.3em] ${
                   darkMode ? 'text-white/50' : 'text-gray-900/50'
@@ -1056,8 +1194,6 @@ export default function WWMUnique() {
                     info@wwm.com
                   </a>
                 </div>
-                
-                
               </div>
             </div>
 
@@ -1148,16 +1284,16 @@ export default function WWMUnique() {
             © 2025 WWM PTE.LTD. — Design Different
           </div>
           <div className="flex gap-8 text-sm">
-           <a
-  href="https://www.linkedin.com/company/wwm-design/"
-  target="_blank"
-  rel="noopener noreferrer"
-  className={`${
-    darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-  } transition-colors`}
->
-  LinkedIn
-</a>
+            <a
+              href="https://www.linkedin.com/company/wwm-design/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${
+                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+              } transition-colors`}
+            >
+              LinkedIn
+            </a>
 
             <a
               href="#"
@@ -1167,11 +1303,9 @@ export default function WWMUnique() {
             >
               Instagram
             </a>
-            
           </div>
         </div>
       </footer>
     </div>
   );
 }
-
