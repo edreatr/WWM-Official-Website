@@ -3,7 +3,7 @@ import { ArrowUpRight, Sun, Moon } from 'lucide-react';
 import wwmLogo from '../assets/WWM_WHITELOGO_PNG.png';
 import wwmLogoDark from '../assets/WWM_BLACKTEXT.png'; // Black version
 import pavilionImg from '../assets/PAVILLION.jpg'; // Project image
-import servicebg from '../assets/SERVICEBG.jpg'; // Service background image
+import servicebg from '../assets/servicebg.jpg'; // Service background image
 import smartTechImg from '../assets/SMARTTECH.jpg';
 import sustainabilityImg from '../assets/SUSTAINABILITY.png';
 import masterplanningImg from '../assets/MASTERPLANNING.png';
