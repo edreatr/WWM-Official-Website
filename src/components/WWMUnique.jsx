@@ -144,11 +144,11 @@ export default function WWMUnique() {
 
   const projects = [
     {
-      title: 'NEOM Phase 1',
+      title: 'Project 1',
       scale: 1.2,
       color: '#2C3E50',
       image: pavilionImg,
-      location: 'Saudi Arabia',
+      location: 'Location',
       sector: 'Mixed-use smart city masterplan',
       role: 'Structural engineering, smart city integration',
       status: 'Ongoing',
@@ -156,11 +156,11 @@ export default function WWMUnique() {
         'Large-scale future city development focusing on resilient infrastructure, integrated mobility, and smart public realm systems.',
     },
     {
-      title: 'Dubai Marina Tower',
+      title: 'Project 2',
       scale: 0.9,
       color: '#E67E22',
       image: pavilionImg,
-      location: 'Dubai, UAE',
+      location: 'Location',
       sector: 'High-rise residential / mixed-use',
       role: 'Structural and façade engineering',
       status: 'Completed',
@@ -168,11 +168,11 @@ export default function WWMUnique() {
         'High-rise tower overlooking Dubai Marina, designed with optimised structural systems and coordinated with complex façade geometry.',
     },
     {
-      title: 'Riyadh Metro Hub',
+      title: 'Project 3',
       scale: 1.4,
       color: '#16A085',
       image: pavilionImg,
-      location: 'Riyadh, Saudi Arabia',
+      location: 'Location',
       sector: 'Transport & infrastructure',
       role: 'Structural design, concourse integration',
       status: 'In Design',
@@ -180,11 +180,11 @@ export default function WWMUnique() {
         'Transit hub connecting metro, public realm and retail podiums, with large-span structures and integrated passenger flows.',
     },
     {
-      title: 'Abu Dhabi Cultural Center',
+      title: 'Project 4',
       scale: 1.1,
       color: '#8E44AD',
       image: pavilionImg,
-      location: 'Abu Dhabi, UAE',
+      location: 'Location',
       sector: 'Cultural / civic',
       role: 'Structural design, roof geometry',
       status: 'Concept',
@@ -1047,14 +1047,17 @@ export default function WWMUnique() {
   className="min-h-screen py-32 px-6 lg:px-12"
 >
   <div className="max-w-7xl mx-auto w-full">
-    {/* 04 label */}
-    <div
-      className={`inline-block text-xs tracking-[0.3em] ${
-        darkMode ? 'text-white/50' : 'text-gray-900/50'
-      } mb-6`}
-    >
-      04 — STUDIOS
-    </div>
+    {/* 04 label (center) */}
+<div className="flex justify-center mb-6">
+  <div
+    className={`inline-block text-xs tracking-[0.3em] ${
+      darkMode ? 'text-white/50' : 'text-gray-900/50'
+    }`}
+  >
+    04 — STUDIOS
+  </div>
+</div>
+
 
     {/* Map under 04 */}
     <div className="w-full mb-16">
