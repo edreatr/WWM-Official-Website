@@ -7,7 +7,7 @@ import servicebg from '../assets/SERVICEBG.jpg'; // Service background image
 import smartTechImg from '../assets/SMARTTECH.jpg';
 import sustainabilityImg from '../assets/SUSTAINABILITY.png';
 import masterplanningImg from '../assets/MASTERPLANNING.png';
-import tallBuildingImg from '../assets/SERVICEBG.jpg';
+import tallBuildingImg from '../assets/servicebg.jpg';
 import idcImg from '../assets/IDC.png';
 import digitalDesignImg from '../assets/DIGITALDESIGN.jpg';
 
