@@ -3,6 +3,31 @@ import { ArrowUpRight, Sun, Moon } from 'lucide-react';
 import wwmLogo from '../assets/WWM_WHITELOGO_PNG.png';
 import wwmLogoDark from '../assets/WWM_BLACKTEXT.png'; // Black version
 import pavilionImg from '../assets/PAVILLION.jpg'; // Project image
+import servicebg from '../assets/SERVICEBG.jpg'; // Service background image
+import smartTechImg from '../assets/SMARTTECH.jpg';
+import sustainabilityImg from '../assets/SUSTAINABILITY.png';
+import masterplanningImg from '../assets/MASTERPLANNING.png';
+import tallBuildingImg from '../assets/SERVICEBG.jpg';
+import idcImg from '../assets/IDC.png';
+import digitalDesignImg from '../assets/DIGITALDESIGN.jpg';
+
+function useSpinningNumber(min = 10, max = 99, interval = 1200) {
+  const [value, setValue] = useState(
+    Math.floor(Math.random() * (max - min + 1)) + min
+  );
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setValue(Math.floor(Math.random() * (max - min + 1)) + min);
+    }, interval);
+
+    return () => clearInterval(id);
+  }, [min, max, interval]);
+
+  return value;
+}
+
+
 
 export default function WWMUnique() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,6 +38,12 @@ export default function WWMUnique() {
   const [visibleSections, setVisibleSections] = useState({});
   const [hoveredService, setHoveredService] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
+  const teamsCount = useSpinningNumber(8, 35, 900);
+  const projectsCount = useSpinningNumber(40, 180, 1000);
+  const countriesCount = useSpinningNumber(6, 25, 1100);
+
+  
+
 
   // Loading animation
   useEffect(() => {
@@ -68,13 +99,54 @@ export default function WWMUnique() {
   }, []);
 
   const services = [
-    { id: 1, title: 'Smart Tech', color: '#FF6B6B', angle: 45 },
-    { id: 2, title: 'Structural', color: '#4ECDC4', angle: -30 },
-    { id: 3, title: 'Civil', color: '#45B7D1', angle: 15 },
-    { id: 4, title: 'MEP', color: '#FFA07A', angle: -45 },
-    { id: 5, title: 'Sustainability', color: '#98D8C8', angle: 30 },
-    { id: 6, title: 'Master Planning', color: '#C7CEEA', angle: -15 },
-  ];
+  { id: 1, title: 'Structure', color: '#FF6B6B', angle: 45, image: null },
+
+  {
+    id: 2,
+    title: 'Smart Technology',
+    color: '#4ECDC4',
+    angle: -30,
+    image: smartTechImg,
+  },
+  {
+    id: 3,
+    title: 'Sustainability',
+    color: '#45B7D1',
+    angle: 15,
+    image: sustainabilityImg,
+  },
+  {
+    id: 4,
+    title: 'Masterplanning',
+    color: '#FFA07A',
+    angle: -45,
+    image: masterplanningImg,
+  },
+  { id: 5, title: 'MEP', color: '#98D8C8', angle: 30, image: null },
+
+  {
+    id: 6,
+    title: 'Tall Building',
+    color: '#C7CEEA',
+    angle: -15,
+    image: tallBuildingImg,
+  },
+  {
+    id: 7,
+    title: 'Industrialized Design & Construction',
+    color: '#F6C453',
+    angle: 35,
+    image: idcImg,
+  },
+  {
+    id: 8,
+    title: 'Digital Design', // (fixed typo from “Digital Drsign”)
+    color: '#FF9FF3',
+    angle: -25,
+    image: digitalDesignImg,
+  },
+];
+
 
   // enriched projects so details + image can show inline
   const projects = [
@@ -166,7 +238,7 @@ export default function WWMUnique() {
             <div
               className="mb-8 transition-transform duration-300"
               style={{
-                transform: `translate(${mousePosition.x * 10}px, ${
+                transform: `translate(${mousePosition.x * 35}px, ${
                   mousePosition.y * 10
                 }px)`,
               }}
@@ -181,17 +253,17 @@ export default function WWMUnique() {
             {/* Invisible metrics block to keep same vertical spacing */}
             <div className="mt-16 flex justify-center gap-8 opacity-0 pointer-events-none select-none">
               <div className="text-center">
-                <div className="text-4xl font-light mb-1">XX+</div>
-                <div className="text-xs tracking-wider">AWARDS</div>
+                <div className="text-4xl font-light mb-1">{teamsCount}+</div>
+                <div className="text-xs tracking-wider">TEAMS</div>
               </div>
               <div className="w-px bg-transparent"></div>
               <div className="text-center">
-                <div className="text-4xl font-light mb-1">XX+</div>
+                <div className="text-4xl font-light mb-1">{projectsCount}+</div>
                 <div className="text-xs tracking-wider">PROJECTS</div>
               </div>
               <div className="w-px bg-transparent"></div>
               <div className="text-center">
-                <div className="text-4xl font-light mb-1">XX</div>
+                <div className="text-4xl font-light mb-1">{countriesCount}</div>
                 <div className="text-xs tracking-wider">COUNTRIES</div>
               </div>
             </div>
@@ -245,6 +317,8 @@ export default function WWMUnique() {
               darkMode ? 'bg-white/20' : 'bg-gray-900/20'
             }`}
           ></div>
+
+    
           <a
             href="#about"
             className={`px-4 py-2 text-xs tracking-wider ${
@@ -258,19 +332,37 @@ export default function WWMUnique() {
               darkMode ? 'bg-white/20' : 'bg-gray-900/20'
             }`}
           ></div>
+
+          {/* NEW: Capabilities link */}
+    <a
+      href="#services" // your Capabilities section uses id="services"
+      className={`px-4 py-2 text-xs tracking-wider ${
+        darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+      } transition-colors`}
+    >
+      CAPABILITIES
+    </a>
+    <div
+      className={`w-px h-4 ${
+        darkMode ? 'bg-white/20' : 'bg-gray-900/20'
+      }`}
+    ></div>
+
+
           <a
-            href="#services"
+            href="#projects"
             className={`px-4 py-2 text-xs tracking-wider ${
               darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
             } transition-colors`}
           >
-            WORK
+            PROJECTS
           </a>
           <div
             className={`w-px h-4 ${
               darkMode ? 'bg-white/20' : 'bg-gray-900/20'
             }`}
-          ></div>
+          />
+
           <a
             href="#contact"
             className={`px-4 py-2 text-xs tracking-wider ${
@@ -311,8 +403,8 @@ export default function WWMUnique() {
           <div
             className="mb-8 transition-transform duration-300"
             style={{
-              transform: `translate(${mousePosition.x * 10}px, ${
-                mousePosition.y * 10
+              transform: `translate(${mousePosition.x * 35}px, ${
+                mousePosition.y * 35
               }px)`,
             }}
           >
@@ -325,13 +417,13 @@ export default function WWMUnique() {
 
           <div className="mt-16 flex justify-center gap-8">
             <div className="text-center">
-              <div className="text-4xl font-light mb-1">XX+</div>
+              <div className="text-4xl font-light mb-1">{teamsCount}+</div>
               <div
                 className={`text-xs ${
                   darkMode ? 'text-white/50' : 'text-gray-900/50'
                 } tracking-wider`}
               >
-                AWARDS
+                TEAMS
               </div>
             </div>
             <div
@@ -340,7 +432,7 @@ export default function WWMUnique() {
               }`}
             ></div>
             <div className="text-center">
-              <div className="text-4xl font-light mb-1">XX+</div>
+              <div className="text-4xl font-light mb-1">{projectsCount}+</div>
               <div
                 className={`text-xs ${
                   darkMode ? 'text-white/50' : 'text-gray-900/50'
@@ -355,7 +447,8 @@ export default function WWMUnique() {
               }`}
             ></div>
             <div className="text-center">
-              <div className="text-4xl font-light mb-1">XX</div>
+              <div className="text-4xl font-light mb-1">{countriesCount}</div>
+
               <div
                 className={`text-xs ${
                   darkMode ? 'text-white/50' : 'text-gray-900/50'
@@ -403,31 +496,40 @@ export default function WWMUnique() {
                   darkMode ? 'text-white/50' : 'text-gray-900/50'
                 } mb-6`}
               >
-                01 — ABOUT
+                01 — 
               </div>
               <h2 className="text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-                Design
+                About
                 <br />
                 <span
                   className={darkMode ? 'text-white/40' : 'text-gray-900/40'}
                 >
-                  Different
+                  Our Company
                 </span>
               </h2>
               <p
                 className={`text-lg ${
                   darkMode ? 'text-white/70' : 'text-gray-900/70'
-                } leading-relaxed mb-6`}
+                } leading-relaxed mb-6 text-justify`}
               >
-                Coming Soon
+                Whitby Wood Mills is an independent international engineering
+                consultancy that designs buildings and urban spaces through deep
+                collaboration. We combine low-carbon technologies, computational
+                tools, and systems thinking to deliver integrated, cost-effective
+                solutions.
               </p>
               <p
                 className={`text-lg ${
                   darkMode ? 'text-white/70' : 'text-gray-900/70'
-                } leading-relaxed`}
+                } leading-relaxed text-justify`}
               >
-                xxx
-              </p>
+                Our global project teams are sourced from the best and most
+                suitable talents, wherever they are. This makes us fast, agile,
+                and adaptive.
+                 </p>
+                <p> We foster collaboration, commitment, personal development, and flexibility. ​</p>
+                <p> We design, co-create, enable, and disrupt, driven by a common goal: to make things better. </p>
+            
             </div>
 
             <div
@@ -437,26 +539,19 @@ export default function WWMUnique() {
                   : 'opacity-0 translate-x-20'
               }`}
             >
+              {/* Photo in About section */}
               <div
-                className={`aspect-square rounded-3xl ${
-                  darkMode
-                    ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-white/10'
-                    : 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-gray-900/10'
-                } backdrop-blur-sm border overflow-hidden`}
+                className={`aspect-square rounded-3xl overflow-hidden border ${
+                  darkMode ? 'border-white/10' : 'border-gray-900/10'
+                }`}
               >
-                <div className="w-full h-full flex items-center justify-center">
-                  <img
-                    src={darkMode ? wwmLogo : wwmLogoDark}
-                    alt="WWM Logo"
-                    className="w-1/2 opacity-10"
-                  />
-                </div>
+                <img
+                  src={pavilionImg}
+                  alt="WWM About"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div
-                className={`absolute -bottom-6 -right-6 w-32 h-32 border-2 ${
-                  darkMode ? 'border-white/20' : 'border-gray-900/20'
-                } rounded-full`}
-              ></div>
+              
               <div
                 className={`absolute -top-6 -left-6 w-24 h-24 ${
                   darkMode ? 'bg-white/5' : 'bg-gray-900/5'
@@ -475,18 +570,18 @@ export default function WWMUnique() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <div className="inline-block text-xs tracking-[0.3em] text-white/50 mb-6">
-              02 — SERVICES
+              02 — 
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold">Capabilities</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
             {services.map((service, index) => (
               <div
                 key={service.id}
                 onMouseEnter={() => setHoveredService(service.id)}
                 onMouseLeave={() => setHoveredService(null)}
-                className={`relative aspect-square rounded-2xl border border-white/10 overflow-hidden cursor-pointer group transition-all duration-700 ${
+                className={`relative aspect-[50/49]  rounded-2xl border border-white/10 overflow-hidden cursor-pointer group transition-all duration-700 ${
                   visibleSections.services
                     ? 'opacity-100 scale-100'
                     : 'opacity-0 scale-90'
@@ -499,9 +594,23 @@ export default function WWMUnique() {
                       : 'transparent',
                 }}
               >
+                {/* Image layer – appears on hover, in black & white */}
+                <img
+    src={service.image || servicebg}
+    alt={service.title}
+    className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-80 transition-opacity duration-700 filter grayscale ${
+      service.title === 'Sustainability'
+        ? 'object-cover scale-125'
+        : 'object-cover'
+    }`}
+  />
+
+                {/* Soft highlight overlay on hover (keeps the color feel) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-                <div className="relative h-full flex flex-col items-center justify-center p-6 text-center">
+                <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
                   <div className="text-6xl mb-4 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
                     {String(service.id).padStart(2, '0')}
                   </div>
@@ -543,17 +652,17 @@ export default function WWMUnique() {
                 darkMode ? 'text-white/50' : 'text-gray-900/50'
               } mb-6`}
             >
-              03 — PROJECTS
+              03 — 
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold mb-4">
-              Featured Work
+              Featured Projects
             </h2>
             <p
               className={`text-lg ${
                 darkMode ? 'text-white/50' : 'text-gray-900/50'
               } max-w-2xl mx-auto`}
             >
-              Transforming visions into reality across the MENA region
+              Transforming visions into reality 
             </p>
           </div>
 
@@ -658,11 +767,11 @@ export default function WWMUnique() {
                         {/* Preview thumbnail - Enhanced */}
                         <div className="hidden lg:block relative">
                           <div
-                            className="w-48 h-48 rounded-2xl overflow-hidden transition-all duration-700 border border-white/10"
+                            className="w-[32rem] h-48 rounded-2xl overflow-hidden transition-all duration-700 border border-white/10"
                             style={{
                               transform: isActive
-                                ? 'scale(1.1)'
-                                : 'scale(0.95)',
+                                ? 'scale(1.06)'
+                                : 'scale(0.98)',
                             }}
                           >
                             <img
@@ -875,28 +984,7 @@ export default function WWMUnique() {
                               </div>
                             </div>
 
-                            {/* CTA Button */}
-                            <button
-                              className={`w-full group/btn relative px-6 py-4 border ${
-                                darkMode
-                                  ? 'border-white/20 hover:border-white/40'
-                                  : 'border-gray-900/20 hover:border-gray-900/40'
-                              } rounded-xl transition-all duration-500 overflow-hidden`}
-                            >
-                              <span className="relative z-10 flex items-center justify-center gap-2 text-sm tracking-wider font-medium">
-                                VIEW FULL CASE STUDY
-                                <ArrowUpRight
-                                  size={16}
-                                  className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300"
-                                />
-                              </span>
-                              <div
-                                className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500"
-                                style={{
-                                  background: `linear-gradient(135deg, ${project.color}10, transparent)`,
-                                }}
-                              ></div>
-                            </button>
+                            
                           </div>
                         </div>
                       </div>
@@ -908,6 +996,8 @@ export default function WWMUnique() {
           </div>
         </div>
       </section>
+
+      
 
       {/* Contact - Minimalist */}
       <section
@@ -923,12 +1013,14 @@ export default function WWMUnique() {
                   : 'opacity-0 translate-y-20'
               }`}
             >
+
+              
               <div
                 className={`inline-block text-xs tracking-[0.3em] ${
                   darkMode ? 'text-white/50' : 'text-gray-900/50'
                 } mb-6`}
               >
-                04 — CONTACT
+                04 — STUDIOS
               </div>
               <h2 className="text-5xl lg:text-7xl font-bold mb-12 leading-tight">
                 Let&apos;s build
@@ -954,45 +1046,18 @@ export default function WWMUnique() {
                     EMAIL
                   </div>
                   <a
-                    href="mailto:contact@wwm.com"
+                    href="mailto:info@wwm.com"
                     className={`text-xl ${
                       darkMode
                         ? 'hover:text-white/60'
                         : 'hover:text-gray-900/60'
                     } transition-colors`}
                   >
-                    contact@wwm.com
+                    info@wwm.com
                   </a>
                 </div>
-                <div>
-                  <div
-                    className={`text-xs tracking-widest ${
-                      darkMode ? 'text-white/50' : 'text-gray-900/50'
-                    } mb-2`}
-                  >
-                    PHONE
-                  </div>
-                  <a
-                    href="tel:+971"
-                    className={`text-xl ${
-                      darkMode
-                        ? 'hover:text-white/60'
-                        : 'hover:text-gray-900/60'
-                    } transition-colors`}
-                  >
-                    +65 XXXXXX
-                  </a>
-                </div>
-                <div>
-                  <div
-                    className={`text-xs tracking-widest ${
-                      darkMode ? 'text-white/50' : 'text-gray-900/50'
-                    } mb-2`}
-                  >
-                    LOCATION
-                  </div>
-                  <div className="text-xl">48B Club Street, Singapore</div>
-                </div>
+                
+                
               </div>
             </div>
 
@@ -1083,14 +1148,17 @@ export default function WWMUnique() {
             © 2025 WWM PTE.LTD. — Design Different
           </div>
           <div className="flex gap-8 text-sm">
-            <a
-              href="#"
-              className={`${
-                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-              } transition-colors`}
-            >
-              LinkedIn
-            </a>
+           <a
+  href="https://www.linkedin.com/company/wwm-design/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`${
+    darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
+  } transition-colors`}
+>
+  LinkedIn
+</a>
+
             <a
               href="#"
               className={`${
@@ -1099,17 +1167,11 @@ export default function WWMUnique() {
             >
               Instagram
             </a>
-            <a
-              href="#"
-              className={`${
-                darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'
-              } transition-colors`}
-            >
-              Behance
-            </a>
+            
           </div>
         </div>
       </footer>
     </div>
   );
 }
+
