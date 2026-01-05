@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ArrowUpRight, ChevronDown, ArrowLeft } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ArrowLeft, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 /**
@@ -8,8 +8,12 @@ import { Link } from "react-router-dom";
  * - Placeholder text: 10 rows
  * - BIG.dk-style list
  * - Every job expands into: Role Overview + Responsibilities + Requirements + Quick Info + Apply
+ * - Dark/Light mode toggle (user switch)
+ * - Job rows "light up" on hover
  */
-export default function JobCard({ darkMode = true }) {
+export default function JobCard() {
+  const [darkMode, setDarkMode] = useState(true);
+
   const jobs = [
     {
       id: "civil-engineer",
@@ -114,6 +118,19 @@ export default function JobCard({ darkMode = true }) {
         darkMode ? "bg-black text-white" : "bg-white text-gray-900"
       } min-h-screen transition-colors duration-500`}
     >
+      {/* Dark/Light Mode Toggle */}
+      <button
+        onClick={() => setDarkMode((v) => !v)}
+        className={`fixed top-6 right-6 z-50 w-12 h-12 rounded-full ${
+          darkMode ? "bg-white/10 hover:bg-white/20" : "bg-gray-900/10 hover:bg-gray-900/20"
+        } backdrop-blur-xl border ${
+          darkMode ? "border-white/20" : "border-gray-900/20"
+        } flex items-center justify-center transition-all duration-300 hover:scale-110`}
+        aria-label="Toggle dark mode"
+      >
+        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
+
       {/* Sticky top bar */}
       <header className="sticky top-0 z-40 backdrop-blur-xl">
         <div
@@ -254,24 +271,24 @@ function OpeningRow({ job, darkMode }) {
 
   return (
     <div
-  className={`group relative rounded-2xl overflow-hidden transition-all duration-300
-  ${darkMode ? "border border-white/10" : "border border-gray-900/10"}
-  hover:-translate-y-[2px] hover:shadow-2xl`}
->
-  {/* glow / light-up layer */}
-  <div
-    className={`pointer-events-none absolute -inset-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-      darkMode
-        ? "bg-[radial-gradient(600px_circle_at_50%_30%,rgba(255,255,255,0.18),transparent_60%)]"
-        : "bg-[radial-gradient(600px_circle_at_50%_30%,rgba(0,0,0,0.10),transparent_60%)]"
-    }`}
-  />
+      className={`group relative rounded-2xl overflow-hidden transition-all duration-300
+      ${darkMode ? "border border-white/10" : "border border-gray-900/10"}
+      hover:-translate-y-[2px] hover:shadow-2xl`}
+    >
+      {/* glow / light-up layer */}
+      <div
+        className={`pointer-events-none absolute -inset-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+          darkMode
+            ? "bg-[radial-gradient(600px_circle_at_50%_30%,rgba(255,255,255,0.18),transparent_60%)]"
+            : "bg-[radial-gradient(600px_circle_at_50%_30%,rgba(0,0,0,0.10),transparent_65%)]"
+        }`}
+      />
 
       {/* Big row header */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className={`w-full text-left p-7 sm:p-8 lg:p-10 flex items-center gap-6 justify-between transition-colors ${
+        className={`relative z-10 w-full text-left p-7 sm:p-8 lg:p-10 flex items-center gap-6 justify-between transition-colors ${
           darkMode
             ? "bg-white/[0.03] hover:bg-white/[0.06]"
             : "bg-gray-900/[0.03] hover:bg-gray-900/[0.06]"
@@ -328,7 +345,7 @@ function OpeningRow({ job, darkMode }) {
 
       {/* Expanded content — SAME STRUCTURE FOR EVERY JOB */}
       <div
-        className={`grid transition-all duration-400 ease-out ${
+        className={`relative z-10 grid transition-all duration-400 ease-out ${
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
@@ -373,7 +390,11 @@ function OpeningRow({ job, darkMode }) {
                   >
                     {job.responsibilities.map((x, idx) => (
                       <li key={idx} className="flex gap-3">
-                        <span className={darkMode ? "text-white/40" : "text-gray-900/40"}>
+                        <span
+                          className={
+                            darkMode ? "text-white/40" : "text-gray-900/40"
+                          }
+                        >
                           —
                         </span>
                         <span>{x}</span>
@@ -397,7 +418,11 @@ function OpeningRow({ job, darkMode }) {
                   >
                     {job.requirements.map((x, idx) => (
                       <li key={idx} className="flex gap-3">
-                        <span className={darkMode ? "text-white/40" : "text-gray-900/40"}>
+                        <span
+                          className={
+                            darkMode ? "text-white/40" : "text-gray-900/40"
+                          }
+                        >
                           —
                         </span>
                         <span>{x}</span>
@@ -426,23 +451,43 @@ function OpeningRow({ job, darkMode }) {
 
                   <div className="space-y-4 text-sm">
                     <div className="flex justify-between gap-4">
-                      <span className={darkMode ? "text-white/60" : "text-gray-900/60"}>
+                      <span
+                        className={
+                          darkMode ? "text-white/60" : "text-gray-900/60"
+                        }
+                      >
                         Location
                       </span>
                       <span className="font-medium">{job.location}</span>
                     </div>
-                    <div className={`h-px ${darkMode ? "bg-white/10" : "bg-gray-900/10"}`} />
+                    <div
+                      className={`h-px ${
+                        darkMode ? "bg-white/10" : "bg-gray-900/10"
+                      }`}
+                    />
 
                     <div className="flex justify-between gap-4">
-                      <span className={darkMode ? "text-white/60" : "text-gray-900/60"}>
+                      <span
+                        className={
+                          darkMode ? "text-white/60" : "text-gray-900/60"
+                        }
+                      >
                         Type
                       </span>
                       <span className="font-medium">{job.type}</span>
                     </div>
-                    <div className={`h-px ${darkMode ? "bg-white/10" : "bg-gray-900/10"}`} />
+                    <div
+                      className={`h-px ${
+                        darkMode ? "bg-white/10" : "bg-gray-900/10"
+                      }`}
+                    />
 
                     <div className="flex justify-between gap-4">
-                      <span className={darkMode ? "text-white/60" : "text-gray-900/60"}>
+                      <span
+                        className={
+                          darkMode ? "text-white/60" : "text-gray-900/60"
+                        }
+                      >
                         Department
                       </span>
                       <span className="font-medium">{job.department}</span>
