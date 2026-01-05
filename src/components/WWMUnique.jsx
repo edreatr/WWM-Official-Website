@@ -374,14 +374,30 @@ export default function WWMUnique() {
       )}
 
       {/* Dark/Light Mode Toggle */}
-      <button
-        onClick={() => setDarkMode(!darkMode)}
-        className={`fixed top-8 right-8 z-50 w-12 h-12 rounded-full ${
-          darkMode ? 'bg-white/10 hover:bg-white/20' : 'bg-gray-900/10 hover:bg-gray-900/20'
-        } backdrop-blur-xl border ${darkMode ? 'border-white/20' : 'border-gray-900/20'} flex items-center justify-center transition-all duration-300 hover:scale-110`}
-      >
-        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-      </button>
+      {/* Top-right actions: JOIN US + Dark/Light Toggle */}
+<div className="fixed top-8 right-8 z-50 flex items-center gap-3">
+  <a
+    href="/join-us"
+    className={`px-5 py-3 rounded-full text-xs tracking-widest border backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] ${
+      darkMode
+        ? 'bg-white/10 hover:bg-white/20 border-white/20 text-white/85 hover:text-white'
+        : 'bg-gray-900/10 hover:bg-gray-900/20 border-gray-900/20 text-gray-900/85 hover:text-gray-900'
+    }`}
+  >
+    JOIN US
+  </a>
+
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+    className={`w-12 h-12 rounded-full ${
+      darkMode ? 'bg-white/10 hover:bg-white/20' : 'bg-gray-900/10 hover:bg-gray-900/20'
+    } backdrop-blur-xl border ${darkMode ? 'border-white/20' : 'border-gray-900/20'} flex items-center justify-center transition-all duration-300 hover:scale-110`}
+    aria-label="Toggle dark mode"
+  >
+    {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+  </button>
+</div>
+
 
       {/* Minimal Floating Navigation */}
       <nav className={`fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ${scrolled ? 'scale-90' : 'scale-100'}`}>
@@ -415,14 +431,7 @@ export default function WWMUnique() {
 
             <div className={`w-px h-4 ${darkMode ? 'bg-white/20' : 'bg-gray-900/20'}`} />
 
-            <a
-  href="/join-us"
-  className={`px-4 py-2 text-xs tracking-wider ${darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'} transition-colors`}
->
-  JOIN US
-</a>
-
-<div className={`w-px h-4 ${darkMode ? 'bg-white/20' : 'bg-gray-900/20'}`} />
+          
 
 
             <a href="#contact" className={`px-4 py-2 text-xs tracking-wider ${darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'} transition-colors`}>
