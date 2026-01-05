@@ -254,10 +254,19 @@ function OpeningRow({ job, darkMode }) {
 
   return (
     <div
-      className={`border ${
-        darkMode ? "border-white/10" : "border-gray-900/10"
-      } rounded-2xl overflow-hidden transition-all duration-300`}
-    >
+  className={`group relative rounded-2xl overflow-hidden transition-all duration-300
+  ${darkMode ? "border border-white/10" : "border border-gray-900/10"}
+  hover:-translate-y-[2px] hover:shadow-2xl`}
+>
+  {/* glow / light-up layer */}
+  <div
+    className={`pointer-events-none absolute -inset-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+      darkMode
+        ? "bg-[radial-gradient(600px_circle_at_50%_30%,rgba(255,255,255,0.18),transparent_60%)]"
+        : "bg-[radial-gradient(600px_circle_at_50%_30%,rgba(0,0,0,0.10),transparent_60%)]"
+    }`}
+  />
+
       {/* Big row header */}
       <button
         type="button"

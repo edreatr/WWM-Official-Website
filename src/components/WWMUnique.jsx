@@ -102,14 +102,14 @@ function HeroLogo({ darkMode, mousePosition }) {
   return (
     <div
       className="mb-8 transition-transform duration-300"
-      style={{
-        transform: `translate(${mousePosition.x * 35}px, ${mousePosition.y * 35}px)`,
-      }}
+      //style={{
+        //transform: `translate(${mousePosition.x * 35}px, ${mousePosition.y * 35}px)`,
+      //}}
     >
       <img
         src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}
         alt="Whitby Wood Mills logo"
-        className="w-[60vw] md:w-[35vw] mx-auto opacity-90"
+        className="w-[42vw] md:w-[25vw] mx-auto opacity-90"
       />
     </div>
   );
@@ -154,16 +154,16 @@ export default function WWMUnique() {
   }, []);
 
   // Mouse tracking for parallax effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,
-        y: (e.clientY / window.innerHeight - 0.5) * 2,
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  //useEffect(() => {
+   // const handleMouseMove = (e) => {
+      //setMousePosition({
+        //x: (e.clientX / window.innerWidth - 0.5) * 2,
+        //y: (e.clientY / window.innerHeight - 0.5) * 2,
+      //});
+    //};
+    //window.addEventListener('mousemove', handleMouseMove);
+    //return () => window.removeEventListener('mousemove', handleMouseMove);
+  //}, []);
 
   // Scroll detection
   useEffect(() => {
@@ -414,6 +414,16 @@ export default function WWMUnique() {
             </a>
 
             <div className={`w-px h-4 ${darkMode ? 'bg-white/20' : 'bg-gray-900/20'}`} />
+
+            <a
+  href="/join-us"
+  className={`px-4 py-2 text-xs tracking-wider ${darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'} transition-colors`}
+>
+  JOIN US
+</a>
+
+<div className={`w-px h-4 ${darkMode ? 'bg-white/20' : 'bg-gray-900/20'}`} />
+
 
             <a href="#contact" className={`px-4 py-2 text-xs tracking-wider ${darkMode ? 'hover:text-white/60' : 'hover:text-gray-900/60'} transition-colors`}>
               CONTACT
@@ -823,7 +833,12 @@ export default function WWMUnique() {
           </div>
 
           <div className="w-full mb-16">
-            <img src={darkMode ? whitemap : blackmap} alt="WWM global map" className="w-full max-w-7xl opacity-80" />
+            <img
+              src={darkMode ? whitemap : blackmap}
+              alt="WWM global map"
+              className="w-full max-w-7xl opacity-30"
+            />
+
           </div>
 
           <div className="grid lg:grid-cols-2 gap-20">
