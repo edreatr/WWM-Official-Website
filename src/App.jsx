@@ -1,19 +1,13 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
 import WWMUnique from "./components/WWMUnique";
-import JobCard from "./components/JobCard"; // ← JOIN US PAGE
+import JobCard from "./components/JobCard";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Landing page */}
-        <Route path="/" element={<WWMUnique />} />
-
-        {/* Join Us page */}
-        <Route path="/join-us" element={<JobCard />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<WWMUnique />} />
+      <Route path="/join-us" element={<JobCard />} />
+      <Route path="/jobcard" element={<JobCard />} />
+    </Routes>
   );
 }
