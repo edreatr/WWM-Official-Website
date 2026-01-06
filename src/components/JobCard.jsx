@@ -587,6 +587,14 @@ function OpeningRow({ job, darkMode }) {
                   </div>
                 </div>
 
+                <div
+                  className={`text-xs leading-relaxed ${
+                    darkMode ? "text-white/50" : "text-gray-900/50"
+                  }`}
+                >
+                  APPLY WITH YOUR CV AND PORTFOLIO
+                </div>
+
                 <a
                   href={mailto}
                   className={`group w-full inline-flex items-center justify-between px-6 py-4 border rounded-2xl transition-all duration-300 ${
@@ -595,8 +603,9 @@ function OpeningRow({ job, darkMode }) {
                       : "border-gray-900/20 hover:border-gray-900"
                   }`}
                 >
+                  
                   <span className="text-sm tracking-widest leading-relaxed">
-                    APPLY — joinus@wwm-design.com
+                    joinus@wwm-design.com
                   </span>
                   <ArrowUpRight
                     size={18}
@@ -604,14 +613,7 @@ function OpeningRow({ job, darkMode }) {
                   />
                 </a>
 
-                <div
-                  className={`text-xs leading-relaxed ${
-                    darkMode ? "text-white/50" : "text-gray-900/50"
-                  }`}
-                >
-                  Attach your CV + portfolio link (if any). We’ll get back as soon
-                  as we can.
-                </div>
+                
               </aside>
             </div>
           </div>
