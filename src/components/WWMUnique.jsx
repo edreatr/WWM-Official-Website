@@ -12,8 +12,8 @@ import masterplanningImg from '../assets/MASTERPLANNING.png';
 import tallBuildingImg from '../assets/servicebg.jpg';
 import idcImg from '../assets/IDC.png';
 import digitalDesignImg from '../assets/DIGITALDESIGN.jpg';
-import blackmap from '../assets/blackmap.png';
-import whitemap from '../assets/whitemap.png';
+import blackmap from '../assets/whitemap.jpeg';
+import whitemap from '../assets/blackmap.jpeg';
 
 /* ---------------- Slot Machine Text (NO BORDER / NO ROUNDED CONTAINER) ---------------- */
 function SlotMachineText({ text = 'DESIGN DIFFERENT', className = '' }) {
@@ -130,7 +130,7 @@ function useSpinningNumber(min = 10, max = 99, interval = 1200) {
 
 export default function WWMUnique() {
   // ✅ OPTION A: initial publish mode (NO SCROLL, only Landing + Join Us link)
-  const INITIAL_PUBLISH = true; // set to false next week to restore scroll site
+  const INITIAL_PUBLISH = false; // set to false next week to restore scroll site
 
   const [scrolled, setScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -762,7 +762,7 @@ export default function WWMUnique() {
               </div>
 
               <div className="w-full mb-16">
-                <img src={darkMode ? whitemap : blackmap} alt="WWM global map" className="w-full max-w-7xl opacity-30" />
+                <img src={darkMode ? whitemap : blackmap} alt="WWM global map" className="w-full max-w-7xl opacity-70" />
               </div>
 
               <div className="grid lg:grid-cols-2 gap-20">

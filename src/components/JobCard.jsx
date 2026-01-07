@@ -58,29 +58,43 @@ export default function JobCard() {
       ],
     },
     {
-      id: "structural-engineer",
-      title: "Structural Engineer",
-      location: "Singapore Studio",
-      type: "Full-time",
-      department: "Structural Engineering",
-      overview:
-        "Placeholder description. Add your main project types, scope, and collaboration expectations.",
-      responsibilities: [
-        "Placeholder responsibility line 1",
-        "Placeholder responsibility line 2",
-        "Placeholder responsibility line 3",
-      ],
-      requirements: [
-        "Placeholder requirement line 1",
-        "Placeholder requirement line 2",
-        "Placeholder requirement line 3",
-      ],
-      personalQualities: [
-        "Collaborative and proactive",
-        "Detail-oriented and solutions-driven",
-        "Clear communicator across disciplines",
-      ],
-    },
+  id: "structural-engineer",
+  title: "Structural Engineer",
+  location: "Singapore Studio",
+  type: "Full-time",
+  department: "Structural Engineering",
+  overview:
+    "We are seeking a Structural Engineer to join our Singapore team on a full-time basis. " +
+    "This role is suited to an engineer with strong experience in structural design of buildings, " +
+    "who is comfortable working from concept through detailed design on complex, integrated projects. " +
+    "You will play a key role in shaping complex engineering systems that integrate seamlessly with architectural design.",
+  responsibilities: [
+    "Be part of multidisciplinary project teams, providing timely and high-quality design outputs",
+    "Support senior engineers with design, analysis, and innovative problem-solving for complex projects",
+    "Learn to develop parametric models and algorithms using coding skills (e.g., Python, Grasshopper, Dynamo) to optimise and automate design processes",
+    "Develop detailed Finite Element Analysis (FEA) to assess structural performance under various load cases using software such as ETABS, SAP2000, SAFE, etc.",
+    "Work with the project team to prepare detailed construction drawings, specifications, and calculations for submissions to relevant authorities (e.g., BCA, LTA) or for international projects",
+    "Learn to develop skillsets that meet the firm’s quality standards and comply with client requirements and safety protocols",
+    "Actively collaborate with and learn from senior staff, developing both technical and communication skills",
+    "Review and comment on drawings and BIM models to ensure compliance with structural requirements",
+  ],
+  requirements: [
+    "Degree in Civil or Structural Engineering from a recognised institution",
+    "2–3 years of professional experience in structural design",
+    "Familiarity with Singapore authority requirements (LTA, PUB, BCA, NParks, etc.)",
+    "Familiarity with 3D design and modelling tools such as Rhino/Grasshopper, ETABS, SAP2000",
+    "Ability to work across disciplines and understand the interconnected nature of infrastructure and building systems",
+    "Experience with BIM workflows and coordination in Revit is advantageous",
+  ],
+  personalQualities: [
+    "Highly motivated with a passion for transdisciplinary design",
+    "Collaborative mindset, strong communicator, and team player",
+    "Detail-oriented and technically curious",
+    "Confident in managing multiple priorities in a dynamic environment",
+    "Curious, proactive, and keen to engage with digital and parametric workflows",
+  ],
+},
+
     {
       id: "senior-structural-engineer",
       title: "Senior Structural Engineer",
@@ -88,71 +102,124 @@ export default function JobCard() {
       type: "Full-time",
       department: "Structural Engineering",
       overview:
-        "Placeholder description. Mention leadership, coordination, delivery responsibility, and client-facing expectations.",
+        "We are seeking a Senior Structural Engineer to join our Singapore team on a full-time basis." +
+        " This role is suited to an engineer with strong experience in structural design of buildings, who is comfortable working from concept through detailed design on complex, integrated projects." +
+        " You will play a key role in shaping complex engineering systems that integrate seamlessly with architectural design.",
       responsibilities: [
-        "Placeholder responsibility line 1",
-        "Placeholder responsibility line 2",
-        "Placeholder responsibility line 3",
+        "Lead and manage multidisciplinary project teams, ensuring the timely and high-quality delivery of engineering design projects. ",
+        "Provide advanced engineering expertise in design, analysis, and innovative problem-solving for complex projects. ",
+        "Develop and implement parametric models and algorithms using coding skills (e.g., Python, Grasshopper, Dynamo) to optimize and automate design processes. ",
+        "Perform and validate detailed Finite Element Analysis (FEA) to assess structural performance under various load cases using software like Etabs / SAP2000 / Safe etc. ",
+        "Prepare and review detailed construction drawings, specifications, and calculations for submissions to relevant authorities (e.g., BCA, LTA) or for international projects. ​",
+        "Ensure compliance with local, national, and international regulations and standards in all project designs and deliverables. ​",
+        "Review and approve engineering designs, calculations, and technical specifications prepared by project teams. ​",
+        "Ensure that all projects meet the firm’s quality standards and comply with client requirements and safety protocols. ​",
+        "Mentor junior engineers and design staff, offering technical guidance and support for professional development. ​"
+
+
       ],
       requirements: [
-        "Placeholder requirement line 1",
-        "Placeholder requirement line 2",
-        "Placeholder requirement line 3",
+        "Degree in Civil or Structural Engineering from a recognised institution ​",
+        "5–6 years of professional experience in both infrastructure and structural design ​",
+        "Familiarity with Singapore authority requirements (LTA, PUB, BCA, NParks, etc.) ​",
+        "Strong skills in 3D design and modelling tools: Rhino/Grasshopper, Etabs, SAP2000 ​",
+        "Ability to work across disciplines and understand the interconnected nature of infrastructure and building systems ​",
+        "Experience with BIM workflows and coordination in Revit is advantageous ​"
       ],
       personalQualities: [
-        "Collaborative and proactive",
-        "Detail-oriented and solutions-driven",
-        "Clear communicator across disciplines",
-      ],
+  "Highly motivated with a passion for transdisciplinary design",
+  "Collaborative mindset, strong communicator, and team player",
+  "Detail-oriented and technically curious",
+  "Confident in managing multiple priorities in a dynamic environment",
+],
+
     },
     {
-      id: "ops-marketing-coordinator",
-      title: "Operation and Marketing Coordinator",
-      location: "Singapore Studio",
-      type: "Full-time",
-      department: "Operations / Marketing",
-      overview:
-        "Placeholder description. Add workflow support, coordination, marketing materials, and internal communications scope.",
-      responsibilities: [
-        "Placeholder responsibility line 1",
-        "Placeholder responsibility line 2",
-        "Placeholder responsibility line 3",
-      ],
-      requirements: [
-        "Placeholder requirement line 1",
-        "Placeholder requirement line 2",
-        "Placeholder requirement line 3",
-      ],
-      personalQualities: [
-        "Collaborative and proactive",
-        "Detail-oriented and solutions-driven",
-        "Clear communicator across disciplines",
-      ],
-    },
+  id: "ops-marketing-coordinator",
+  title: "Operation and Marketing Coordinator",
+  location: "Singapore Studio",
+  type: "Full-time",
+  department: "Operations / Marketing",
+  overview:
+    "We are a dynamic, design-led engineering and design consultancy working across the built environment (AEC). " +
+    "We collaborate with forward-thinking architects and developers to deliver innovative, sustainable, and elegant structures around the world. " +
+    "We are seeking a proactive, creative, and highly organised Operations and Marketing Coordinator to join our growing Singapore team. " +
+    "This varied role bridges operations, office management, and marketing across a range of business functions.",
+  responsibilities: [
+    "Oversee daily office operations, ensuring a smooth, efficient, and welcoming studio environment",
+    "Provide general administrative support to the Director, Managing Director, and wider team",
+    "Manage office supplies, equipment, and external service providers",
+    "Support coordination of meetings and schedules",
+    "Assist with onboarding new staff and maintaining company databases and internal systems",
+    "Help prepare internal reports, presentations, and correspondence for leadership",
+    "Support bids and tenders, including preparation of submissions, project sheets, and company profiles",
+    "Conduct market research on clients, competitors, and new opportunities",
+    "Develop, implement, and measure digital marketing campaigns across social media, email, and web platforms",
+    "Produce marketing analytics reports demonstrating the reach and impact of campaigns",
+    "Coordinate website updates and content management, from day-to-day edits to major refreshes",
+    "Write and edit editorial content for online and print channels, including news posts, press releases, and newsletters",
+    "Create and maintain marketing collateral, project write-ups, and case studies",
+    "Support events, exhibitions, and seminars, including logistics, branding, and follow-up",
+    "Assist with press and PR activities, liaising with media and external partners",
+  ],
+  requirements: [
+    "Minimum 2 years of experience in a similar role, ideally within the engineering, architecture, or design consultancy sector (AEC)",
+    "Highly web-literate with a strong understanding of digital platforms, tools, and analytics",
+    "Practical experience with social media, email marketing, and content management systems",
+    "Strong analytical and research skills",
+    "Excellent writing and storytelling abilities, with an adaptable tone for different audiences and media",
+    "Keen eye for detail, design quality, and proofreading",
+    "Comfortable managing multiple priorities in a fast-paced environment",
+  ],
+  personalQualities: [
+    "Confident, approachable, and collaborative",
+    "Strong communicator who enjoys working across teams and disciplines",
+    "Energetic, organised, and proactive, with a hands-on approach",
+    "Creative thinker with a passion for design, architecture, and engineering",
+    "Self-starter who takes initiative and ownership of their work",
+  ],
+},
+
     {
-      id: "bim-draftman",
-      title: "BIM Draftman",
-      location: "Singapore Studio",
-      type: "Full-time",
-      department: "BIM / Digital Delivery",
-      overview:
-        "Placeholder description. Include software, model coordination, drawing production, QA/QC, and collaboration.",
-      responsibilities: [
-        "Placeholder responsibility line 1",
-        "Placeholder responsibility line 2",
-        "Placeholder responsibility line 3",
-      ],
-      requirements: [
-        "Placeholder requirement line 1",
-        "Placeholder requirement line 2",
-        "Placeholder requirement line 3",
-      ],
-      personalQualities: [
-        "Collaborative and proactive",
-        "Detail-oriented and solutions-driven",
-        "Clear communicator across disciplines",
-      ],
-    },
+  id: "bim-draftman",
+  title: "BIM Draftman",
+  location: "Singapore Studio",
+  type: "Full-time",
+  department: "BIM / Digital Delivery",
+  overview:
+    "We are seeking a BIM modeller with a passion for design integration, precision, and innovation. " +
+    "You will be part of a collaborative and forward-thinking team working across local and international projects in the built environment, " +
+    "spanning complex mixed-use developments, towers, and cultural buildings. " +
+    "You will support the engineering team in developing, coordinating, and delivering high-quality digital models that communicate ideas clearly and accurately. " +
+    "The role goes beyond conventional modelling, as we are looking for someone who combines technical rigour with creativity and is excited to explore the intersection between BIM, geometry, and computational design.",
+  responsibilities: [
+    "Develop and manage BIM models for structural, civil, and multidisciplinary projects across all design stages",
+    "Coordinate and integrate models with other disciplines (architecture, MEP, facade, landscape, etc.) to ensure seamless collaboration",
+    "Prepare accurate drawings, schedules, and documentation aligned with project standards",
+    "Support engineers in producing 3D visualisations, design studies, and structural details",
+    "Assist in the development and maintenance of BIM standards, templates, and workflows",
+    "Explore and implement computational design techniques to enhance efficiency, accuracy, and design optimisation",
+    "Work closely with the Director, engineers, and designers to ensure alignment between design intent and model output",
+  ],
+  requirements: [
+    "Diploma or Degree in Civil or Structural Engineering, Architecture, or a related field",
+    "4–5 years of experience in BIM modelling for engineering or AEC projects",
+    "Strong proficiency in Revit (essential) and familiarity with BIM coordination platforms such as Navisworks or ACC",
+    "Competence in Rhino and Grasshopper (computational design tools)",
+    "Knowledge of parametric workflows, interoperability (Rhino.Inside.Revit, Dynamo, etc.), and scripting (Python or C#) is an advantage",
+    "Solid understanding of structural systems, detailing, and documentation requirements",
+    "Strong eye for detail, accuracy, and design quality",
+    "Collaborative, proactive, and eager to learn and experiment",
+  ],
+  personalQualities: [
+    "Passionate about digital design, engineering, and innovation",
+    "Curious, open-minded, and solutions-driven",
+    "Enjoys teamwork and cross-disciplinary collaboration",
+    "Highly organised and able to manage priorities efficiently",
+    "Motivated to contribute to the continuous development of tools and processes",
+  ],
+},
+
   ];
 
   return (
@@ -186,39 +253,21 @@ export default function JobCard() {
           }`}
         >
           <div className="relative max-w-7xl mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
-            {/* Left: BACK */}
-            <Link
-              to="/"
-              className={`inline-flex items-center gap-2 text-xs tracking-widest ${
-                darkMode
-                  ? "text-white/70 hover:text-white"
-                  : "text-gray-900/70 hover:text-gray-900"
-              } transition-colors`}
-            >
-              <ArrowLeft size={16} />
-              BACK
-            </Link>
+            
 
-            {/* Center: SMALL WWM LOGO */}
-            <div className="absolute left-1/2 -translate-x-1/2">
-              <img
-                src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}
-                alt="WWM"
-                className="h-6 w-auto opacity-85"
-              />
-            </div>
+            {/* Center: SMALL WWM LOGO (clickable) */}
+<div className="absolute left-1/2 -translate-x-1/2">
+  <Link to="/">
+    <img
+      src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}
+      alt="WWM"
+      className="h-6 w-auto opacity-85 cursor-pointer hover:opacity-100 transition-opacity"
+    />
+  </Link>
+</div>
 
-            {/* Right: APPLY */}
-            <a
-              href="mailto:joinus@wwm-design.com?subject=Application%20—%20WWM%20Join%20Us"
-              className={`text-xs tracking-widest px-4 py-2 rounded-full border transition-colors ${
-                darkMode
-                  ? "border-white/20 hover:border-white text-white/80 hover:text-white"
-                  : "border-gray-900/20 hover:border-gray-900 text-gray-900/80 hover:text-gray-900"
-              }`}
-            >
-              APPLY — joinus@wwm-design.com
-            </a>
+
+            
           </div>
         </div>
       </header>
@@ -241,17 +290,18 @@ export default function JobCard() {
         {/* Intro text */}
         <section className="mb-14 lg:mb-16">
           <div
-            className={`rounded-3xl border p-8 lg:p-10 ${
-              darkMode
-                ? "border-white/10 bg-white/[0.03]"
-                : "border-gray-900/10 bg-gray-900/[0.03]"
+            className={`rounded-3xl p-8 lg:p-10 ${
+              darkMode ? "bg-white/[0.03]" : "bg-gray-900/[0.03]"
             }`}
           >
+
+          
             <div
-              className={`space-y-3 leading-relaxed text-justify ${
+              className={`space-y-3 leading-relaxed text-justify text-base lg:text-[17px] ${
                 darkMode ? "text-white/75" : "text-gray-900/75"
               }`}
             >
+
               <p>
                 A world in crisis needs a different kind of thinking. At WWM, we
                 fuse design, engineering, and a systems philosophy to push the
@@ -324,9 +374,25 @@ function OpeningRow({ job, darkMode }) {
 
   const mailto = useMemo(() => {
     const subject = encodeURIComponent(`Application — ${job.title}`);
+
     const body = encodeURIComponent(
-      `Hi WWM Team,\n\nI would like to apply for the role: ${job.title}.\n\nName:\nPhone:\nLinkedIn/Portfolio:\nCV attached:\n\nMessage:\n`
+      `Hi WWM Team,\n\n` +
+        `I would like to apply for the role: ${job.title}.\n\n` +
+        `Please find my details below:\n\n` +
+        `FULL NAME:\n` +
+        `NATIONALITY:\n` +
+        `YEAR OF BIRTH:\n` +
+        `YEARS OF EXPERIENCE:\n` +
+        `CURRENT EMPLOYER:\n` +
+        `CURRENT POSITION:\n` +
+        `REQUIRE VISA TO WORK IN SINGAPORE (YES/NO):\n` +
+        `UNIVERSITY OF DEGREE:\n` +
+        `LINK TO LINKEDIN:\n` +
+        `CURRICULUM (attach CV):\n` +
+        `PORTFOLIO (link or attach):\n\n` +
+        `Message:\n`
     );
+
     return `mailto:joinus@wwm-design.com?subject=${subject}&body=${body}`;
   }, [job.title]);
 
@@ -422,13 +488,15 @@ function OpeningRow({ job, darkMode }) {
               {/* Left content */}
               <div className="lg:col-span-2 space-y-10">
                 <section>
-                  <div
-                    className={`text-xs tracking-[0.3em] uppercase mb-3 ${
-                      darkMode ? "text-white/50" : "text-gray-900/60"
-                    }`}
-                  >
-                    Role overview
-                  </div>
+                 <div
+  className={`text-base sm:text-lg font-semibold tracking-[0.25em] uppercase mb-4 ${
+    darkMode ? "text-white/60" : "text-gray-900/60"
+  }`}
+>
+  Role overview
+</div>
+
+
                   <p
                     className={`${
                       darkMode ? "text-white/80" : "text-gray-900/80"
@@ -440,12 +508,14 @@ function OpeningRow({ job, darkMode }) {
 
                 <section>
                   <div
-                    className={`text-xs tracking-[0.3em] uppercase mb-3 ${
-                      darkMode ? "text-white/50" : "text-gray-900/60"
-                    }`}
-                  >
-                    Responsibilities
-                  </div>
+  className={`text-base sm:text-lg font-semibold tracking-[0.25em] uppercase mb-4 ${
+    darkMode ? "text-white/60" : "text-gray-900/60"
+  }`}
+>
+  Responsibilities
+</div>
+
+
                   <ul
                     className={`space-y-2 ${
                       darkMode ? "text-white/80" : "text-gray-900/80"
@@ -468,12 +538,14 @@ function OpeningRow({ job, darkMode }) {
 
                 <section>
                   <div
-                    className={`text-xs tracking-[0.3em] uppercase mb-3 ${
-                      darkMode ? "text-white/50" : "text-gray-900/60"
-                    }`}
-                  >
-                    Requirements
-                  </div>
+  className={`text-base sm:text-lg font-semibold tracking-[0.25em] uppercase mb-4 ${
+    darkMode ? "text-white/60" : "text-gray-900/60"
+  }`}
+>
+  Requirements
+</div>
+
+
                   <ul
                     className={`space-y-2 ${
                       darkMode ? "text-white/80" : "text-gray-900/80"
@@ -496,12 +568,14 @@ function OpeningRow({ job, darkMode }) {
 
                 <section>
                   <div
-                    className={`text-xs tracking-[0.3em] uppercase mb-3 ${
-                      darkMode ? "text-white/50" : "text-gray-900/60"
-                    }`}
-                  >
-                    Personal qualities
-                  </div>
+  className={`text-base sm:text-lg font-semibold tracking-[0.25em] uppercase mb-4 ${
+    darkMode ? "text-white/60" : "text-gray-900/60"
+  }`}
+>
+  Personal Qualities
+</div>
+
+
 
                   <ul
                     className={`space-y-2 ${
