@@ -408,22 +408,18 @@ function OpeningRow({ job, darkMode }) {
     `Nationality:\n` +
     `Year of Birth:\n` +
     `LinkedIn:\n\n` +
-    `2) PROFESSIONAL DETAILS\n` +
+    `2) PROFESSIONAL INFORMATION\n` +
     `-----------------------\n` +
+    `University of Degree:\n` +
     `Years of Experience:\n` +
     `Current Employer:\n` +
     `Current Position:\n` +
     `Require Visa to Work in Singapore (YES/NO):\n\n` +
-    `3) EDUCATION\n` +
-    `-----------\n` +
-    `University of Degree:\n\n` +
     `4) ATTACHMENTS / LINKS\n` +
     `----------------------\n` +
-    `CV (attach):\n` +
-    `Portfolio (link or attach):\n\n` +
-    `5) MESSAGE\n` +
-    `---------\n` +
-    `[Write your message here]\n\n` +
+    `Please Attach your CV \n` +
+    `Please Attach your Portfolio (if applicable):\n\n` +
+   
     `Kind regards,\n` +
     `[Your Name]\n`
 );
