@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowUpRight, Sun, Moon } from "lucide-react";
+import { ArrowUpRight, Sun, Moon, Users, Linkedin } from "lucide-react";
 import wwmLogo from "../assets/WWM_WHITELOGO_PNG.png"; // White version with slogan
 import wwmLogoDark from "../assets/WWM_BLACKTEXT.png"; // Black version with slogan
 import WWMSHORTENEDBLACK from "../assets/WWMSHORTENEDBLACK.png"; // Black shortened logo
@@ -13,7 +13,7 @@ import tallBuildingImg from "../assets/servicebg.jpg";
 import idcImg from "../assets/IDC.png";
 import digitalDesignImg from "../assets/DIGITALDESIGN.jpg";
 
-// ✅ Map assets (as you asked)
+// ✅ Map assets (as you asked) — (your file swaps these names)
 import blackmap from "../assets/whitemap.png";
 import whitemap from "../assets/blackmap.png";
 import blackmaphighlight from "../assets/whitemaphighlight.png";
@@ -192,7 +192,7 @@ export default function WWMUnique() {
   const [hoveredService, setHoveredService] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
 
-  // ✅ contact form state (ADDED)
+  // ✅ contact form state
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
@@ -245,7 +245,7 @@ export default function WWMUnique() {
     return () => observer.disconnect();
   }, [INITIAL_PUBLISH]);
 
-  // ✅ SEND MESSAGE handler (ADDED)
+  // ✅ SEND MESSAGE handler
   const handleSendMessage = () => {
     const to = "info@wwm-design.com";
     const subject = encodeURIComponent("WWM Website Inquiry");
@@ -264,19 +264,54 @@ Best regards,
 ${contactName || ""}`
     );
 
-    // open default mail client
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   };
 
   const services = [
     { id: 1, title: "Structure", color: "#FF6B6B", angle: 45, image: null },
-    { id: 2, title: "Smart Technology", color: "#4ECDC4", angle: -30, image: smartTechImg },
-    { id: 3, title: "Sustainability", color: "#45B7D1", angle: 15, image: sustainabilityImg },
-    { id: 4, title: "Masterplanning", color: "#FFA07A", angle: -45, image: masterplanningImg },
+    {
+      id: 2,
+      title: "Smart Technology",
+      color: "#4ECDC4",
+      angle: -30,
+      image: smartTechImg,
+    },
+    {
+      id: 3,
+      title: "Sustainability",
+      color: "#45B7D1",
+      angle: 15,
+      image: sustainabilityImg,
+    },
+    {
+      id: 4,
+      title: "Masterplanning",
+      color: "#FFA07A",
+      angle: -45,
+      image: masterplanningImg,
+    },
     { id: 5, title: "MEP", color: "#98D8C8", angle: 30, image: null },
-    { id: 6, title: "Tall Building", color: "#C7CEEA", angle: -15, image: tallBuildingImg },
-    { id: 7, title: "Industrialized Design & Construction", color: "#F6C453", angle: 35, image: idcImg },
-    { id: 8, title: "Digital Design", color: "#FF9FF3", angle: -25, image: digitalDesignImg },
+    {
+      id: 6,
+      title: "Tall Building",
+      color: "#C7CEEA",
+      angle: -15,
+      image: tallBuildingImg,
+    },
+    {
+      id: 7,
+      title: "Industrialized Design & Construction",
+      color: "#F6C453",
+      angle: 35,
+      image: idcImg,
+    },
+    {
+      id: 8,
+      title: "Digital Design",
+      color: "#FF9FF3",
+      angle: -25,
+      image: digitalDesignImg,
+    },
   ];
 
   const projects = [
@@ -331,16 +366,77 @@ ${contactName || ""}`
   ];
 
   const teamMembers = [
-    { name: "Shonn Mills", role: "Managing Director", location: "Singapore", linkedin: "https://www.linkedin.com/in/shonnmills/", photo: null },
-    { name: "Giovanni Vigano", role: "Design Director", location: "Singapore", linkedin: "https://www.linkedin.com/in/giovanni-viganò-81a78250/", photo: null },
-    { name: "Angelo Perini", role: "Senior Associate", location: "Singapore", linkedin: "https://www.linkedin.com/in/angelo-perini-745634ab/", photo: null },
-    { name: "Samuel Halim", role: "Lead Designer", location: "Singapore", linkedin: "https://www.linkedin.com/in/samuel-previano-halim-b98223167/", photo: null },
-    { name: "Aish Saboo", role: "Sustainability Specialist", location: "Singapore", linkedin: "https://www.linkedin.com/in/aishwarya-saboo-a671271b4/", photo: null },
-    { name: "Jaimin Korat", role: "Senior Structural Engineer", location: "Singapore", linkedin: "https://www.linkedin.com/in/jaiminkorat/", photo: null },
-    { name: "Hao Yang Lim", role: "Designer", location: "Singapore", linkedin: "https://www.linkedin.com/in/limhaoyang/", photo: null },
-    { name: "Jun Rong Tan", role: "Structural Engineer", location: "Singapore", linkedin: "https://www.linkedin.com/in/tjunrong96/", photo: null },
-    { name: "Sylvester Tze Feng Sia", role: "Civil & Structural Engineer", location: "Singapore", linkedin: "https://www.linkedin.com/in/sylvestertfs/", photo: null },
-    { name: "Clarence Rebeka", role: "Structural Engineer", location: "Singapore", linkedin: "https://www.linkedin.com/in/clarencerebeka/", photo: null },
+    {
+      name: "Shonn Mills",
+      role: "Managing Director",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/shonnmills/",
+      photo: null,
+    },
+    {
+      name: "Giovanni Vigano",
+      role: "Design Director",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/giovanni-viganò-81a78250/",
+      photo: null,
+    },
+    {
+      name: "Angelo Perini",
+      role: "Senior Associate",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/angelo-perini-745634ab/",
+      photo: null,
+    },
+    {
+      name: "Samuel Halim",
+      role: "Lead Designer",
+      location: "Singapore",
+      linkedin:
+        "https://www.linkedin.com/in/samuel-previano-halim-b98223167/",
+      photo: null,
+    },
+    {
+      name: "Aish Saboo",
+      role: "Sustainability Specialist",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/aishwarya-saboo-a671271b4/",
+      photo: null,
+    },
+    {
+      name: "Jaimin Korat",
+      role: "Senior Structural Engineer",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/jaiminkorat/",
+      photo: null,
+    },
+    {
+      name: "Hao Yang Lim",
+      role: "Designer",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/limhaoyang/",
+      photo: null,
+    },
+    {
+      name: "Jun Rong Tan",
+      role: "Structural Engineer",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/tjunrong96/",
+      photo: null,
+    },
+    {
+      name: "Sylvester Tze Feng Sia",
+      role: "Civil & Structural Engineer",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/sylvestertfs/",
+      photo: null,
+    },
+    {
+      name: "Clarence Rebeka",
+      role: "Structural Engineer",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/clarencerebeka/",
+      photo: null,
+    },
   ];
 
   return (
@@ -413,7 +509,9 @@ ${contactName || ""}`
         <button
           onClick={() => setDarkMode((v) => !v)}
           className={`w-12 h-12 rounded-full ${
-            darkMode ? "bg-white/10 hover:bg-white/20" : "bg-gray-900/10 hover:bg-gray-900/20"
+            darkMode
+              ? "bg-white/10 hover:bg-white/20"
+              : "bg-gray-900/10 hover:bg-gray-900/20"
           } backdrop-blur-xl border ${
             darkMode ? "border-white/20" : "border-gray-900/20"
           } flex items-center justify-center transition-all duration-300 hover:scale-110`}
@@ -447,7 +545,9 @@ ${contactName || ""}`
 
             <div
               className={`flex items-center gap-1 ${
-                darkMode ? "bg-white/5 border-white/10" : "bg-gray-900/5 border-gray-900/10"
+                darkMode
+                  ? "bg-white/5 border-white/10"
+                  : "bg-gray-900/5 border-gray-900/10"
               } backdrop-blur-xl border rounded-full px-6 py-3`}
             >
               <a
@@ -459,7 +559,11 @@ ${contactName || ""}`
                 CAPABILITIES
               </a>
 
-              <div className={`w-px h-4 ${darkMode ? "bg-white/20" : "bg-gray-900/20"}`} />
+              <div
+                className={`w-px h-4 ${
+                  darkMode ? "bg-white/20" : "bg-gray-900/20"
+                }`}
+              />
 
               <a
                 href="#projects"
@@ -470,7 +574,11 @@ ${contactName || ""}`
                 PROJECTS
               </a>
 
-              <div className={`w-px h-4 ${darkMode ? "bg-white/20" : "bg-gray-900/20"}`} />
+              <div
+                className={`w-px h-4 ${
+                  darkMode ? "bg-white/20" : "bg-gray-900/20"
+                }`}
+              />
 
               <a
                 href="#team"
@@ -481,7 +589,11 @@ ${contactName || ""}`
                 TEAM
               </a>
 
-              <div className={`w-px h-4 ${darkMode ? "bg-white/20" : "bg-gray-900/20"}`} />
+              <div
+                className={`w-px h-4 ${
+                  darkMode ? "bg-white/20" : "bg-gray-900/20"
+                }`}
+              />
 
               <a
                 href="#contact"
@@ -602,7 +714,11 @@ ${contactName || ""}`
                       darkMode ? "border-white/10" : "border-gray-900/10"
                     }`}
                   >
-                    <img src={pavilionImg} alt="WWM About" className="w-full h-full object-cover" />
+                    <img
+                      src={pavilionImg}
+                      alt="WWM About"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   <div
@@ -616,7 +732,10 @@ ${contactName || ""}`
           </section>
 
           {/* Services */}
-          <section id="services" className="py-32 px-6 lg:px-12 relative overflow-hidden">
+          <section
+            id="services"
+            className="py-32 px-6 lg:px-12 relative overflow-hidden"
+          >
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-20">
                 <div
@@ -638,7 +757,9 @@ ${contactName || ""}`
                     className={`relative aspect-[50/49] rounded-2xl border ${
                       darkMode ? "border-white/10" : "border-gray-900/10"
                     } overflow-hidden cursor-pointer group transition-all duration-700 ${
-                      visibleSections.services ? "opacity-100 scale-100" : "opacity-0 scale-90"
+                      visibleSections.services
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-90"
                     }`}
                     style={{
                       transitionDelay: `${index * 100}ms`,
@@ -652,7 +773,9 @@ ${contactName || ""}`
                       src={service.image || servicebg}
                       alt={service.title}
                       className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-80 transition-opacity duration-700 ${
-                        service.title === "Sustainability" ? "object-cover scale-125" : "object-cover"
+                        service.title === "Sustainability"
+                          ? "object-cover scale-125"
+                          : "object-cover"
                       }`}
                     />
 
@@ -668,7 +791,9 @@ ${contactName || ""}`
                       <div className="text-6xl mb-4 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
                         {String(service.id).padStart(2, "0")}
                       </div>
-                      <h3 className="text-lg font-semibold tracking-wide">{service.title}</h3>
+                      <h3 className="text-lg font-semibold tracking-wide">
+                        {service.title}
+                      </h3>
                     </div>
 
                     <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-white/30 group-hover:bg-white transition-colors duration-500" />
@@ -679,7 +804,10 @@ ${contactName || ""}`
           </section>
 
           {/* Projects */}
-          <section id="projects" className="py-32 px-6 lg:px-12 relative overflow-hidden">
+          <section
+            id="projects"
+            className="py-32 px-6 lg:px-12 relative overflow-hidden"
+          >
             <div className="max-w-7xl mx-auto relative z-10">
               <div className="text-center mb-20">
                 <div
@@ -689,8 +817,14 @@ ${contactName || ""}`
                 >
                   02 —
                 </div>
-                <h2 className="text-5xl lg:text-6xl font-bold mb-4">Featured Projects</h2>
-                <p className={`text-lg ${darkMode ? "text-white/50" : "text-gray-900/50"} max-w-2xl mx-auto`}>
+                <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+                  Featured Projects
+                </h2>
+                <p
+                  className={`text-lg ${
+                    darkMode ? "text-white/50" : "text-gray-900/50"
+                  } max-w-2xl mx-auto`}
+                >
                   Transforming visions into reality
                 </p>
               </div>
@@ -703,18 +837,30 @@ ${contactName || ""}`
                   return (
                     <div
                       key={index}
-                      onClick={() => setActiveProject((prev) => (prev === index ? null : index))}
+                      onClick={() =>
+                        setActiveProject((prev) => (prev === index ? null : index))
+                      }
                       className={`transition-all duration-700 cursor-pointer ${
                         isOtherActive ? "opacity-30 blur-sm" : "opacity-100"
                       }`}
                     >
                       {/* header */}
-                      <div className={`group relative transition-all duration-700 ${isActive ? "mb-8" : "mb-0 hover:scale-[1.01]"}`}>
+                      <div
+                        className={`group relative transition-all duration-700 ${
+                          isActive ? "mb-8" : "mb-0 hover:scale-[1.01]"
+                        }`}
+                      >
                         <div
                           className={`relative rounded-3xl border ${
-                            darkMode ? "border-white/5 bg-white/[0.02]" : "border-gray-900/5 bg-gray-900/[0.02]"
+                            darkMode
+                              ? "border-white/5 bg-white/[0.02]"
+                              : "border-gray-900/5 bg-gray-900/[0.02]"
                           } backdrop-blur-sm p-6 lg:p-8 transition-all duration-700 ${
-                            isActive ? (darkMode ? "border-white/20 bg-white/5" : "border-gray-900/20 bg-gray-900/5") : ""
+                            isActive
+                              ? darkMode
+                                ? "border-white/20 bg-white/5"
+                                : "border-gray-900/20 bg-gray-900/5"
+                              : ""
                           }`}
                         >
                           <div className="flex items-center gap-6 lg:gap-12">
@@ -739,16 +885,30 @@ ${contactName || ""}`
                                 {project.title}
                               </h3>
                               <div className="flex flex-wrap gap-3 mb-4">
-                                <span className={`text-xs px-3 py-1 rounded-full ${darkMode ? "bg-white/5 text-white/60" : "bg-gray-900/5 text-gray-900/60"}`}>
+                                <span
+                                  className={`text-xs px-3 py-1 rounded-full ${
+                                    darkMode
+                                      ? "bg-white/5 text-white/60"
+                                      : "bg-gray-900/5 text-gray-900/60"
+                                  }`}
+                                >
                                   {project.location}
                                 </span>
-                                <span className={`text-xs px-3 py-1 rounded-full ${darkMode ? "bg-white/5 text-white/60" : "bg-gray-900/5 text-gray-900/60"}`}>
+                                <span
+                                  className={`text-xs px-3 py-1 rounded-full ${
+                                    darkMode
+                                      ? "bg-white/5 text-white/60"
+                                      : "bg-gray-900/5 text-gray-900/60"
+                                  }`}
+                                >
                                   {project.status}
                                 </span>
                               </div>
                               <div
                                 className={`h-px w-full bg-gradient-to-r ${
-                                  darkMode ? "from-white/20" : "from-gray-900/20"
+                                  darkMode
+                                    ? "from-white/20"
+                                    : "from-gray-900/20"
                                 } to-transparent transition-all duration-700 ${
                                   isActive ? "opacity-0" : "opacity-100"
                                 }`}
@@ -758,9 +918,15 @@ ${contactName || ""}`
                             <div className="hidden lg:block relative">
                               <div
                                 className={`w-[32rem] h-48 rounded-2xl overflow-hidden transition-all duration-700 border ${
-                                  darkMode ? "border-white/10" : "border-gray-900/10"
+                                  darkMode
+                                    ? "border-white/10"
+                                    : "border-gray-900/10"
                                 }`}
-                                style={{ transform: isActive ? "scale(1.06)" : "scale(0.98)" }}
+                                style={{
+                                  transform: isActive
+                                    ? "scale(1.06)"
+                                    : "scale(0.98)",
+                                }}
                               >
                                 <img
                                   src={project.image}
@@ -775,9 +941,13 @@ ${contactName || ""}`
 
                               <div
                                 className={`absolute -bottom-3 -right-3 w-10 h-10 rounded-full ${
-                                  darkMode ? "bg-white text-black" : "bg-gray-900 text-white"
+                                  darkMode
+                                    ? "bg-white text-black"
+                                    : "bg-gray-900 text-white"
                                 } flex items-center justify-center transition-all duration-700 ${
-                                  isActive ? "rotate-180 scale-110" : "rotate-0 scale-100"
+                                  isActive
+                                    ? "rotate-180 scale-110"
+                                    : "rotate-0 scale-100"
                                 }`}
                               >
                                 <ArrowUpRight size={20} />
@@ -788,53 +958,127 @@ ${contactName || ""}`
                       </div>
 
                       {/* expand */}
-                      <div className={`overflow-hidden transition-all duration-700 ${isActive ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                      <div
+                        className={`overflow-hidden transition-all duration-700 ${
+                          isActive
+                            ? "max-h-[2000px] opacity-100"
+                            : "max-h-0 opacity-0"
+                        }`}
+                      >
                         <div className="pl-4 sm:pl-8 lg:pl-24 pt-0 pb-8">
                           <div
                             className={`rounded-3xl p-6 lg:p-10 border ${
-                              darkMode ? "border-white/10 bg-gradient-to-br from-white/5 to-transparent" : "border-gray-900/10 bg-gradient-to-br from-gray-900/5 to-transparent"
+                              darkMode
+                                ? "border-white/10 bg-gradient-to-br from-white/5 to-transparent"
+                                : "border-gray-900/10 bg-gradient-to-br from-gray-900/5 to-transparent"
                             } backdrop-blur-xl`}
                           >
                             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
                               <div className="lg:col-span-2 space-y-6">
                                 <div>
-                                  <div className={`text-xs tracking-[0.3em] uppercase mb-4 flex items-center gap-3 ${darkMode ? "text-white/50" : "text-gray-900/60"}`}>
-                                    <div className="w-8 h-px" style={{ backgroundColor: project.color }} />
+                                  <div
+                                    className={`text-xs tracking-[0.3em] uppercase mb-4 flex items-center gap-3 ${
+                                      darkMode
+                                        ? "text-white/50"
+                                        : "text-gray-900/60"
+                                    }`}
+                                  >
+                                    <div
+                                      className="w-8 h-px"
+                                      style={{ backgroundColor: project.color }}
+                                    />
                                     Overview
                                   </div>
-                                  <p className={`text-base lg:text-lg leading-relaxed ${darkMode ? "text-white/80" : "text-gray-900/80"}`}>
+                                  <p
+                                    className={`text-base lg:text-lg leading-relaxed ${
+                                      darkMode
+                                        ? "text-white/80"
+                                        : "text-gray-900/80"
+                                    }`}
+                                  >
                                     {project.summary}
                                   </p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4 pt-6">
-                                  <div className={`p-4 rounded-xl ${darkMode ? "bg-white/5" : "bg-gray-900/5"}`}>
-                                    <div className={`text-xs tracking-wider mb-1 ${darkMode ? "text-white/40" : "text-gray-900/50"}`}>SECTOR</div>
+                                  <div
+                                    className={`p-4 rounded-xl ${
+                                      darkMode ? "bg-white/5" : "bg-gray-900/5"
+                                    }`}
+                                  >
+                                    <div
+                                      className={`text-xs tracking-wider mb-1 ${
+                                        darkMode
+                                          ? "text-white/40"
+                                          : "text-gray-900/50"
+                                      }`}
+                                    >
+                                      SECTOR
+                                    </div>
                                     <div className="font-medium">{project.sector}</div>
                                   </div>
-                                  <div className={`p-4 rounded-xl ${darkMode ? "bg-white/5" : "bg-gray-900/5"}`}>
-                                    <div className={`text-xs tracking-wider mb-1 ${darkMode ? "text-white/40" : "text-gray-900/50"}`}>OUR ROLE</div>
+                                  <div
+                                    className={`p-4 rounded-xl ${
+                                      darkMode ? "bg-white/5" : "bg-gray-900/5"
+                                    }`}
+                                  >
+                                    <div
+                                      className={`text-xs tracking-wider mb-1 ${
+                                        darkMode
+                                          ? "text-white/40"
+                                          : "text-gray-900/50"
+                                      }`}
+                                    >
+                                      OUR ROLE
+                                    </div>
                                     <div className="font-medium">{project.role}</div>
                                   </div>
                                 </div>
                               </div>
 
                               <div className="space-y-6">
-                                <div className={`p-6 rounded-2xl border ${darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"}`}>
-                                  <div className={`text-xs tracking-[0.25em] uppercase mb-4 ${darkMode ? "text-white/40" : "text-gray-900/50"}`}>
+                                <div
+                                  className={`p-6 rounded-2xl border ${
+                                    darkMode
+                                      ? "border-white/10 bg-white/5"
+                                      : "border-gray-900/10 bg-gray-900/5"
+                                  }`}
+                                >
+                                  <div
+                                    className={`text-xs tracking-[0.25em] uppercase mb-4 ${
+                                      darkMode
+                                        ? "text-white/40"
+                                        : "text-gray-900/50"
+                                    }`}
+                                  >
                                     Project Details
                                   </div>
                                   <div className="space-y-4 text-sm">
                                     <div className="flex justify-between items-center">
-                                      <span className={darkMode ? "text-white/60" : "text-gray-900/60"}>Location</span>
+                                      <span
+                                        className={
+                                          darkMode ? "text-white/60" : "text-gray-900/60"
+                                        }
+                                      >
+                                        Location
+                                      </span>
                                       <span className="font-medium">{project.location}</span>
                                     </div>
                                     <div className={`h-px ${darkMode ? "bg-white/10" : "bg-gray-900/10"}`} />
                                     <div className="flex justify-between items-center">
-                                      <span className={darkMode ? "text-white/60" : "text-gray-900/60"}>Status</span>
+                                      <span
+                                        className={
+                                          darkMode ? "text-white/60" : "text-gray-900/60"
+                                        }
+                                      >
+                                        Status
+                                      </span>
                                       <span
                                         className="px-3 py-1 rounded-full text-xs font-medium"
-                                        style={{ backgroundColor: `${project.color}20`, color: project.color }}
+                                        style={{
+                                          backgroundColor: `${project.color}20`,
+                                          color: project.color,
+                                        }}
                                       >
                                         {project.status}
                                       </span>
@@ -842,6 +1086,8 @@ ${contactName || ""}`
                                   </div>
                                 </div>
                               </div>
+
+                              {/* end grid */}
                             </div>
                           </div>
                         </div>
@@ -857,11 +1103,19 @@ ${contactName || ""}`
           <section id="team" className="py-32 px-6 lg:px-12">
             <div className="max-w-7xl mx-auto w-full">
               <div className="text-center mb-20">
-                <div className={`inline-block text-xs tracking-[0.3em] ${darkMode ? "text-white/50" : "text-gray-900/50"} mb-6`}>
+                <div
+                  className={`inline-block text-xs tracking-[0.3em] ${
+                    darkMode ? "text-white/50" : "text-gray-900/50"
+                  } mb-6`}
+                >
                   03 —
                 </div>
                 <h2 className="text-5xl lg:text-6xl font-bold mb-4">Our Team</h2>
-                <p className={`text-lg ${darkMode ? "text-white/50" : "text-gray-900/50"} max-w-2xl mx-auto`}>
+                <p
+                  className={`text-lg ${
+                    darkMode ? "text-white/50" : "text-gray-900/50"
+                  } max-w-2xl mx-auto`}
+                >
                   Meet the people behind the work
                 </p>
 
@@ -875,21 +1129,34 @@ ${contactName || ""}`
                     }`}
                   >
                     JOIN US
-                    <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight
+                      size={16}
+                      className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
                   </a>
                 </div>
               </div>
 
-              <div className={`transition-all duration-1000 ${visibleSections.team ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+              <div
+                className={`transition-all duration-1000 ${
+                  visibleSections.team
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
+                }`}
+              >
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
                   {teamMembers.map((m, i) => {
-                    const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&size=512&background=111111&color=ffffff&bold=true&format=png`;
+                    const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      m.name
+                    )}&size=512&background=111111&color=ffffff&bold=true&format=png`;
 
                     return (
                       <div
                         key={i}
                         className={`group relative rounded-2xl border overflow-hidden ${
-                          darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"
+                          darkMode
+                            ? "border-white/10 bg-white/5"
+                            : "border-gray-900/10 bg-gray-900/5"
                         } transition-all duration-500 hover:scale-[1.02]`}
                       >
                         <div className="relative aspect-[4/5] w-full">
@@ -909,15 +1176,23 @@ ${contactName || ""}`
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div className="min-w-0">
-                              <div className="text-lg font-semibold leading-tight truncate">{m.name}</div>
-                              <div className={`text-sm mt-1 ${darkMode ? "text-white/70" : "text-gray-900/70"}`}>
+                              <div className="text-lg font-semibold leading-tight truncate">
+                                {m.name}
+                              </div>
+                              <div
+                                className={`text-sm mt-1 ${
+                                  darkMode ? "text-white/70" : "text-gray-900/70"
+                                }`}
+                              >
                                 {m.role}
                               </div>
                             </div>
 
                             <div
                               className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${
-                                darkMode ? "bg-white/10 text-white/80" : "bg-gray-900/10 text-gray-900/80"
+                                darkMode
+                                  ? "bg-white/10 text-white/80"
+                                  : "bg-gray-900/10 text-gray-900/80"
                               }`}
                             >
                               {m.location}
@@ -931,7 +1206,9 @@ ${contactName || ""}`
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`mt-4 inline-block text-xs tracking-widest ${
-                              darkMode ? "text-white/70 hover:text-white" : "text-gray-900/70 hover:text-gray-900"
+                              darkMode
+                                ? "text-white/70 hover:text-white"
+                                : "text-gray-900/70 hover:text-gray-900"
                             } transition-colors`}
                           >
                             LinkedIn
@@ -950,7 +1227,6 @@ ${contactName || ""}`
           {/* Contact / Studios */}
           <section id="contact" className="py-32 px-6 lg:px-12">
             <div className="max-w-7xl mx-auto w-full">
-              {/* ✅ FIX: removed duplicated wrapper + reduced spacing below title */}
               <div className="flex flex-col items-center text-center mb-4">
                 <div
                   className={`inline-block text-xs tracking-[0.3em] ${
@@ -963,33 +1239,79 @@ ${contactName || ""}`
                 <h2 className="text-5xl lg:text-6xl font-bold">Our Studios</h2>
               </div>
 
-              {/* ✅ FIX: smaller gap to map (was mb-12) */}
               <div className="w-full mb-6">
                 <StudiosMap darkMode={darkMode} />
               </div>
 
               <div className="grid lg:grid-cols-2 gap-20">
-                <div className={`transition-all duration-1000 ${visibleSections.contact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}>
-                  <h2 className="text-5xl lg:text-7xl font-bold mb-12 leading-tight">
+                <div
+                  className={`transition-all duration-1000 ${
+                    visibleSections.contact
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-20"
+                  }`}
+                >
+                  <h2 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
                     Let&apos;s build
                     <br />
                     something
                     <br />
-                    <span className={`${darkMode ? "text-white/40" : "text-gray-900/40"} italic`}>different</span>
+                    <span
+                      className={`${
+                        darkMode ? "text-white/40" : "text-gray-900/40"
+                      } italic`}
+                    >
+                      different
+                    </span>
                   </h2>
 
-                  {/* (kept commented as per your file) */}
-                  {/* <div className="space-y-6">
-                    <div>
-                      <div className={`text-xs tracking-widest ${darkMode ? "text-white/50" : "text-gray-900/50"} mb-2`}>EMAIL</div>
-                      <a href="mailto:info@wwm-design.com" className={`text-xl ${darkMode ? "hover:text-white/60" : "hover:text-gray-900/60"} transition-colors`}>
-                        info@wwm-design.com
-                      </a>
-                    </div>
-                  </div> */}
+                  {/* ✅ NEW: icons under heading */}
+                  <div className="mt-4 flex items-center gap-6">
+                    {/* Join Us icon */}
+                    <a
+                      href="/join-us"
+                      className={`group inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors ${
+                        darkMode
+                          ? "text-white/55 hover:text-white"
+                          : "text-gray-900/55 hover:text-gray-900"
+                      }`}
+                    >
+                      <Users size={18} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span>Join Us</span>
+                      <ArrowUpRight
+                        size={14}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      />
+                    </a>
+
+                    {/* LinkedIn icon */}
+                    <a
+                      href="https://www.linkedin.com/company/wwm-design/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors ${
+                        darkMode
+                          ? "text-white/55 hover:text-white"
+                          : "text-gray-900/55 hover:text-gray-900"
+                      }`}
+                    >
+                      <Linkedin size={18} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+                      <span>Follow</span>
+                      <ArrowUpRight
+                        size={14}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      />
+                    </a>
+                  </div>
                 </div>
 
-                <div className={`transition-all duration-1000 delay-300 ${visibleSections.contact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}>
+                <div
+                  className={`transition-all duration-1000 delay-300 ${
+                    visibleSections.contact
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-20"
+                  }`}
+                >
                   <div className="space-y-8">
                     <div>
                       <input
@@ -1037,14 +1359,23 @@ ${contactName || ""}`
                       type="button"
                       onClick={handleSendMessage}
                       className={`group relative px-8 py-4 border ${
-                        darkMode ? "border-white/30 hover:border-white" : "border-gray-900/30 hover:border-gray-900"
+                        darkMode
+                          ? "border-white/30 hover:border-white"
+                          : "border-gray-900/30 hover:border-gray-900"
                       } transition-all duration-500 overflow-hidden`}
                     >
                       <span className="relative z-10 flex items-center gap-3 text-sm tracking-widest">
                         SEND MESSAGE
-                        <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <ArrowUpRight
+                          size={16}
+                          className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                        />
                       </span>
-                      <div className={`absolute inset-0 ${darkMode ? "bg-white" : "bg-gray-900"} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                      <div
+                        className={`absolute inset-0 ${
+                          darkMode ? "bg-white" : "bg-gray-900"
+                        } opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                      />
                     </button>
                   </div>
                 </div>
@@ -1053,10 +1384,22 @@ ${contactName || ""}`
           </section>
 
           {/* Footer */}
-          <footer className={`border-t ${darkMode ? "border-white/10" : "border-gray-900/10"} py-12 px-6 lg:px-12`}>
+          <footer
+            className={`border-t ${
+              darkMode ? "border-white/10" : "border-gray-900/10"
+            } py-12 px-6 lg:px-12`}
+          >
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-              <img src={darkMode ? wwmLogo : wwmLogoDark} alt="WWM Logo" className="h-8 w-auto opacity-90" />
-              <div className={`text-sm ${darkMode ? "text-white/50" : "text-gray-900/50"} absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0`}>
+              <img
+                src={darkMode ? wwmLogo : wwmLogoDark}
+                alt="WWM Logo"
+                className="h-8 w-auto opacity-90"
+              />
+              <div
+                className={`text-sm ${
+                  darkMode ? "text-white/50" : "text-gray-900/50"
+                } absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0`}
+              >
                 © 2025 WWM PTE.LTD. — Design Different
               </div>
 
@@ -1065,7 +1408,9 @@ ${contactName || ""}`
                   href="https://www.linkedin.com/company/wwm-design/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${darkMode ? "hover:text-white/60" : "hover:text-gray-900/60"} transition-colors`}
+                  className={`${
+                    darkMode ? "hover:text-white/60" : "hover:text-gray-900/60"
+                  } transition-colors`}
                 >
                   LinkedIn
                 </a>
