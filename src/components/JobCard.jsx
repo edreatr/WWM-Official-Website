@@ -10,12 +10,10 @@ import WWMSHORTENEDWHITE from "../assets/WWMSHORTENEDWHITE.png";
  * - BIG.dk-style list
  * - Every job expands into: Role Overview + Responsibilities + Requirements + Personal Qualities + Quick Info + Apply
  * - Dark/Light mode toggle (user switch)
- * - Job rows "light up" on hover (MORE CONTRAST)
- *
- * UPDATE (as requested):
+ * - Job rows hover is flat light grey (no gradient)
  * - Clicking the banner toggles open/close
  * - WHEN OPEN: clicking anywhere inside the expanded content closes it
- * - BUT: clicking the email (mailto) should still work (doesn't immediately close)
+ * - BUT: clicking the email (mailto) should still work
  */
 export default function JobCard() {
   const [darkMode, setDarkMode] = useState(true);
@@ -219,6 +217,41 @@ export default function JobCard() {
         "Motivated to contribute to the continuous development of tools and processes",
       ],
     },
+    {
+      id: "intern",
+      title: "Intern",
+      location: "Singapore Studio",
+      type: "Internship",
+      department: "Design / Engineering / Digital",
+      overview:
+        "Over the years, we have collaborated with several Singaporean and international universities, " +
+        "and we are committed to contributing to young talent’s academic development and education. " +
+        "We welcome students from diverse educational backgrounds to join us for internships at our Singapore studio. " +
+        "We are a dynamic, international, and fast-growing group of enthusiasts who believe strongly in diversity of thought and experience. " +
+        "This internship offers the opportunity to learn cutting-edge industry workflows while working alongside engineers, designers, and digital specialists on high-profile international projects.",
+      responsibilities: [
+        "Support the delivery of transdisciplinary and holistic design solutions for high-profile international projects",
+        "Assist the team in developing and delivering design solutions across various project stages",
+        "Contribute to the preparation of design materials, presentations, and reports",
+        "Assist with 3D modelling for analytical, structural, or geometrical studies",
+        "Support the team with design-related tasks across multiple projects",
+        "Contribute to benchmarking studies for building and urban design",
+      ],
+      requirements: [
+        "Undergraduate student in Engineering, Architecture, Architecture and Sustainable Design, Computer Science, or a related field",
+        "Strong commitment to teamwork and professional responsibility",
+        "Interest in computational design and programming",
+        "Familiarity with computational design tools",
+        "Legal right to work in Singapore",
+      ],
+      personalQualities: [
+        "Positive attitude and strong eagerness to learn",
+        "Interest in developing workflows using computational and digital tools",
+        "Enjoys working across multiple disciplines",
+        "Curious, proactive, and keen to engage with digital and parametric workflows",
+        "Comfortable managing multiple workstreams in a dynamic and fast-paced environment",
+      ],
+    },
   ];
 
   return (
@@ -367,22 +400,35 @@ function OpeningRow({ job, darkMode }) {
     const subject = encodeURIComponent(`Application — ${job.title}`);
 
     const body = encodeURIComponent(
-      `Hi WWM Team,\n\n` +
-        `I would like to apply for the role: ${job.title}.\n\n` +
-        `Please find my details below:\n\n` +
-        `Full Name:\n` +
-        `Nationality:\n` +
-        `Year of Birth:\n` +
-        `Years of Experience:\n` +
-        `Current Employer:\n` +
-        `Current Position:\n` +
-        `Require Visa to Work in Singapore (YES/NO):\n` +
-        `University of Degree:\n` +
-        `Link to Linkedin:\n` +
-        `Curriculum (attach CV):\n` +
-        `Portfolio (link or attach):\n\n` +
-        `Message:\n`
-    );
+  `Hi WWM Team,\n\n` +
+    `I would like to apply for the role: ${job.title}.\n\n` +
+    `1) PERSONAL DETAILS\n` +
+    `-------------------\n` +
+    `Full Name:\n` +
+    `Nationality:\n` +
+    `Year of Birth:\n` +
+    `LinkedIn:\n\n` +
+    `2) PROFESSIONAL DETAILS\n` +
+    `-----------------------\n` +
+    `Years of Experience:\n` +
+    `Current Employer:\n` +
+    `Current Position:\n` +
+    `Require Visa to Work in Singapore (YES/NO):\n\n` +
+    `3) EDUCATION\n` +
+    `-----------\n` +
+    `University of Degree:\n\n` +
+    `4) ATTACHMENTS / LINKS\n` +
+    `----------------------\n` +
+    `CV (attach):\n` +
+    `Portfolio (link or attach):\n\n` +
+    `5) MESSAGE\n` +
+    `---------\n` +
+    `[Write your message here]\n\n` +
+    `Kind regards,\n` +
+    `[Your Name]\n`
+);
+
+
 
     return `mailto:joinus@wwm-design.com?subject=${subject}&body=${body}`;
   }, [job.title]);
@@ -397,14 +443,7 @@ function OpeningRow({ job, darkMode }) {
       }
       ${open ? (darkMode ? "border-white/30" : "border-gray-900/30") : ""}`}
     >
-      {/* Dynamic Glow Background */}
-      <div
-        className={`pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-          darkMode
-            ? "bg-gradient-to-br from-white/[0.08] via-transparent to-transparent"
-            : "bg-gradient-to-br from-gray-900/[0.04] via-transparent to-transparent"
-        }`}
-      />
+      {/* (Removed) Gradient glow background */}
 
       {/* Big row header (BANNER) */}
       <button
@@ -413,10 +452,10 @@ function OpeningRow({ job, darkMode }) {
         className={`relative z-10 w-full text-left p-7 sm:p-8 lg:p-10 flex items-center gap-6 justify-between transition-all duration-300
         ${
           darkMode
-            ? "bg-white/[0.03] group-hover:bg-white/[0.08]"
-            : "bg-gray-900/[0.02] group-hover:bg-gray-900/[0.06]"
+            ? "bg-white/[0.04] group-hover:bg-white/[0.12]"
+            : "bg-gray-100 group-hover:bg-gray-200"
         }
-        ${open ? (darkMode ? "bg-white/[0.08]" : "bg-gray-900/[0.06]") : ""}`}
+        ${open ? (darkMode ? "bg-white/[0.12]" : "bg-gray-200") : ""}`}
       >
         <div className="min-w-0 transform transition-transform duration-300 group-hover:translate-x-1">
           <div className="flex items-center gap-3">
