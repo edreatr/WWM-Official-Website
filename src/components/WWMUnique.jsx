@@ -182,7 +182,7 @@ function StudiosMap({ darkMode }) {
 
 export default function WWMUnique() {
   // ✅ initial publish mode (NO SCROLL, only Landing + Join Us link)
-  const INITIAL_PUBLISH = false;
+  const INITIAL_PUBLISH = true;
 
   const [scrolled, setScrolled] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
@@ -247,25 +247,10 @@ export default function WWMUnique() {
 
   // ✅ SEND MESSAGE handler
   const handleSendMessage = () => {
-    const to = "info@wwm-design.com";
-    const subject = encodeURIComponent("WWM Website Inquiry");
+  const subject = encodeURIComponent("WWM Website Inquiry");
+  window.location.href = `mailto:info@wwm-design.com?subject=${subject}`;
+};
 
-    const body = encodeURIComponent(
-      `Hello WWM Team,
-
-My name is ${contactName || "[Name]"}.
-
-Email: ${contactEmail || "[Email]"}
-
-Message:
-${contactMessage || "[Message]"}
-
-Best regards,
-${contactName || ""}`
-    );
-
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  };
 
   const services = [
     { id: 1, title: "Structure", color: "#FF6B6B", angle: 45, image: null },

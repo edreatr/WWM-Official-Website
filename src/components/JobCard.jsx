@@ -414,11 +414,14 @@ function OpeningRow({ job, darkMode }) {
     `Years of Experience:\n` +
     `Current Employer:\n` +
     `Current Position:\n` +
-    `Require Visa to Work in Singapore (YES/NO):\n\n` +
+    `Require Visa to Work in Singapore (yes/no):\n\n` +
     `4) ATTACHMENTS / LINKS\n` +
     `----------------------\n` +
     `Please Attach your CV \n` +
     `Please Attach your Portfolio (if applicable):\n\n` +
+
+    `[Add Text here as needed]\n\n` +
+
    
     `Kind regards,\n` +
     `[Your Name]\n`
