@@ -384,7 +384,7 @@ export default function JobCard() {
             darkMode ? "text-white/50" : "text-gray-900/50"
           }`}
         >
-          © 2025 WWM PTE.LTD. — Join Us
+          
         </div>
       </footer>
     </div>

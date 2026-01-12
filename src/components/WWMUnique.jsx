@@ -182,7 +182,7 @@ function StudiosMap({ darkMode }) {
 
 export default function WWMUnique() {
   // ✅ initial publish mode (NO SCROLL, only Landing + Join Us link)
-  const INITIAL_PUBLISH = true;
+  const INITIAL_PUBLISH = false;
 
   const [scrolled, setScrolled] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
