@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowUpRight, Sun, Moon, Users, Linkedin } from "lucide-react";
+import {
+  ArrowUpRight,
+  Sun,
+  Moon,
+  Users,
+  Linkedin,
+  LayoutGrid,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
 import wwmLogo from "../assets/WWM_WHITELOGO_PNG.png"; // White version with slogan
 import wwmLogoDark from "../assets/WWM_BLACKTEXT.png"; // Black version with slogan
 import WWMSHORTENEDBLACK from "../assets/WWMSHORTENEDBLACK.png"; // Black shortened logo
@@ -146,7 +155,6 @@ function StudiosMap({ darkMode }) {
 
   return (
     <div className="relative w-full max-w-7xl mx-auto">
-      {/* Base map */}
       <img
         src={baseSrc}
         alt="WWM global map"
@@ -154,7 +162,6 @@ function StudiosMap({ darkMode }) {
         draggable={false}
       />
 
-      {/* Highlight map (fades in when hovering near Singapore) */}
       <img
         src={highlightSrc}
         alt="WWM global map highlight"
@@ -164,7 +171,6 @@ function StudiosMap({ darkMode }) {
         draggable={false}
       />
 
-      {/* Invisible hover zone around Singapore */}
       <div
         className="absolute -translate-x-1/2 -translate-y-1/2"
         style={{
@@ -209,7 +215,6 @@ function ProjectCarousel({ images = [], darkMode }) {
 
   return (
     <div className="relative w-full group">
-      {/* SLIDER */}
       <div
         ref={scrollerRef}
         onScroll={onScroll}
@@ -299,8 +304,263 @@ function ProjectCarousel({ images = [], darkMode }) {
   );
 }
 
+/* =======================================================================
+   NEW: All Projects Page Component
+   ======================================================================= */
+export function AllProjectsPage({ darkModeProp }) {
+  const [darkMode, setDarkMode] = useState(darkModeProp ?? true);
+
+  const allProjects = [
+    {
+      title: "Project 1",
+      image: pavilionImg,
+      location: "Location",
+      sector: "Mixed-use smart city masterplan",
+      role: "Structural engineering, smart city integration",
+      status: "Ongoing",
+      summary:
+        "Large-scale future city development focusing on resilient infrastructure, integrated mobility, and smart public realm systems.",
+    },
+    {
+      title: "Project 2",
+      image: pavilionImg,
+      location: "Location",
+      sector: "High-rise residential / mixed-use",
+      role: "Structural and façade engineering",
+      status: "Completed",
+      summary:
+        "High-rise tower overlooking Dubai Marina, designed with optimised structural systems and coordinated with complex façade geometry.",
+    },
+    {
+      title: "Project 3",
+      image: pavilionImg,
+      location: "Location",
+      sector: "Transport & infrastructure",
+      role: "Structural design, concourse integration",
+      status: "In Design",
+      summary:
+        "Transit hub connecting metro, public realm and retail podiums, with large-span structures and integrated passenger flows.",
+    },
+    {
+      title: "Project 4",
+      image: pavilionImg,
+      location: "Location",
+      sector: "Cultural / civic",
+      role: "Structural design, roof geometry",
+      status: "Concept",
+      summary:
+        "Cultural venue with expressive roof forms and flexible gallery spaces, integrating structure, daylight and public circulation.",
+    },
+  ];
+
+  return (
+    <div
+      className={`min-h-screen ${
+        darkMode ? "bg-black text-white" : "bg-white text-gray-900"
+      } font-sans transition-colors duration-500`}
+    >
+      {/* Top bar */}
+      <div className="sticky top-0 z-50 backdrop-blur-xl">
+        <div
+          className={`border-b ${
+            darkMode ? "border-white/10" : "border-gray-900/10"
+          }`}
+        >
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between gap-4">
+            <Link to="/" className="flex items-center gap-3">
+              <img
+                src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}
+                alt="WWM"
+                className="h-7 w-auto"
+              />
+              <span
+                className={`text-xs tracking-[0.28em] uppercase ${
+                  darkMode ? "text-white/60" : "text-gray-900/60"
+                } hidden sm:inline`}
+              >
+                All Projects
+              </span>
+            </Link>
+
+            <button
+              onClick={() => setDarkMode((v) => !v)}
+              className={`w-12 h-12 rounded-full ${
+                darkMode
+                  ? "bg-white/10 hover:bg-white/20"
+                  : "bg-gray-900/10 hover:bg-gray-900/20"
+              } backdrop-blur-xl border ${
+                darkMode ? "border-white/20" : "border-gray-900/20"
+              } flex items-center justify-center transition-all duration-300 hover:scale-110`}
+              aria-label="Toggle dark mode"
+              type="button"
+            >
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Header */}
+      <section className="px-6 lg:px-12 pt-16 pb-10">
+        <div className="max-w-7xl mx-auto">
+          <div
+            className={`text-xs tracking-[0.3em] uppercase ${
+              darkMode ? "text-white/50" : "text-gray-900/50"
+            }`}
+          >
+            Projects Archive
+          </div>
+          <h1 className="mt-4 text-5xl lg:text-6xl font-bold">All Projects</h1>
+          <p
+            className={`mt-5 max-w-2xl text-lg ${
+              darkMode ? "text-white/60" : "text-gray-900/60"
+            }`}
+          >
+            A complete list of featured work and initiatives.
+          </p>
+        </div>
+      </section>
+
+      {/* Grid */}
+      <section className="px-6 lg:px-12 pb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+            {allProjects.map((p, idx) => (
+              <div
+                key={idx}
+                className={`group rounded-3xl border overflow-hidden transition-all duration-500 hover:scale-[1.01] ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.03]"
+                    : "border-gray-900/10 bg-gray-900/[0.03]"
+                }`}
+              >
+                <div className="relative aspect-[16/10] w-full">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div
+                    className={`absolute inset-0 ${
+                      darkMode ? "bg-black/25" : "bg-white/10"
+                    }`}
+                  />
+                </div>
+
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <div className="text-xl font-semibold truncate">
+                        {p.title}
+                      </div>
+                      <div
+                        className={`mt-2 text-xs tracking-widest uppercase ${
+                          darkMode ? "text-white/50" : "text-gray-900/50"
+                        }`}
+                      >
+                        {p.location}
+                      </div>
+                    </div>
+
+                    <span
+                      className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${
+                        darkMode
+                          ? "bg-white/10 text-white/80"
+                          : "bg-gray-900/10 text-gray-900/80"
+                      }`}
+                    >
+                      {p.status}
+                    </span>
+                  </div>
+
+                  <div
+                    className={`mt-5 h-px ${
+                      darkMode ? "bg-white/10" : "bg-gray-900/10"
+                    }`}
+                  />
+
+                  <div className="mt-5 space-y-3">
+                    <div>
+                      <div
+                        className={`text-[10px] tracking-[0.25em] uppercase ${
+                          darkMode ? "text-white/45" : "text-gray-900/55"
+                        }`}
+                      >
+                        Sector
+                      </div>
+                      <div className="mt-1 text-sm">{p.sector}</div>
+                    </div>
+
+                    <div>
+                      <div
+                        className={`text-[10px] tracking-[0.25em] uppercase ${
+                          darkMode ? "text-white/45" : "text-gray-900/55"
+                        }`}
+                      >
+                        Role
+                      </div>
+                      <div className="mt-1 text-sm">{p.role}</div>
+                    </div>
+
+                    <div>
+                      <div
+                        className={`text-[10px] tracking-[0.25em] uppercase ${
+                          darkMode ? "text-white/45" : "text-gray-900/55"
+                        }`}
+                      >
+                        Summary
+                      </div>
+                      <p
+                        className={`mt-1 text-sm leading-relaxed ${
+                          darkMode ? "text-white/75" : "text-gray-900/75"
+                        }`}
+                      >
+                        {p.summary}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex items-center justify-between">
+                    <div
+                      className={`text-xs tracking-widest uppercase ${
+                        darkMode ? "text-white/50" : "text-gray-900/50"
+                      }`}
+                    >
+                      View
+                    </div>
+                    <ArrowUpRight
+                      size={18}
+                      className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14 flex justify-center">
+            <Link
+              to="/"
+              className={`px-8 py-4 rounded-full border text-xs tracking-widest transition-all duration-300 hover:scale-[1.02] ${
+                darkMode
+                  ? "border-white/25 text-white/75 hover:text-white hover:border-white"
+                  : "border-gray-900/25 text-gray-900/75 hover:text-gray-900 hover:border-gray-900"
+              }`}
+            >
+              BACK TO HOME
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* =======================================================================
+   MAIN: Landing page
+   ======================================================================= */
 export default function WWMUnique() {
-  // ✅ initial publish mode (NO SCROLL, only Landing + Join Us link)
   const INITIAL_PUBLISH = false;
 
   const [scrolled, setScrolled] = useState(false);
@@ -308,22 +568,19 @@ export default function WWMUnique() {
   const [isLoading, setIsLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   const [visibleSections, setVisibleSections] = useState({});
-  const [hoveredService, setHoveredService] = useState(null); // kept (fine if unused)
+  const [hoveredService, setHoveredService] = useState(null);
   const [highlightAllCapabilities, setHighlightAllCapabilities] =
     useState(false);
   const [darkMode, setDarkMode] = useState(true);
 
-  // ✅ contact form state
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
 
-  // unused but kept (your original logic)
   useSpinningNumber(8, 35, 900);
   useSpinningNumber(40, 180, 1000);
   useSpinningNumber(6, 25, 1100);
 
-  // Loading animation
   useEffect(() => {
     const fadeTimer = setTimeout(() => setFadeOut(true), 1500);
     const loadTimer = setTimeout(() => setIsLoading(false), 2500);
@@ -333,16 +590,13 @@ export default function WWMUnique() {
     };
   }, []);
 
-  // Scroll detection (disabled for initial publish)
   useEffect(() => {
     if (INITIAL_PUBLISH) return;
-
     const handleScroll = () => setScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [INITIAL_PUBLISH]);
 
-  // Intersection observer (disabled for initial publish)
   useEffect(() => {
     if (INITIAL_PUBLISH) return;
 
@@ -366,13 +620,11 @@ export default function WWMUnique() {
     return () => observer.disconnect();
   }, [INITIAL_PUBLISH]);
 
-  // ✅ SEND MESSAGE handler (blank email + subject only)
   const handleSendMessage = () => {
     const subject = encodeURIComponent("WWM Website Inquiry");
     window.location.href = `mailto:info@wwm-design.com?subject=${subject}`;
   };
 
-  /* ---------------- SERVICES ---------------- */
   const services = [
     {
       id: 1,
@@ -440,14 +692,13 @@ export default function WWMUnique() {
     },
   ];
 
-  /* ---------------- PROJECTS ---------------- */
   const projects = [
     {
       title: "Project 1",
       scale: 1.2,
       color: "#2C3E50",
-      image: pavilionImg, // header image
-      images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg], // ✅ carousel
+      image: pavilionImg,
+      images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg],
       location: "Location",
       sector: "Mixed-use smart city masterplan",
       role: "Structural engineering, smart city integration",
@@ -496,7 +747,6 @@ export default function WWMUnique() {
     },
   ];
 
-  /* ---------------- TEAM ---------------- */
   const teamMembers = [
     {
       name: "Shonn Mills",
@@ -635,11 +885,14 @@ export default function WWMUnique() {
         <button
           onClick={() => setDarkMode((v) => !v)}
           className={`w-12 h-12 rounded-full ${
-            darkMode ? "bg-white/10 hover:bg-white/20" : "bg-gray-900/10 hover:bg-gray-900/20"
+            darkMode
+              ? "bg-white/10 hover:bg-white/20"
+              : "bg-gray-900/10 hover:bg-gray-900/20"
           } backdrop-blur-xl border ${
             darkMode ? "border-white/20" : "border-gray-900/20"
           } flex items-center justify-center transition-all duration-300 hover:scale-110`}
           aria-label="Toggle dark mode"
+          type="button"
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
@@ -834,8 +1087,8 @@ export default function WWMUnique() {
                         }`}
                       >
                         We combine low-carbon technologies, computational tools,
-                        and systems thinking to deliver integrated, cost-effective
-                        solutions.
+                        and systems thinking to deliver integrated,
+                        cost-effective solutions.
                       </p>
                     </div>
 
@@ -852,8 +1105,9 @@ export default function WWMUnique() {
                           darkMode ? "text-white/80" : "text-gray-900/80"
                         }`}
                       >
-                        Our cross-disciplinary approach provides integrated design
-                        that spans across disciplines with holistic solutions.
+                        Our cross-disciplinary approach provides integrated
+                        design that spans across disciplines with holistic
+                        solutions.
                       </p>
                     </div>
 
@@ -871,9 +1125,9 @@ export default function WWMUnique() {
                         }`}
                       >
                         Our project teams are sourced from the best talents
-                        globally, making us fast, agile, and adaptive. We design,
-                        co-create, enable, and disrupt—driven by a common goal:
-                        to make things better.
+                        globally, making us fast, agile, and adaptive. We
+                        design, co-create, enable, and disrupt—driven by a common
+                        goal: to make things better.
                       </p>
                     </div>
                   </div>
@@ -1046,18 +1300,32 @@ export default function WWMUnique() {
                 >
                   02 —
                 </div>
-                <h2 className="text-5xl lg:text-6xl font-bold mb-4">
-                  Featured Projects
-                </h2>
-                <p
-                  className={`text-lg ${
-                    darkMode ? "text-white/50" : "text-gray-900/50"
-                  } max-w-2xl mx-auto`}
-                >
-                  Transforming visions into reality
-                </p>
+
+                {/* ✅ UPDATED HEADER: clear CTA */}
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <div className="flex items-center justify-center gap-4">
+                    <h2 className="text-5xl lg:text-6xl font-bold mb-0">
+                      Featured Projects
+                    </h2>
+
+                    <div className="flex items-center gap-3">
+                     
+
+                      
+                    </div>
+                  </div>
+
+                  <p
+                    className={`text-lg ${
+                      darkMode ? "text-white/50" : "text-gray-900/50"
+                    } max-w-2xl mx-auto`}
+                  >
+                    Transforming visions into reality
+                  </p>
+                </div>
               </div>
 
+              {/* --- projects list --- */}
               <div className="relative space-y-4">
                 {projects.map((project, index) => {
                   const isActive = activeProject === index;
@@ -1071,7 +1339,9 @@ export default function WWMUnique() {
                     <div
                       key={index}
                       onClick={() =>
-                        setActiveProject((prev) => (prev === index ? null : index))
+                        setActiveProject((prev) =>
+                          prev === index ? null : index
+                        )
                       }
                       className={`transition-all duration-700 cursor-pointer ${
                         isOtherActive ? "opacity-30 blur-sm" : "opacity-100"
@@ -1139,7 +1409,9 @@ export default function WWMUnique() {
                               </div>
                               <div
                                 className={`h-px w-full bg-gradient-to-r ${
-                                  darkMode ? "from-white/20" : "from-gray-900/20"
+                                  darkMode
+                                    ? "from-white/20"
+                                    : "from-gray-900/20"
                                 } to-transparent transition-all duration-700 ${
                                   isActive ? "opacity-0" : "opacity-100"
                                 }`}
@@ -1154,7 +1426,9 @@ export default function WWMUnique() {
                                     : "border-gray-900/10"
                                 }`}
                                 style={{
-                                  transform: isActive ? "scale(1.06)" : "scale(0.98)",
+                                  transform: isActive
+                                    ? "scale(1.06)"
+                                    : "scale(0.98)",
                                 }}
                               >
                                 <img
@@ -1170,9 +1444,13 @@ export default function WWMUnique() {
 
                               <div
                                 className={`absolute -bottom-3 -right-3 w-10 h-10 rounded-full ${
-                                  darkMode ? "bg-white text-black" : "bg-gray-900 text-white"
+                                  darkMode
+                                    ? "bg-white text-black"
+                                    : "bg-gray-900 text-white"
                                 } flex items-center justify-center transition-all duration-700 ${
-                                  isActive ? "rotate-180 scale-110" : "rotate-0 scale-100"
+                                  isActive
+                                    ? "rotate-180 scale-110"
+                                    : "rotate-0 scale-100"
                                 }`}
                               >
                                 <ArrowUpRight size={20} />
@@ -1185,7 +1463,9 @@ export default function WWMUnique() {
                       {/* expand */}
                       <div
                         className={`overflow-hidden transition-all duration-700 ${
-                          isActive ? "max-h-[2600px] opacity-100" : "max-h-0 opacity-0"
+                          isActive
+                            ? "max-h-[2600px] opacity-100"
+                            : "max-h-0 opacity-0"
                         }`}
                       >
                         <div className="pl-4 sm:pl-8 lg:pl-24 pt-0 pb-8">
@@ -1201,7 +1481,9 @@ export default function WWMUnique() {
                               <div className="space-y-4">
                                 <div
                                   className={`text-xs tracking-[0.3em] uppercase flex items-center gap-3 ${
-                                    darkMode ? "text-white/50" : "text-gray-900/60"
+                                    darkMode
+                                      ? "text-white/50"
+                                      : "text-gray-900/60"
                                   }`}
                                 >
                                   <div
@@ -1211,9 +1493,11 @@ export default function WWMUnique() {
                                   Project Images
                                 </div>
 
-                                {/* stopPropagation so clicking arrows doesn't collapse */}
                                 <div onClick={(e) => e.stopPropagation()}>
-                                  <ProjectCarousel images={carouselImages} darkMode={darkMode} />
+                                  <ProjectCarousel
+                                    images={carouselImages}
+                                    darkMode={darkMode}
+                                  />
                                 </div>
                               </div>
 
@@ -1224,7 +1508,9 @@ export default function WWMUnique() {
                                   <div>
                                     <div
                                       className={`text-xs tracking-[0.3em] uppercase mb-4 flex items-center gap-3 ${
-                                        darkMode ? "text-white/50" : "text-gray-900/60"
+                                        darkMode
+                                          ? "text-white/50"
+                                          : "text-gray-900/60"
                                       }`}
                                     >
                                       <div
@@ -1236,7 +1522,9 @@ export default function WWMUnique() {
 
                                     <p
                                       className={`text-base lg:text-lg leading-relaxed ${
-                                        darkMode ? "text-white/80" : "text-gray-900/80"
+                                        darkMode
+                                          ? "text-white/80"
+                                          : "text-gray-900/80"
                                       }`}
                                     >
                                       {project.summary}
@@ -1246,32 +1534,44 @@ export default function WWMUnique() {
                                   <div className="grid grid-cols-2 gap-4 pt-2">
                                     <div
                                       className={`p-4 rounded-xl ${
-                                        darkMode ? "bg-white/5" : "bg-gray-900/5"
+                                        darkMode
+                                          ? "bg-white/5"
+                                          : "bg-gray-900/5"
                                       }`}
                                     >
                                       <div
                                         className={`text-xs tracking-wider mb-1 ${
-                                          darkMode ? "text-white/40" : "text-gray-900/50"
+                                          darkMode
+                                            ? "text-white/40"
+                                            : "text-gray-900/50"
                                         }`}
                                       >
                                         SECTOR
                                       </div>
-                                      <div className="font-medium">{project.sector}</div>
+                                      <div className="font-medium">
+                                        {project.sector}
+                                      </div>
                                     </div>
 
                                     <div
                                       className={`p-4 rounded-xl ${
-                                        darkMode ? "bg-white/5" : "bg-gray-900/5"
+                                        darkMode
+                                          ? "bg-white/5"
+                                          : "bg-gray-900/5"
                                       }`}
                                     >
                                       <div
                                         className={`text-xs tracking-wider mb-1 ${
-                                          darkMode ? "text-white/40" : "text-gray-900/50"
+                                          darkMode
+                                            ? "text-white/40"
+                                            : "text-gray-900/50"
                                         }`}
                                       >
                                         OUR ROLE
                                       </div>
-                                      <div className="font-medium">{project.role}</div>
+                                      <div className="font-medium">
+                                        {project.role}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -1287,7 +1587,9 @@ export default function WWMUnique() {
                                   >
                                     <div
                                       className={`text-xs tracking-[0.25em] uppercase mb-4 ${
-                                        darkMode ? "text-white/40" : "text-gray-900/50"
+                                        darkMode
+                                          ? "text-white/40"
+                                          : "text-gray-900/50"
                                       }`}
                                     >
                                       Project Details
@@ -1296,22 +1598,34 @@ export default function WWMUnique() {
                                     <div className="space-y-4 text-sm">
                                       <div className="flex justify-between items-center">
                                         <span
-                                          className={darkMode ? "text-white/60" : "text-gray-900/60"}
+                                          className={
+                                            darkMode
+                                              ? "text-white/60"
+                                              : "text-gray-900/60"
+                                          }
                                         >
                                           Location
                                         </span>
-                                        <span className="font-medium">{project.location}</span>
+                                        <span className="font-medium">
+                                          {project.location}
+                                        </span>
                                       </div>
 
                                       <div
                                         className={`h-px ${
-                                          darkMode ? "bg-white/10" : "bg-gray-900/10"
+                                          darkMode
+                                            ? "bg-white/10"
+                                            : "bg-gray-900/10"
                                         }`}
                                       />
 
                                       <div className="flex justify-between items-center">
                                         <span
-                                          className={darkMode ? "text-white/60" : "text-gray-900/60"}
+                                          className={
+                                            darkMode
+                                              ? "text-white/60"
+                                              : "text-gray-900/60"
+                                          }
                                         >
                                           Status
                                         </span>
@@ -1339,6 +1653,25 @@ export default function WWMUnique() {
                   );
                 })}
               </div>
+
+              {/* ✅ NEW: CTA placed AFTER Project 4 */}
+              <div className="mt-16 flex justify-center">
+                <Link
+                  to="/projects"
+                  aria-label="View all projects"
+                  className={`group inline-flex items-center gap-3 px-10 py-4 rounded-full border backdrop-blur-xl text-xs tracking-widest transition-all duration-300 hover:scale-[1.03] ${
+                    darkMode
+                      ? "border-white/30 text-white/75 hover:text-white hover:border-white bg-white/5 hover:bg-white/10"
+                      : "border-gray-900/30 text-gray-900/75 hover:text-gray-900 hover:border-gray-900 bg-gray-900/5 hover:bg-gray-900/10"
+                  }`}
+                >
+                  VIEW ALL PROJECTS
+                  <LayoutGrid
+                    size={16}
+                    className="opacity-70 group-hover:opacity-100 transition-opacity"
+                  />
+                </Link>
+              </div>
             </div>
           </section>
 
@@ -1353,7 +1686,9 @@ export default function WWMUnique() {
                 >
                   03 —
                 </div>
-                <h2 className="text-5xl lg:text-6xl font-bold mb-4">Our Team</h2>
+                <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+                  Our Team
+                </h2>
                 <p
                   className={`text-lg ${
                     darkMode ? "text-white/50" : "text-gray-900/50"
