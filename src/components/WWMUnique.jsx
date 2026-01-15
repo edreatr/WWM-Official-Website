@@ -182,51 +182,24 @@ function StudiosMap({ darkMode }) {
    ======================================================================= */
 function HorizontalProjects({ projects = [], darkMode }) {
   const scrollerRef = useRef(null);
-
-  // ✅ seamless infinite loop via clones
-  const CLONES = Math.min(2, projects.length);
-  const hasLoop = projects.length > 1 && CLONES > 0;
-
-  // virtual list = [tail clones] + [real] + [head clones]
-  const virtualProjects = hasLoop
-    ? [
-        ...projects.slice(projects.length - CLONES),
-        ...projects,
-        ...projects.slice(0, CLONES),
-      ]
-    : projects;
-
-  // ✅ active / expanded stay in REAL index space (0..projects.length-1)
   const [active, setActive] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  // per-card current image index (keyed by REAL index)
+  // per-card current image index (only matters when expanded)
   const [imgIndexByCard, setImgIndexByCard] = useState({});
 
   // ✅ Hide project-switch arrows when any card is expanded
   const anyExpanded = expandedIndex !== null;
 
-  const mod = (n, m) => ((n % m) + m) % m;
-
-  const realFromVirtual = (vIdx) => {
-    if (!hasLoop) return vIdx;
-    return mod(vIdx - CLONES, projects.length);
-  };
-
-  const virtualFromReal = (rIdx) => {
-    if (!hasLoop) return rIdx;
-    return rIdx + CLONES;
-  };
-
-  // ✅ Center-scroll helper (VIRTUAL index)
-  const scrollToVirtualIndex = (vIdx, behavior = "smooth") => {
+  // ✅ Center-scroll helper (instead of scrollIntoView inline:start)
+  const scrollToIndex = (idx, behavior = "smooth") => {
     if (!scrollerRef.current) return;
 
     const el = scrollerRef.current;
     const cards = el.querySelectorAll("[data-project-card='1']");
     if (!cards?.length) return;
 
-    const next = Math.max(0, Math.min(vIdx, cards.length - 1));
+    const next = Math.max(0, Math.min(idx, cards.length - 1));
     const target = cards[next];
     if (!target) return;
 
@@ -243,39 +216,13 @@ function HorizontalProjects({ projects = [], darkMode }) {
     el.scrollTo({ left: nextScrollLeft, behavior });
   };
 
-  // ✅ Public helper (REAL index) — wraps automatically
-  const scrollToIndex = (idx, behavior = "smooth") => {
-    if (!projects.length) return;
-
-    const nextReal = hasLoop ? mod(idx, projects.length) : Math.max(0, Math.min(idx, projects.length - 1));
-    const vIdx = hasLoop ? virtualFromReal(nextReal) : nextReal;
-
-    scrollToVirtualIndex(vIdx, behavior);
-  };
-
-  // ✅ Start from Project 1 (real index 0)
-  useEffect(() => {
-    if (!scrollerRef.current) return;
-
-    setActive(0);
-    setExpandedIndex(null);
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const startVIdx = hasLoop ? CLONES : 0;
-        scrollToVirtualIndex(startVIdx, "auto"); // instant jump
-      });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasLoop, CLONES, projects.length]);
-
   const onScroll = (e) => {
     const el = e.currentTarget;
     const cards = el.querySelectorAll("[data-project-card='1']");
     if (!cards?.length) return;
 
     const left = el.getBoundingClientRect().left;
-    let bestVIdx = 0;
+    let bestIdx = 0;
     let bestDist = Infinity;
 
     cards.forEach((card, i) => {
@@ -283,29 +230,11 @@ function HorizontalProjects({ projects = [], darkMode }) {
       const dist = Math.abs(rect.left - left);
       if (dist < bestDist) {
         bestDist = dist;
-        bestVIdx = i;
+        bestIdx = i;
       }
     });
 
-    const realIdx = realFromVirtual(bestVIdx);
-    setActive(realIdx);
-
-    // ✅ Seamless "teleport" when hitting clones
-    if (!hasLoop) return;
-
-    const totalReal = projects.length;
-
-    // In leading clones (0..CLONES-1) -> jump forward by totalReal
-    if (bestVIdx < CLONES) {
-      const jumpTo = bestVIdx + totalReal;
-      requestAnimationFrame(() => scrollToVirtualIndex(jumpTo, "auto"));
-    }
-
-    // In trailing clones (totalReal+CLONES .. end) -> jump backward by totalReal
-    if (bestVIdx >= totalReal + CLONES) {
-      const jumpTo = bestVIdx - totalReal;
-      requestAnimationFrame(() => scrollToVirtualIndex(jumpTo, "auto"));
-    }
+    setActive(bestIdx);
   };
 
   // Mouse wheel => horizontal scroll (section only)
@@ -317,18 +246,18 @@ function HorizontalProjects({ projects = [], darkMode }) {
     }
   };
 
-  const toggleExpand = (realIdx) => {
+  const toggleExpand = (i) => {
     setExpandedIndex((prev) => {
-      const next = prev === realIdx ? null : realIdx;
+      const next = prev === i ? null : i;
 
       // when opening: ensure index exists
       if (next !== null) {
-        setImgIndexByCard((m) => (m[realIdx] === undefined ? { ...m, [realIdx]: 0 } : m));
+        setImgIndexByCard((m) => (m[i] === undefined ? { ...m, [i]: 0 } : m));
       }
 
       // when closing: reset back to first image
       if (next === null) {
-        setImgIndexByCard((m) => ({ ...m, [realIdx]: 0 }));
+        setImgIndexByCard((m) => ({ ...m, [i]: 0 }));
       }
 
       return next;
@@ -337,8 +266,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
 
   // ✅ IMPORTANT: after expand/collapse changes layout, re-center the active/expanded card
   useEffect(() => {
-    if (!projects.length) return;
-
     // When expanded: center expanded card after layout updates
     if (expandedIndex !== null) {
       requestAnimationFrame(() => {
@@ -358,11 +285,11 @@ function HorizontalProjects({ projects = [], darkMode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expandedIndex]);
 
-  const stepImage = (realIdx, dir, total) => {
+  const stepImage = (cardIdx, dir, total) => {
     setImgIndexByCard((prev) => {
-      const cur = prev[realIdx] ?? 0;
+      const cur = prev[cardIdx] ?? 0;
       const next = (cur + dir + total) % total;
-      return { ...prev, [realIdx]: next };
+      return { ...prev, [cardIdx]: next };
     });
   };
 
@@ -379,7 +306,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
         type="button"
         onClick={() => scrollToIndex(active - 1)}
         className={`${arrowBase} left-4 ${arrowStyle} ${
-          anyExpanded
+          anyExpanded || active === 0
             ? "opacity-0 pointer-events-none"
             : "opacity-0 lg:opacity-100 hover:scale-105"
         }`}
@@ -392,7 +319,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
         type="button"
         onClick={() => scrollToIndex(active + 1)}
         className={`${arrowBase} right-4 ${arrowStyle} ${
-          anyExpanded
+          anyExpanded || active === projects.length - 1
             ? "opacity-0 pointer-events-none"
             : "opacity-0 lg:opacity-100 hover:scale-105"
         }`}
@@ -410,20 +337,19 @@ function HorizontalProjects({ projects = [], darkMode }) {
         style={{ WebkitOverflowScrolling: "touch" }}
       >
         <div className="flex gap-4 sm:gap-6 pb-2">
-          {virtualProjects.map((p, vIdx) => {
-            const realIdx = realFromVirtual(vIdx);
-
-            const isExpanded = expandedIndex === realIdx;
+          {projects.map((p, i) => {
+            const isExpanded = expandedIndex === i;
             const someExpanded = expandedIndex !== null;
             const isOther = someExpanded && !isExpanded;
 
             const imgs = p.images?.length ? p.images : [p.image];
-            const imgIdx = imgIndexByCard[realIdx] ?? 0;
+            const imgIdx = imgIndexByCard[i] ?? 0;
+
             const displaySrc = isExpanded ? imgs[imgIdx] : p.image;
 
             return (
               <div
-                key={`v-${vIdx}`}
+                key={i}
                 data-project-card="1"
                 className={[
                   "snap-start shrink-0 transition-all duration-700",
@@ -435,9 +361,9 @@ function HorizontalProjects({ projects = [], darkMode }) {
                 <div
                   role="button"
                   tabIndex={0}
-                  onClick={() => toggleExpand(realIdx)}
+                  onClick={() => toggleExpand(i)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") toggleExpand(realIdx);
+                    if (e.key === "Enter" || e.key === " ") toggleExpand(i);
                   }}
                   className={`group relative rounded-3xl overflow-hidden border transition-all duration-700 ${
                     darkMode ? "border-white/10 bg-white/[0.03]" : "border-gray-900/10 bg-gray-900/[0.03]"
@@ -483,7 +409,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            stepImage(realIdx, -1, imgs.length);
+                            stepImage(i, -1, imgs.length);
                           }}
                           className={`${arrowBase} left-4 ${arrowStyle} opacity-0 group-hover:opacity-100 hover:scale-105`}
                           aria-label="Previous image"
@@ -495,7 +421,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            stepImage(realIdx, +1, imgs.length);
+                            stepImage(i, +1, imgs.length);
                           }}
                           className={`${arrowBase} right-4 ${arrowStyle} opacity-0 group-hover:opacity-100 hover:scale-105`}
                           aria-label="Next image"
@@ -592,7 +518,8 @@ function HorizontalProjects({ projects = [], darkMode }) {
         </div>
       </div>
 
-      {/* Dots (REAL projects only) */}
+      {/* ✅ Optional: hide dots when expanded (uncomment if you want) */}
+      {/* {projects.length > 1 && expandedIndex === null && ( */}
       {projects.length > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
           {projects.map((_, i) => (
@@ -614,10 +541,10 @@ function HorizontalProjects({ projects = [], darkMode }) {
           ))}
         </div>
       )}
+      {/* )} */}
     </div>
   );
 }
-
 
 
 /* =======================================================================
