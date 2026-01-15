@@ -174,24 +174,18 @@ function StudiosMap({ darkMode }) {
   );
 }
 
-/* =======================================================================
-   UPDATED: Horizontal projects
-   - Collapsed: ONLY one image (p.image)
-   - Expanded: SAME image area becomes a viewer for p.images (left/right)
-   - No extra "Project Images" carousel below (removes repetition)
-   ======================================================================= */
 function HorizontalProjects({ projects = [], darkMode }) {
   const scrollerRef = useRef(null);
   const [active, setActive] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState(null);
-
-  // per-card current image index (only matters when expanded)
   const [imgIndexByCard, setImgIndexByCard] = useState({});
 
-  // ✅ Hide project-switch arrows when any card is expanded
+  // ✅ Triple the items for seamless looping
+  const loopedProjects = [...projects, ...projects, ...projects];
+  const totalOriginal = projects.length;
+
   const anyExpanded = expandedIndex !== null;
 
-  // ✅ Center-scroll helper (instead of scrollIntoView inline:start)
   const scrollToIndex = (idx, behavior = "smooth") => {
     if (!scrollerRef.current) return;
 
@@ -199,45 +193,85 @@ function HorizontalProjects({ projects = [], darkMode }) {
     const cards = el.querySelectorAll("[data-project-card='1']");
     if (!cards?.length) return;
 
-    const next = Math.max(0, Math.min(idx, cards.length - 1));
-    const target = cards[next];
+    const target = cards[idx];
     if (!target) return;
 
     const elRect = el.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
 
-    // target left inside scroller content coordinate
     const targetLeftWithinScroller = targetRect.left - elRect.left + el.scrollLeft;
-
-    // center target in viewport
     const nextScrollLeft =
       targetLeftWithinScroller - (elRect.width / 2 - targetRect.width / 2);
 
     el.scrollTo({ left: nextScrollLeft, behavior });
   };
 
-  const onScroll = (e) => {
-    const el = e.currentTarget;
-    const cards = el.querySelectorAll("[data-project-card='1']");
-    if (!cards?.length) return;
+  // Replace your onScroll function with this:
+const isAdjusting = useRef(false);
 
-    const left = el.getBoundingClientRect().left;
-    let bestIdx = 0;
-    let bestDist = Infinity;
+const onScroll = (e) => {
+  const el = e.currentTarget;
+  const cards = el.querySelectorAll("[data-project-card='1']");
+  if (!cards?.length || isAdjusting.current) return;
 
-    cards.forEach((card, i) => {
-      const rect = card.getBoundingClientRect();
-      const dist = Math.abs(rect.left - left);
-      if (dist < bestDist) {
-        bestDist = dist;
-        bestIdx = i;
+  const elRect = el.getBoundingClientRect();
+  const center = elRect.left + elRect.width / 2;
+
+  let bestIdx = 0;
+  let bestDist = Infinity;
+
+  cards.forEach((card, i) => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const dist = Math.abs(cardCenter - center);
+    if (dist < bestDist) {
+      bestDist = dist;
+      bestIdx = i;
+    }
+  });
+
+  setActive(bestIdx % totalOriginal);
+
+  // ✅ Check if we need to loop (only after scroll ends)
+  clearTimeout(el.scrollEndTimer);
+  el.scrollEndTimer = setTimeout(() => {
+    if (isAdjusting.current) return;
+
+    let jumpTo = null;
+
+    // If in first set, jump to middle set
+    if (bestIdx < totalOriginal) {
+      jumpTo = bestIdx + totalOriginal;
+    }
+    // If in last set, jump to middle set
+    else if (bestIdx >= totalOriginal * 2) {
+      jumpTo = bestIdx - totalOriginal;
+    }
+
+    if (jumpTo !== null) {
+      isAdjusting.current = true;
+
+      const target = cards[jumpTo];
+      if (target) {
+        const targetRect = target.getBoundingClientRect();
+        const targetLeftWithinScroller = targetRect.left - elRect.left + el.scrollLeft;
+        const nextScrollLeft =
+          targetLeftWithinScroller - (elRect.width / 2 - targetRect.width / 2);
+
+        // ✅ Disable smooth scrolling temporarily
+        el.style.scrollBehavior = "auto";
+        el.scrollLeft = nextScrollLeft;
+        el.style.scrollBehavior = "";
+
+        // Allow adjustments again after a frame
+        requestAnimationFrame(() => {
+          isAdjusting.current = false;
+        });
       }
-    });
+    }
+  }, 100); // Wait for scroll to settle
+};
 
-    setActive(bestIdx);
-  };
-
-  // Mouse wheel => horizontal scroll (section only)
   const onWheel = (e) => {
     if (!scrollerRef.current) return;
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
@@ -247,50 +281,76 @@ function HorizontalProjects({ projects = [], darkMode }) {
   };
 
   const toggleExpand = (i) => {
+    const originalIdx = i % totalOriginal;
     setExpandedIndex((prev) => {
-      const next = prev === i ? null : i;
-
-      // when opening: ensure index exists
+      const next = prev === originalIdx ? null : originalIdx;
       if (next !== null) {
-        setImgIndexByCard((m) => (m[i] === undefined ? { ...m, [i]: 0 } : m));
+        setImgIndexByCard((m) => (m[originalIdx] === undefined ? { ...m, [originalIdx]: 0 } : m));
       }
-
-      // when closing: reset back to first image
       if (next === null) {
-        setImgIndexByCard((m) => ({ ...m, [i]: 0 }));
+        setImgIndexByCard((m) => ({ ...m, [originalIdx]: 0 }));
       }
-
       return next;
     });
   };
 
-  // ✅ IMPORTANT: after expand/collapse changes layout, re-center the active/expanded card
+  // ✅ Start in middle set on mount
   useEffect(() => {
-    // When expanded: center expanded card after layout updates
+    if (scrollerRef.current && projects.length > 0) {
+      requestAnimationFrame(() => {
+        scrollToIndex(totalOriginal, "instant"); // Start at first item of middle set
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (expandedIndex !== null) {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          scrollToIndex(expandedIndex, "smooth");
+          // Find the card in the middle set
+          const idx = expandedIndex + totalOriginal;
+          scrollToIndex(idx, "smooth");
         });
       });
       return;
     }
-
-    // When collapsed: center the currently active card
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        scrollToIndex(active, "smooth");
+        scrollToIndex(active + totalOriginal, "smooth");
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expandedIndex]);
 
   const stepImage = (cardIdx, dir, total) => {
+    const originalIdx = cardIdx % totalOriginal;
     setImgIndexByCard((prev) => {
-      const cur = prev[cardIdx] ?? 0;
+      const cur = prev[originalIdx] ?? 0;
       const next = (cur + dir + total) % total;
-      return { ...prev, [cardIdx]: next };
+      return { ...prev, [originalIdx]: next };
     });
+  };
+
+  const goToProject = (dir) => {
+    const cards = scrollerRef.current?.querySelectorAll("[data-project-card='1']");
+    if (!cards?.length) return;
+
+    const el = scrollerRef.current;
+    const elRect = el.getBoundingClientRect();
+    const center = elRect.left + elRect.width / 2;
+
+    let currentIdx = 0;
+    let bestDist = Infinity;
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const dist = Math.abs(cardCenter - center);
+      if (dist < bestDist) {
+        bestDist = dist;
+        currentIdx = i;
+      }
+    });
+
+    scrollToIndex(currentIdx + dir, "smooth");
   };
 
   const arrowBase =
@@ -301,12 +361,12 @@ function HorizontalProjects({ projects = [], darkMode }) {
 
   return (
     <div className="relative">
-      {/* ✅ Project scroller arrows (hide when anyExpanded) */}
+      {/* ✅ Arrows always enabled (infinite) */}
       <button
         type="button"
-        onClick={() => scrollToIndex(active - 1)}
+        onClick={() => goToProject(-1)}
         className={`${arrowBase} left-4 ${arrowStyle} ${
-          anyExpanded || active === 0
+          anyExpanded
             ? "opacity-0 pointer-events-none"
             : "opacity-0 lg:opacity-100 hover:scale-105"
         }`}
@@ -317,9 +377,9 @@ function HorizontalProjects({ projects = [], darkMode }) {
 
       <button
         type="button"
-        onClick={() => scrollToIndex(active + 1)}
+        onClick={() => goToProject(1)}
         className={`${arrowBase} right-4 ${arrowStyle} ${
-          anyExpanded || active === projects.length - 1
+          anyExpanded
             ? "opacity-0 pointer-events-none"
             : "opacity-0 lg:opacity-100 hover:scale-105"
         }`}
@@ -337,14 +397,14 @@ function HorizontalProjects({ projects = [], darkMode }) {
         style={{ WebkitOverflowScrolling: "touch" }}
       >
         <div className="flex gap-4 sm:gap-6 pb-2">
-          {projects.map((p, i) => {
-            const isExpanded = expandedIndex === i;
+          {loopedProjects.map((p, i) => {
+            const originalIdx = i % totalOriginal;
+            const isExpanded = expandedIndex === originalIdx;
             const someExpanded = expandedIndex !== null;
             const isOther = someExpanded && !isExpanded;
 
             const imgs = p.images?.length ? p.images : [p.image];
-            const imgIdx = imgIndexByCard[i] ?? 0;
-
+            const imgIdx = imgIndexByCard[originalIdx] ?? 0;
             const displaySrc = isExpanded ? imgs[imgIdx] : p.image;
 
             return (
@@ -380,7 +440,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                       draggable={false}
                     />
 
-                    {/* overlay */}
                     <div
                       className={`absolute inset-0 ${
                         darkMode
@@ -389,7 +448,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                       }`}
                     />
 
-                    {/* status pill */}
                     <div className="absolute top-5 left-5">
                       <span
                         className={`text-[11px] tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-xl border ${
@@ -402,7 +460,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                       </span>
                     </div>
 
-                    {/* Image arrows ONLY when expanded */}
                     {isExpanded && imgs.length > 1 && (
                       <>
                         <button
@@ -429,7 +486,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                           <span className="text-2xl leading-none select-none">›</span>
                         </button>
 
-                        {/* counter */}
                         <div className="absolute bottom-5 right-5" onClick={(e) => e.stopPropagation()}>
                           <div
                             className={`text-[11px] tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-xl border ${
@@ -444,7 +500,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                       </>
                     )}
 
-                    {/* title block */}
                     <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
                       <div className="flex items-end justify-between gap-4">
                         <div className="min-w-0">
@@ -473,7 +528,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
                   </div>
 
                   {/* EXPANDED DETAILS */}
-                  <div className={`transition-all duration-700 ${isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                  <div className={`transition-all duration-700 overflow-hidden ${isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
                     <div
                       className={`p-6 sm:p-8 border-t ${darkMode ? "border-white/10" : "border-gray-900/10"}`}
                       onClick={(e) => e.stopPropagation()}
@@ -510,7 +565,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                       </div>
                     </div>
                   </div>
-                  {/* end expanded */}
                 </div>
               </div>
             );
@@ -518,15 +572,14 @@ function HorizontalProjects({ projects = [], darkMode }) {
         </div>
       </div>
 
-      {/* ✅ Optional: hide dots when expanded (uncomment if you want) */}
-      {/* {projects.length > 1 && expandedIndex === null && ( */}
+      {/* Dots - show original count only */}
       {projects.length > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
           {projects.map((_, i) => (
             <button
               key={i}
               type="button"
-              onClick={() => scrollToIndex(i)}
+              onClick={() => scrollToIndex(i + totalOriginal)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i === active
                   ? darkMode
@@ -541,10 +594,10 @@ function HorizontalProjects({ projects = [], darkMode }) {
           ))}
         </div>
       )}
-      {/* )} */}
     </div>
   );
 }
+
 
 
 /* =======================================================================
