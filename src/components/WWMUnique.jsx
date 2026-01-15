@@ -14,6 +14,7 @@ import masterplanningImg from "../assets/MASTERPLANNING.png";
 import tallBuildingImg from "../assets/servicebg.jpg";
 import idcImg from "../assets/IDC.png";
 import digitalDesignImg from "../assets/DIGITALDESIGN.jpg";
+import A2A from "../assets/A2A.png";
 
 // ✅ Map assets (as you asked) — (your file swaps these names)
 import blackmap from "../assets/whitemap.png";
@@ -674,7 +675,7 @@ export default function WWMUnique() {
   ];
 
   const projects = [
-    { title: "Project 1", scale: 1.2, color: "#2C3E50", image: pavilionImg, images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg], location: "Location", sector: "Mixed-use smart city masterplan", role: "Structural engineering, smart city integration", status: "Ongoing", summary: "Large-scale future city development focusing on resilient infrastructure, integrated mobility, and smart public realm systems." },
+    { title: "Torre Faro – A2A Headquarters", scale: 1.2, color: "#2C3E50", image: A2A, images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg], location: "Milan, Italy", sector: "Mixed-use high-rise headquarters", role: "Structural engineering, early design collaboration", status: "Completed", summary: "A 145-metre-tall headquarters tower for A2A located in Milan’s Southern Area, forming a strategic urban link between the historic city centre and the emerging Symbiosis business district. Positioned opposite the future Olympic Village for the Milano–Cortina 2026 Winter Games, the project plays a key role in the city’s wider urban regeneration and sports infrastructure transformation." },
     { title: "Project 2", scale: 0.9, color: "#E67E22", image: pavilionImg, images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg], location: "Location", sector: "High-rise residential / mixed-use", role: "Structural and façade engineering", status: "Completed", summary: "High-rise tower overlooking Dubai Marina, designed with optimised structural systems and coordinated with complex façade geometry." },
     { title: "Project 3", scale: 1.4, color: "#16A085", image: pavilionImg, images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg], location: "Location", sector: "Transport & infrastructure", role: "Structural design, concourse integration", status: "In Design", summary: "Transit hub connecting metro, public realm and retail podiums, with large-span structures and integrated passenger flows." },
     { title: "Project 4", scale: 1.1, color: "#8E44AD", image: pavilionImg, images: [pavilionImg, pavilionImg, pavilionImg, pavilionImg], location: "Location", sector: "Cultural / civic", role: "Structural design, roof geometry", status: "Concept", summary: "Cultural venue with expressive roof forms and flexible gallery spaces, integrating structure, daylight and public circulation." },
