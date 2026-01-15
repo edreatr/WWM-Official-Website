@@ -105,7 +105,7 @@ function HeroLogo({ darkMode }) {
   return (
     <div className="mb-8 transition-transform duration-300">
       <img
-        src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}
+        src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}n
         alt="Whitby Wood Mills logo"
         className="w-[42vw] md:w-[25vw] mx-auto opacity-90"
       />
@@ -188,15 +188,32 @@ function HorizontalProjects({ projects = [], darkMode }) {
   // per-card current image index (only matters when expanded)
   const [imgIndexByCard, setImgIndexByCard] = useState({});
 
-  const scrollToIndex = (idx) => {
+  // ✅ Hide project-switch arrows when any card is expanded
+  const anyExpanded = expandedIndex !== null;
+
+  // ✅ Center-scroll helper (instead of scrollIntoView inline:start)
+  const scrollToIndex = (idx, behavior = "smooth") => {
     if (!scrollerRef.current) return;
+
     const el = scrollerRef.current;
     const cards = el.querySelectorAll("[data-project-card='1']");
     if (!cards?.length) return;
 
     const next = Math.max(0, Math.min(idx, cards.length - 1));
     const target = cards[next];
-    target?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    if (!target) return;
+
+    const elRect = el.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+
+    // target left inside scroller content coordinate
+    const targetLeftWithinScroller = targetRect.left - elRect.left + el.scrollLeft;
+
+    // center target in viewport
+    const nextScrollLeft =
+      targetLeftWithinScroller - (elRect.width / 2 - targetRect.width / 2);
+
+    el.scrollTo({ left: nextScrollLeft, behavior });
   };
 
   const onScroll = (e) => {
@@ -243,10 +260,30 @@ function HorizontalProjects({ projects = [], darkMode }) {
         setImgIndexByCard((m) => ({ ...m, [i]: 0 }));
       }
 
-      requestAnimationFrame(() => scrollToIndex(i));
       return next;
     });
   };
+
+  // ✅ IMPORTANT: after expand/collapse changes layout, re-center the active/expanded card
+  useEffect(() => {
+    // When expanded: center expanded card after layout updates
+    if (expandedIndex !== null) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          scrollToIndex(expandedIndex, "smooth");
+        });
+      });
+      return;
+    }
+
+    // When collapsed: center the currently active card
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToIndex(active, "smooth");
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expandedIndex]);
 
   const stepImage = (cardIdx, dir, total) => {
     setImgIndexByCard((prev) => {
@@ -264,12 +301,14 @@ function HorizontalProjects({ projects = [], darkMode }) {
 
   return (
     <div className="relative">
-      {/* Card scroller arrows */}
+      {/* ✅ Project scroller arrows (hide when anyExpanded) */}
       <button
         type="button"
         onClick={() => scrollToIndex(active - 1)}
         className={`${arrowBase} left-4 ${arrowStyle} ${
-          active === 0 ? "opacity-0 pointer-events-none" : "opacity-0 lg:opacity-100 hover:scale-105"
+          anyExpanded || active === 0
+            ? "opacity-0 pointer-events-none"
+            : "opacity-0 lg:opacity-100 hover:scale-105"
         }`}
         aria-label="Previous project"
       >
@@ -280,7 +319,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
         type="button"
         onClick={() => scrollToIndex(active + 1)}
         className={`${arrowBase} right-4 ${arrowStyle} ${
-          active === projects.length - 1
+          anyExpanded || active === projects.length - 1
             ? "opacity-0 pointer-events-none"
             : "opacity-0 lg:opacity-100 hover:scale-105"
         }`}
@@ -306,8 +345,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
             const imgs = p.images?.length ? p.images : [p.image];
             const imgIdx = imgIndexByCard[i] ?? 0;
 
-            // ✅ Collapsed: always show ONLY p.image
-            // ✅ Expanded: show imgs[imgIdx]
             const displaySrc = isExpanded ? imgs[imgIdx] : p.image;
 
             return (
@@ -333,7 +370,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
                   } ${isExpanded ? "scale-[1.01]" : "hover:scale-[1.01]"}`}
                   aria-expanded={isExpanded}
                 >
-                  {/* TOP IMAGE (single viewer; becomes carousel ONLY when expanded) */}
+                  {/* TOP IMAGE */}
                   <div className={`relative w-full ${isExpanded ? "aspect-[16/9]" : "aspect-[16/10]"}`}>
                     <img
                       src={displaySrc}
@@ -356,14 +393,16 @@ function HorizontalProjects({ projects = [], darkMode }) {
                     <div className="absolute top-5 left-5">
                       <span
                         className={`text-[11px] tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-xl border ${
-                          darkMode ? "bg-white/10 text-white/85 border-white/15" : "bg-white/20 text-white/90 border-white/20"
+                          darkMode
+                            ? "bg-white/10 text-white/85 border-white/15"
+                            : "bg-white/20 text-white/90 border-white/20"
                         }`}
                       >
                         {p.status}
                       </span>
                     </div>
 
-                    {/* ✅ Image arrows ONLY when expanded */}
+                    {/* Image arrows ONLY when expanded */}
                     {isExpanded && imgs.length > 1 && (
                       <>
                         <button
@@ -390,11 +429,13 @@ function HorizontalProjects({ projects = [], darkMode }) {
                           <span className="text-2xl leading-none select-none">›</span>
                         </button>
 
-                        {/* subtle counter */}
+                        {/* counter */}
                         <div className="absolute bottom-5 right-5" onClick={(e) => e.stopPropagation()}>
                           <div
                             className={`text-[11px] tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-xl border ${
-                              darkMode ? "bg-white/10 text-white/80 border-white/15" : "bg-white/15 text-white/85 border-white/20"
+                              darkMode
+                                ? "bg-white/10 text-white/80 border-white/15"
+                                : "bg-white/15 text-white/85 border-white/20"
                             }`}
                           >
                             {imgIdx + 1} / {imgs.length}
@@ -403,7 +444,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
                       </>
                     )}
 
-                    {/* Minimal text block */}
+                    {/* title block */}
                     <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
                       <div className="flex items-end justify-between gap-4">
                         <div className="min-w-0">
@@ -431,12 +472,8 @@ function HorizontalProjects({ projects = [], darkMode }) {
                     </div>
                   </div>
 
-                  {/* EXPANDED DETAILS (no extra image section) */}
-                  <div
-                    className={`transition-all duration-700 ${
-                      isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
-                    }`}
-                  >
+                  {/* EXPANDED DETAILS */}
+                  <div className={`transition-all duration-700 ${isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
                     <div
                       className={`p-6 sm:p-8 border-t ${darkMode ? "border-white/10" : "border-gray-900/10"}`}
                       onClick={(e) => e.stopPropagation()}
@@ -445,33 +482,13 @@ function HorizontalProjects({ projects = [], darkMode }) {
                     >
                       <div className="space-y-8">
                         <div className="grid sm:grid-cols-2 gap-4">
-                          <div
-                            className={`rounded-2xl p-5 border ${
-                              darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"
-                            }`}
-                          >
-                            <div
-                              className={`text-[10px] tracking-[0.25em] uppercase ${
-                                darkMode ? "text-white/45" : "text-gray-900/55"
-                              }`}
-                            >
-                              Sector
-                            </div>
+                          <div className={`rounded-2xl p-5 border ${darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"}`}>
+                            <div className={`text-[10px] tracking-[0.25em] uppercase ${darkMode ? "text-white/45" : "text-gray-900/55"}`}>Sector</div>
                             <div className="mt-2 text-sm">{p.sector}</div>
                           </div>
 
-                          <div
-                            className={`rounded-2xl p-5 border ${
-                              darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"
-                            }`}
-                          >
-                            <div
-                              className={`text-[10px] tracking-[0.25em] uppercase ${
-                                darkMode ? "text-white/45" : "text-gray-900/55"
-                              }`}
-                            >
-                              Status
-                            </div>
+                          <div className={`rounded-2xl p-5 border ${darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"}`}>
+                            <div className={`text-[10px] tracking-[0.25em] uppercase ${darkMode ? "text-white/45" : "text-gray-900/55"}`}>Status</div>
                             <div className="mt-2 text-sm">{p.status}</div>
                           </div>
                         </div>
@@ -483,16 +500,8 @@ function HorizontalProjects({ projects = [], darkMode }) {
                               : "border-gray-900/10 bg-gradient-to-br from-gray-900/5 to-transparent"
                           }`}
                         >
-                          <div
-                            className={`text-[10px] tracking-[0.25em] uppercase ${
-                              darkMode ? "text-white/45" : "text-gray-900/55"
-                            }`}
-                          >
-                            Overview
-                          </div>
-                          <p className={`mt-3 text-sm leading-relaxed ${darkMode ? "text-white/80" : "text-gray-900/80"}`}>
-                            {p.summary}
-                          </p>
+                          <div className={`text-[10px] tracking-[0.25em] uppercase ${darkMode ? "text-white/45" : "text-gray-900/55"}`}>Overview</div>
+                          <p className={`mt-3 text-sm leading-relaxed ${darkMode ? "text-white/80" : "text-gray-900/80"}`}>{p.summary}</p>
                         </div>
 
                         <div className={`text-xs tracking-widest uppercase ${darkMode ? "text-white/45" : "text-gray-900/45"}`}>
@@ -509,7 +518,8 @@ function HorizontalProjects({ projects = [], darkMode }) {
         </div>
       </div>
 
-      {/* Dots */}
+      {/* ✅ Optional: hide dots when expanded (uncomment if you want) */}
+      {/* {projects.length > 1 && expandedIndex === null && ( */}
       {projects.length > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
           {projects.map((_, i) => (
@@ -531,182 +541,11 @@ function HorizontalProjects({ projects = [], darkMode }) {
           ))}
         </div>
       )}
+      {/* )} */}
     </div>
   );
 }
 
-/* =======================================================================
-   NEW: All Projects Page Component
-   ======================================================================= */
-export function AllProjectsPage({ darkModeProp }) {
-  const [darkMode, setDarkMode] = useState(darkModeProp ?? true);
-
-  const allProjects = [
-    {
-      title: "Project 1",
-      image: pavilionImg,
-      location: "Location",
-      sector: "Mixed-use smart city masterplan",
-      role: "Structural engineering, smart city integration",
-      status: "Ongoing",
-      summary:
-        "Large-scale future city development focusing on resilient infrastructure, integrated mobility, and smart public realm systems.",
-    },
-    {
-      title: "Project 2",
-      image: pavilionImg,
-      location: "Location",
-      sector: "High-rise residential / mixed-use",
-      role: "Structural and façade engineering",
-      status: "Completed",
-      summary:
-        "High-rise tower overlooking Dubai Marina, designed with optimised structural systems and coordinated with complex façade geometry.",
-    },
-    {
-      title: "Project 3",
-      image: pavilionImg,
-      location: "Location",
-      sector: "Transport & infrastructure",
-      role: "Structural design, concourse integration",
-      status: "In Design",
-      summary:
-        "Transit hub connecting metro, public realm and retail podiums, with large-span structures and integrated passenger flows.",
-    },
-    {
-      title: "Project 4",
-      image: pavilionImg,
-      location: "Location",
-      sector: "Cultural / civic",
-      role: "Structural design, roof geometry",
-      status: "Concept",
-      summary:
-        "Cultural venue with expressive roof forms and flexible gallery spaces, integrating structure, daylight and public circulation.",
-    },
-  ];
-
-  return (
-    <div
-      className={`min-h-screen ${darkMode ? "bg-black text-white" : "bg-white text-gray-900"} font-sans transition-colors duration-500`}
-    >
-      {/* Top bar */}
-      <div className="sticky top-0 z-50 backdrop-blur-xl">
-        <div className={`border-b ${darkMode ? "border-white/10" : "border-gray-900/10"}`}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between gap-4">
-            <Link to="/" className="flex items-center gap-3">
-              <img src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK} alt="WWM" className="h-7 w-auto" />
-              <span
-                className={`text-xs tracking-[0.28em] uppercase ${
-                  darkMode ? "text-white/60" : "text-gray-900/60"
-                } hidden sm:inline`}
-              >
-                All Projects
-              </span>
-            </Link>
-
-            <button
-              onClick={() => setDarkMode((v) => !v)}
-              className={`w-12 h-12 rounded-full ${
-                darkMode ? "bg-white/10 hover:bg-white/20" : "bg-gray-900/10 hover:bg-gray-900/20"
-              } backdrop-blur-xl border ${
-                darkMode ? "border-white/20" : "border-gray-900/20"
-              } flex items-center justify-center transition-all duration-300 hover:scale-110`}
-              aria-label="Toggle dark mode"
-              type="button"
-            >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Header */}
-      <section className="px-6 lg:px-12 pt-16 pb-10">
-        <div className="max-w-7xl mx-auto">
-          <div className={`text-xs tracking-[0.3em] uppercase ${darkMode ? "text-white/50" : "text-gray-900/50"}`}>
-            Projects Archive
-          </div>
-          <h1 className="mt-4 text-5xl lg:text-6xl font-bold">All Projects</h1>
-          <p className={`mt-5 max-w-2xl text-lg ${darkMode ? "text-white/60" : "text-gray-900/60"}`}>
-            A complete list of featured work and initiatives.
-          </p>
-        </div>
-      </section>
-
-      {/* Grid */}
-      <section className="px-6 lg:px-12 pb-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-            {allProjects.map((p, idx) => (
-              <div
-                key={idx}
-                className={`group rounded-3xl border overflow-hidden transition-all duration-500 hover:scale-[1.01] ${
-                  darkMode ? "border-white/10 bg-white/[0.03]" : "border-gray-900/10 bg-gray-900/[0.03]"
-                }`}
-              >
-                <div className="relative aspect-[16/10] w-full">
-                  <img src={p.image} alt={p.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                  <div className={`absolute inset-0 ${darkMode ? "bg-black/25" : "bg-white/10"}`} />
-                </div>
-
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <div className="text-xl font-semibold truncate">{p.title}</div>
-                      <div className={`mt-2 text-xs tracking-widest uppercase ${darkMode ? "text-white/50" : "text-gray-900/50"}`}>
-                        {p.location}
-                      </div>
-                    </div>
-
-                    <span className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${darkMode ? "bg-white/10 text-white/80" : "bg-gray-900/10 text-gray-900/80"}`}>
-                      {p.status}
-                    </span>
-                  </div>
-
-                  <div className={`mt-5 h-px ${darkMode ? "bg-white/10" : "bg-gray-900/10"}`} />
-
-                  <div className="mt-5 space-y-3">
-                    <div>
-                      <div className={`text-[10px] tracking-[0.25em] uppercase ${darkMode ? "text-white/45" : "text-gray-900/55"}`}>Sector</div>
-                      <div className="mt-1 text-sm">{p.sector}</div>
-                    </div>
-
-                    <div>
-                      <div className={`text-[10px] tracking-[0.25em] uppercase ${darkMode ? "text-white/45" : "text-gray-900/55"}`}>Role</div>
-                      <div className="mt-1 text-sm">{p.role}</div>
-                    </div>
-
-                    <div>
-                      <div className={`text-[10px] tracking-[0.25em] uppercase ${darkMode ? "text-white/45" : "text-gray-900/55"}`}>Summary</div>
-                      <p className={`mt-1 text-sm leading-relaxed ${darkMode ? "text-white/75" : "text-gray-900/75"}`}>{p.summary}</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-center justify-between">
-                    <div className={`text-xs tracking-widest uppercase ${darkMode ? "text-white/50" : "text-gray-900/50"}`}>View</div>
-                    <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-14 flex justify-center">
-            <Link
-              to="/"
-              className={`px-8 py-4 rounded-full border text-xs tracking-widest transition-all duration-300 hover:scale-[1.02] ${
-                darkMode
-                  ? "border-white/25 text-white/75 hover:text-white hover:border-white"
-                  : "border-gray-900/25 text-gray-900/75 hover:text-gray-900 hover:border-gray-900"
-              }`}
-            >
-              BACK TO HOME
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
 
 /* =======================================================================
    MAIN: Landing page
