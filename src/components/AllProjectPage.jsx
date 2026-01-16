@@ -12,24 +12,25 @@ import { Link } from "react-router-dom";
 import WWMSHORTENEDBLACK from "../assets/WWMSHORTENEDBLACK.png";
 import WWMSHORTENEDWHITE from "../assets/WWMSHORTENEDWHITE.png";
 import pavilionImg from "../assets/PAVILLION.jpg";
+import A2A from "../assets/A2A.png";
 
 export default function AllProjectsPage({ darkMode, setDarkMode }) {
   const allProjects = useMemo(
     () => [
       {
         id: "project-1",
-        title: "Project 1",
-        images: [pavilionImg, pavilionImg, pavilionImg],
-        location: "Location",
-        sector: "Mixed-use smart city masterplan",
-        role: "Structural engineering, smart city integration",
-        status: "Ongoing",
+        title: "Torre Faro – A2A Headquarters",
+        images: [A2A, pavilionImg, pavilionImg],
+        location: "Milan, Italy",
+        sector: "Mixed-use high-rise headquarters",
+        role: "Structural engineering, early design collaboration",
+        status: "Completed",
         overview:
-          "Large-scale future city development focusing on resilient infrastructure, integrated mobility, and smart public realm systems.",
+          "A 145-metre headquarters tower for A2A located in Milan’s Southern Area, forming a strategic urban link between the historic city centre and the emerging Symbiosis business district. Positioned opposite the future Olympic Village for the Milano–Cortina 2026 Winter Games, the project contributes to the city’s wider urban regeneration and sports infrastructure transformation.",
         details: {
-          client: "—",
+          client: "A2A S.p.A.",
           year: "—",
-          scope: "Structural + smart city integration",
+          Collaborators: "Antonio C & Patricia V Architects",
         },
       },
       {
@@ -492,9 +493,10 @@ function ProjectModal({ darkMode, project, onClose }) {
                   {project.details?.year && (
                     <Row darkMode={darkMode} label="Year" value={project.details.year} />
                   )}
-                  {project.details?.scope && (
-                    <Row darkMode={darkMode} label="Scope" value={project.details.scope} />
+                  {project.details?.Collaborators && (
+                    <Row darkMode={darkMode} label="Collaborators" value={project.details.Collaborators} />
                   )}
+                  
                 </div>
               </div>
 
