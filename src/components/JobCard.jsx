@@ -15,8 +15,8 @@ import WWMSHORTENEDWHITE from "../assets/WWMSHORTENEDWHITE.png";
  * - WHEN OPEN: clicking anywhere inside the expanded content closes it
  * - BUT: clicking the email (mailto) should still work
  */
-export default function JobCard({ darkMode, setDarkMode }) {
-
+export default function JobCard() {
+  const [darkMode, setDarkMode] = useState(true);
 
   const jobs = [
     {
