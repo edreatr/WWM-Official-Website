@@ -805,8 +805,7 @@ export default function WWMUnique() {
     {
       id: 4,
       title: "Smart Technology",
-      desc: "Smart city and building systems strategy combining smart-enabled infrastructure, data and AI, with a strong focus on user-centric design and experience.",
-      color: "#4ECDC4",
+      desc: "Smart city and building systems integrating infrastructure, data, and AI with a strong user-centric focus and experience.",
       angle: -30,
       image: smartTechImg,
     },
@@ -1291,6 +1290,71 @@ export default function WWMUnique() {
           {/* Services */}
           {/* (UNCHANGED from your file) */}
           {/* ... keep your Services / Team / Contact / Footer exactly as you had ... */}
+
+          {/* Capabilities */}
+<section id="services" className="py-32 px-6 lg:px-12 relative">
+  <div className="max-w-7xl mx-auto w-full">
+    <div className="text-center mb-16">
+      <div className={`inline-block text-xs tracking-[0.3em] ${darkMode ? "text-white/50" : "text-gray-900/50"} mb-6`}>
+        01 —
+      </div>
+
+      <h2 className="text-5xl lg:text-6xl font-bold">Capabilities</h2>
+
+      <div className="mt-5">
+        <div className={`text-sm font-semibold ${darkMode ? "text-white/80" : "text-gray-900/80"}`}>
+          Cross Disciplinary Design
+        </div>
+        <div className={`mt-2 text-sm ${darkMode ? "text-white/45" : "text-gray-900/50"}`}>
+          Integrated design solutions spanning disciplines, redefining engineering.
+        </div>
+        <div className="mt-6 flex justify-center">
+          <div className={`${darkMode ? "bg-white/15" : "bg-gray-900/15"} h-px w-20`} />
+        </div>
+      </div>
+    </div>
+
+    <div className={`transition-all duration-1000 ${visibleSections.services ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map((s, idx) => (
+          <div
+            key={s.id}
+            onMouseEnter={() => setHoveredService(s.id)}
+            onMouseLeave={() => setHoveredService(null)}
+            className={`group relative rounded-2xl overflow-hidden border transition-all duration-500 hover:scale-[1.02] ${
+              darkMode ? "border-white/10" : "border-gray-900/10"
+            }`}
+          >
+            <div className="relative aspect-square w-full">
+              <img src={s.image} alt={s.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" draggable={false} />
+
+              <div className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-black/35"} transition-opacity duration-500`} />
+              <div className={`absolute inset-0 ${darkMode ? "bg-black/55" : "bg-black/50"} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+              <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-white/35 group-hover:bg-white transition-colors duration-500" />
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                <div className="text-white font-bold tracking-wide text-5xl">
+                  {String(idx + 1).padStart(2, "0")}
+                </div>
+                <div className="mt-2 text-white/90 text-sm font-semibold tracking-wide">
+                  {s.title}
+                </div>
+              </div>
+
+              <div className="absolute inset-0 flex items-end p-5">
+                <p className="text-white/85 text-sm leading-relaxed opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                  {s.desc}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
 
           {/* Projects */}
           <section
