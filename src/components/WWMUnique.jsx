@@ -7,7 +7,7 @@ import {
   Linkedin,
   LayoutGrid,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 import wwmLogo from "../assets/WWM_WHITELOGO_PNG.png";
 import wwmLogoDark from "../assets/WWM_BLACKTEXT.png";
@@ -153,18 +153,13 @@ function useSpinningNumber(min = 10, max = 99, interval = 1200) {
 function StudiosMap({ darkMode }) {
   const [hoveringSingapore, setHoveringSingapore] = useState(false);
 
-  // 🔧 Adjust these to align the hover zone over Singapore on your map
-  const singapore = {
-    x: 76.5, // % from left
-    y: 55.0, // % from top
-    radius: 120, // px - bigger = easier to trigger
-  };
+  const singapore = { x: 76.5, y: 55.0, radius: 120 };
 
   const baseSrc = darkMode ? whitemap : blackmap;
   const highlightSrc = darkMode ? whitemaphighlight : blackmaphighlight;
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto">
+    <div className="relative w-[92vw] max-w-[1400px] mx-auto -translate-x-[2.5%]">
       <img
         src={baseSrc}
         alt="WWM global map"
@@ -196,17 +191,16 @@ function StudiosMap({ darkMode }) {
   );
 }
 
+
 function HorizontalProjects({ projects = [], darkMode }) {
+  const navigate = useNavigate();
+
   const scrollerRef = useRef(null);
   const [active, setActive] = useState(0);
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  const [imgIndexByCard, setImgIndexByCard] = useState({});
 
   // ✅ Triple the items for seamless looping
   const loopedProjects = [...projects, ...projects, ...projects];
   const totalOriginal = projects.length;
-
-  const anyExpanded = expandedIndex !== null;
 
   const scrollToIndex = (idx, behavior = "smooth") => {
     if (!scrollerRef.current) return;
@@ -229,7 +223,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
     el.scrollTo({ left: nextScrollLeft, behavior });
   };
 
-  // ✅ Prevent loop-jump fighting the user scroll
   const isAdjusting = useRef(false);
 
   const onScroll = (e) => {
@@ -255,16 +248,13 @@ function HorizontalProjects({ projects = [], darkMode }) {
 
     setActive(bestIdx % totalOriginal);
 
-    // ✅ Check if we need to loop (only after scroll ends)
     clearTimeout(el.scrollEndTimer);
     el.scrollEndTimer = setTimeout(() => {
       if (isAdjusting.current) return;
 
       let jumpTo = null;
 
-      // If in first set, jump to middle set
       if (bestIdx < totalOriginal) jumpTo = bestIdx + totalOriginal;
-      // If in last set, jump to middle set
       else if (bestIdx >= totalOriginal * 2) jumpTo = bestIdx - totalOriginal;
 
       if (jumpTo !== null) {
@@ -278,7 +268,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
           const nextScrollLeft =
             targetLeftWithinScroller - (elRect.width / 2 - targetRect.width / 2);
 
-          // ✅ Disable smooth scrolling temporarily
           el.style.scrollBehavior = "auto";
           el.scrollLeft = nextScrollLeft;
           el.style.scrollBehavior = "";
@@ -299,23 +288,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
     }
   };
 
-  //const toggleExpand = (i) => {
-  //const originalIdx = i % totalOriginal;
-  //setExpandedIndex((prev) => {
-  // const next = prev === originalIdx ? null : originalIdx;
-
-  // if (next !== null) {
-  //   setImgIndexByCard((m) =>
-  //     m[originalIdx] === undefined ? { ...m, [originalIdx]: 0 } : m
-  //   );
-  //  }
-  //  if (next === null) {
-  //   setImgIndexByCard((m) => ({ ...m, [originalIdx]: 0 }));
-  //  }
-  //   return next;
-  // });
-  //};
-
   // ✅ Start in middle set on mount
   useEffect(() => {
     if (scrollerRef.current && projects.length > 0) {
@@ -325,34 +297,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (expandedIndex !== null) {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const idx = expandedIndex + totalOriginal;
-          scrollToIndex(idx, "smooth");
-        });
-      });
-      return;
-    }
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        scrollToIndex(active + totalOriginal, "smooth");
-      });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [expandedIndex]);
-
-  const stepImage = (cardIdx, dir, total) => {
-    const originalIdx = cardIdx % totalOriginal;
-    setImgIndexByCard((prev) => {
-      const cur = prev[originalIdx] ?? 0;
-      const next = (cur + dir + total) % total;
-      return { ...prev, [originalIdx]: next };
-    });
-  };
 
   const goToProject = (dir) => {
     const cards =
@@ -384,17 +328,17 @@ function HorizontalProjects({ projects = [], darkMode }) {
     ? "bg-black/60 text-white border border-white/10"
     : "bg-white/85 text-black border border-gray-900/10";
 
+  const openProject = (p) => {
+    navigate(`/projects?project=${encodeURIComponent(p.id || "")}`);
+  };
+
   return (
     <div className="relative">
-      {/* ✅ Arrows always enabled (infinite) */}
+      {/* ✅ Infinite arrows */}
       <button
         type="button"
         onClick={() => goToProject(-1)}
-        className={`${arrowBase} left-4 ${arrowStyle} ${
-          anyExpanded
-            ? "opacity-0 pointer-events-none"
-            : "opacity-0 lg:opacity-100 hover:scale-105"
-        }`}
+        className={`${arrowBase} left-4 ${arrowStyle} opacity-0 lg:opacity-100 hover:scale-105`}
         aria-label="Previous project"
       >
         <span className="text-2xl leading-none select-none">‹</span>
@@ -403,11 +347,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
       <button
         type="button"
         onClick={() => goToProject(1)}
-        className={`${arrowBase} right-4 ${arrowStyle} ${
-          anyExpanded
-            ? "opacity-0 pointer-events-none"
-            : "opacity-0 lg:opacity-100 hover:scale-105"
-        }`}
+        className={`${arrowBase} right-4 ${arrowStyle} opacity-0 lg:opacity-100 hover:scale-105`}
         aria-label="Next project"
       >
         <span className="text-2xl leading-none select-none">›</span>
@@ -423,52 +363,31 @@ function HorizontalProjects({ projects = [], darkMode }) {
       >
         <div className="flex gap-4 sm:gap-6 pb-2">
           {loopedProjects.map((p, i) => {
-            const originalIdx = i % totalOriginal;
-            const isExpanded = expandedIndex === originalIdx;
-            const someExpanded = expandedIndex !== null;
-            const isOther = someExpanded && !isExpanded;
-
-            const imgs = p.images?.length ? p.images : [p.image];
-            const imgIdx = imgIndexByCard[originalIdx] ?? 0;
-            const displaySrc = isExpanded ? imgs[imgIdx] : p.image;
-
             return (
               <div
                 key={i}
                 data-project-card="1"
-                className={[
-                  "snap-start shrink-0 transition-all duration-700",
-                  !isExpanded
-                    ? "w-[86vw] sm:w-[70vw] lg:w-[48vw] xl:w-[40vw]"
-                    : "",
-                  isExpanded
-                    ? "w-[92vw] sm:w-[84vw] lg:w-[70vw] xl:w-[62vw]"
-                    : "",
-                  isOther ? "opacity-30 blur-[1px]" : "opacity-100",
-                ].join(" ")}
+                className="snap-start shrink-0 transition-all duration-700 w-[86vw] sm:w-[70vw] lg:w-[48vw] xl:w-[40vw]"
               >
+                {/* ✅ CLICK/TAP ANYWHERE to open details */}
                 <div
-                  role="button"
+                  role="link"
                   tabIndex={0}
-                  onClick={() => toggleExpand(i)}
+                  onClick={() => openProject(p)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") toggleExpand(i);
+                    if (e.key === "Enter" || e.key === " ") openProject(p);
                   }}
-                  className={`group relative rounded-3xl overflow-hidden border transition-all duration-700 ${
+                  className={`group relative rounded-3xl overflow-hidden border transition-all duration-700 hover:scale-[1.01] cursor-pointer ${
                     darkMode
                       ? "border-white/10 bg-white/[0.03]"
                       : "border-gray-900/10 bg-gray-900/[0.03]"
-                  } ${isExpanded ? "scale-[1.01]" : "hover:scale-[1.01]"}`}
-                  aria-expanded={isExpanded}
+                  }`}
+                  aria-label={`Open ${p.title}`}
                 >
-                  {/* TOP IMAGE */}
-                  <div
-                    className={`relative w-full ${
-                      isExpanded ? "aspect-[16/9]" : "aspect-[16/10]"
-                    }`}
-                  >
+                  {/* Image */}
+                  <div className="relative w-full aspect-[16/10]">
                     <img
-                      src={displaySrc}
+                      src={p.image}
                       alt={p.title}
                       className="absolute inset-0 w-full h-full object-cover"
                       loading="lazy"
@@ -482,55 +401,6 @@ function HorizontalProjects({ projects = [], darkMode }) {
                           : "bg-gradient-to-t from-black/65 via-black/5 to-black/10"
                       }`}
                     />
-
-                    
-
-                    {isExpanded && imgs.length > 1 && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            stepImage(i, -1, imgs.length);
-                          }}
-                          className={`${arrowBase} left-4 ${arrowStyle} opacity-0 group-hover:opacity-100 hover:scale-105`}
-                          aria-label="Previous image"
-                        >
-                          <span className="text-2xl leading-none select-none">
-                            ‹
-                          </span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            stepImage(i, +1, imgs.length);
-                          }}
-                          className={`${arrowBase} right-4 ${arrowStyle} opacity-0 group-hover:opacity-100 hover:scale-105`}
-                          aria-label="Next image"
-                        >
-                          <span className="text-2xl leading-none select-none">
-                            ›
-                          </span>
-                        </button>
-
-                        <div
-                          className="absolute bottom-5 right-5"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <div
-                            className={`text-[11px] tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-xl border ${
-                              darkMode
-                                ? "bg-white/10 text-white/80 border-white/15"
-                                : "bg-white/15 text-white/85 border-white/20"
-                            }`}
-                          >
-                            {imgIdx + 1} / {imgs.length}
-                          </div>
-                        </div>
-                      </>
-                    )}
 
                     <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
                       <div className="flex items-end justify-between gap-4">
@@ -549,141 +419,22 @@ function HorizontalProjects({ projects = [], darkMode }) {
                           </div>
                         </div>
 
-                        {/* ✅ ONLY CHANGE: replace the icon with "Click for more details" */}
-                        <div className="shrink-0">
-  {isExpanded ? (
-    <div
-      className={`px-5 py-2 rounded-full border text-[11px] tracking-widest uppercase transition-all duration-300 ${
-        darkMode
-          ? "bg-white/10 text-white/85 border-white/20"
-          : "bg-white/85 text-black border-gray-900/10"
-      } opacity-95`}
-      aria-hidden="true"
-    >
-      Click to collapse
-    </div>
-  ) : (
-    <Link
-      to={`/projects?project=${encodeURIComponent(p.id || "")}`}
-      onClick={(e) => e.stopPropagation()} // ✅ prevents toggleExpand()
-      className={`inline-flex items-center px-5 py-2 rounded-full border text-[11px] tracking-widest uppercase transition-all duration-300 ${
-        darkMode
-          ? "bg-white/10 text-white/85 border-white/20 hover:bg-white/15"
-          : "bg-white/85 text-black border-gray-900/10 hover:bg-white"
-      } opacity-0 lg:opacity-100 group-hover:opacity-100 hover:scale-[1.02]`}
-    >
-      Click for more details
-    </Link>
-  )}
-</div>
-
+                        {/* Optional: keep a hint pill (NOT required to click) */}
+                        <div className="shrink-0 hidden lg:block">
+                          <div
+                            className={`px-5 py-2 rounded-full border text-[11px] tracking-widest uppercase transition-all duration-300 ${
+                              darkMode
+                                ? "bg-white/10 text-white/85 border-white/20"
+                                : "bg-white/85 text-black border-gray-900/10"
+                            } opacity-95`}
+                            aria-hidden="true"
+                          >
+                            Open project
+                          </div>
+                        </div>
                       </div>
 
                       <div className="mt-5 h-px w-20 bg-white/40" />
-                    </div>
-                  </div>
-
-                  {/* EXPANDED DETAILS */}
-                  <div
-                    className={`transition-all duration-700 overflow-hidden ${
-                      isExpanded
-                        ? "max-h-[2000px] opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    <div
-                      className={`p-6 sm:p-8 border-t ${
-                        darkMode ? "border-white/10" : "border-gray-900/10"
-                      }`}
-                      onClick={(e) => e.stopPropagation()}
-                      onKeyDown={(e) => e.stopPropagation()}
-                      role="presentation"
-                    >
-                      <div className="space-y-8">
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          <div
-                            className={`rounded-2xl p-5 border ${
-                              darkMode
-                                ? "border-white/10 bg-white/5"
-                                : "border-gray-900/10 bg-gray-900/5"
-                            }`}
-                          >
-                            <div
-                              className={`text-[10px] tracking-[0.25em] uppercase ${
-                                darkMode ? "text-white/45" : "text-gray-900/55"
-                              }`}
-                            >
-                              Sector
-                            </div>
-                            <div className="mt-2 text-sm">{p.sector}</div>
-                          </div>
-
-                          <div
-                            className={`rounded-2xl p-5 border ${
-                              darkMode
-                                ? "border-white/10 bg-white/5"
-                                : "border-gray-900/10 bg-gray-900/5"
-                            }`}
-                          >
-                            <div
-                              className={`text-[10px] tracking-[0.25em] uppercase ${
-                                darkMode ? "text-white/45" : "text-gray-900/55"
-                              }`}
-                            >
-                              Status
-                            </div>
-                            <div className="mt-2 text-sm">{p.status}</div>
-                          </div>
-                        </div>
-
-                        <div
-                          className={`rounded-2xl p-6 border ${
-                            darkMode
-                              ? "border-white/10 bg-gradient-to-br from-white/5 to-transparent"
-                              : "border-gray-900/10 bg-gradient-to-br from-gray-900/5 to-transparent"
-                          }`}
-                        >
-                          <div
-                            className={`text-[10px] tracking-[0.25em] uppercase ${
-                              darkMode ? "text-white/45" : "text-gray-900/55"
-                            }`}
-                          >
-                            Overview
-                          </div>
-                          <p
-                            className={`mt-3 text-sm leading-relaxed ${
-                              darkMode ? "text-white/80" : "text-gray-900/80"
-                            }`}
-                          >
-                            {p.summary}
-                          </p>
-
-                          {/* ✅ NEW: MORE button that links to All Projects and opens this project */}
-                          <div className="mt-5">
-                            <Link
-                              to={`/projects?project=${encodeURIComponent(
-                                p.id || ""
-                              )}`}
-                              onClick={(e) => e.stopPropagation()}
-                              className={`inline-flex items-center gap-2 px-6 py-3 rounded-full border text-xs tracking-widest transition-all duration-300 hover:scale-[1.02] ${
-                                darkMode
-                                  ? "border-white/25 text-white/80 hover:text-white hover:border-white bg-white/5 hover:bg-white/10"
-                                  : "border-gray-900/25 text-gray-900/80 hover:text-gray-900 hover:border-gray-900 bg-gray-900/5 hover:bg-gray-900/10"
-                              }`}
-                            >
-                              MORE <ArrowUpRight size={16} />
-                            </Link>
-                          </div>
-                        </div>
-
-                        <div
-                          className={`text-xs tracking-widest uppercase ${
-                            darkMode ? "text-white/45" : "text-gray-900/45"
-                          }`}
-                        >
-                          Click again to collapse
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -693,7 +444,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
         </div>
       </div>
 
-      {/* Dots - show original count only */}
+      {/* Dots */}
       {projects.length > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
           {projects.map((_, i) => (
@@ -718,6 +469,7 @@ function HorizontalProjects({ projects = [], darkMode }) {
     </div>
   );
 }
+
 
 /* =======================================================================
    MAIN: Landing page
@@ -924,6 +676,22 @@ export default function WWMUnique() {
         "Rajawali Place is a 31-storey commercial office building in Setiabudi, Jakarta, featuring six basement parking levels and part of a mixed-use development with the St. Regis Hotel and Residences. WWM Director Shonn Mills, while at Ramboll acted as Project Director for Rajawali Place Office Tower. The tower is a prestigious 31-storey commercial office building with 6 basement carpark space which form part of a mixed used superblock development comprising of the luxurious St Regis Hotel, St Regis Residence and is conveniently located in the heart of Jakarta Golden Triangle. Much attention has been paid to the quality and architectural detail of the finishes, from the impressive façade of blue-grey glass to the polished Italian marble floors and walls to its exquisite landscaping designed by the renowned designer Bill Bensley. The facade is designed to minimize solar gain and emphasize vertical layers giving the impression of a woven surface. The construction is headed by the architect firm Gensler. Rajawali Place has been awarded the BCA Green Mark Platinum, recognizing its commitment to environmentally sustainable construction design and operations. This accolade reflects the project's dedication to minimizing its ecological footprint while providing a premium workspace that meets the demands of modern business. Nimit Langsuan Residences project, located in Bangkok, Thailand, is a 210-meter-tall high end residence. WWM Director Shonn Mills, while at Ramboll, served as Project Director for Nimit Langsuan, a 210-meter tall high-rise residential development that sets a benchmark for luxury living in the central business district of Bangkok. The 55-storey tower featured a state-of-the-art three-dimensional glass façade, offering clear, unobstructed corner views of the city. The residential tower is supported by a deep reinforced concrete raft, anchored on bored piles. Its exterior design showcased an innovative glass façade characterized by curved and double-curved glass profiles, providing a unique aesthetic for all orientations.  The east and west façades incorporated a curtain wall design that extended in front of the slabs, while the north and south elevations included spacious balcony areas with floor-to-ceiling glazing and external glazed parapets. Atop the tower, a sky terrace was designed to seamlessly integrate with the tower design while providing high-end luxury leisure spaces. Ultimately, Nimit Langsuan exemplified a pioneering approach to high-end residential design, merging cutting-edge engineering innovation with exceptional architecture to create a striking addition to Bangkok's skyline.",
 
     },
+    {
+      id: "project-coming-soon",
+      title: "More Projects Coming Soon",
+      scale: 1.0,
+      color: "#444444",
+      image: pavilionImg,
+      images: [pavilionImg],
+      location: "—",
+      sector: "—",
+      role: "—",
+      status: "Under construction",
+      summary:
+        "We’re currently curating and publishing additional work. Check back soon for new case studies and project updates.",
+      isPlaceholder: true,
+    }
+
   ];
 
   const teamMembers = [
@@ -977,6 +745,13 @@ export default function WWMUnique() {
       photo: null,
     },
     {
+      name: "Joyce Zhang",
+      role: "Designer",
+      location: "Singapore",
+      linkedin: "https://www.linkedin.com/in/zhang-jing-han/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      photo: null,
+    },
+    {
       name: "Jun Rong Tan",
       role: "Structural Engineer",
       location: "Singapore",
@@ -995,6 +770,41 @@ export default function WWMUnique() {
       role: "Structural Engineer",
       location: "Singapore",
       linkedin: "https://www.linkedin.com/in/clarencerebeka/",
+      photo: null,
+    },
+    {
+      name: "Meile Zhang",
+      role: "Associate",
+      location: "Singapore",
+      linkedin: "",
+      photo: null,
+    },
+    {
+      name: "Elvin Kee",
+      role: "Designer",
+      location: "Singapore",
+      linkedin: "",
+      photo: null,
+    },
+    {
+      name: "Joe Octava",
+      role: "Designer",
+      location: "Singapore",
+      linkedin: "",
+      photo: null,
+    },
+    {
+      name: "Saw Naing Dar",
+      role: "Bimster",
+      location: "Singapore",
+      linkedin: "",
+      photo: null,
+    },
+    {
+      name: "And More..",
+      role: "-",
+      location: "-",
+      linkedin: "",
       photo: null,
     },
   ];
@@ -1455,7 +1265,7 @@ export default function WWMUnique() {
               </div>
 
               <div className={`transition-all duration-1000 ${visibleSections.team ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
                   {teamMembers.map((m, i) => {
                     const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(
                       m.name
@@ -1468,23 +1278,23 @@ export default function WWMUnique() {
                           darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"
                         } transition-all duration-500 hover:scale-[1.02]`}
                       >
-                        <div className="relative aspect-[4/5] w-full">
+                       <div className="relative aspect-[3/4] w-full"> 
                           <img src={m.photo || avatarFallback} alt={m.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                           <div className={`absolute inset-0 ${darkMode ? "bg-black/15" : "bg-white/10"}`} />
                         </div>
 
                         <div
-                          className={`absolute inset-0 p-6 flex flex-col justify-end transition-all duration-500 ${
+                          className={`absolute inset-0 p-4 flex flex-col justify-end transition-all duration-500 ${
                             darkMode ? "bg-black/75" : "bg-white/85"
                           } opacity-0 group-hover:opacity-100`}
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div className="min-w-0">
                               <div className="text-lg font-semibold leading-tight truncate">{m.name}</div>
-                              <div className={`text-sm mt-1 ${darkMode ? "text-white/70" : "text-gray-900/70"}`}>{m.role}</div>
+                              <div className={`text-xs mt-1 ${darkMode ? "text-white/70" : "text-gray-900/70"}`}>{m.role}</div>
                             </div>
 
-                            <div className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${darkMode ? "bg-white/10 text-white/80" : "bg-gray-900/10 text-gray-900/80"}`}>
+                            <div className={`text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap ${darkMode ? "bg-white/10 text-white/80" : "bg-gray-900/10 text-gray-900/80"}`}>
                               {m.location}
                             </div>
                           </div>

@@ -9,6 +9,8 @@ import pavilionImg from "../assets/PAVILLION.jpg";
 import A2A from "../assets/A2A.png";
 import A2A2 from "../assets/A2A_2.jpg";
 import A2A3 from "../assets/A2A_3.jpg";
+import A2A4 from "../assets/A2A_4.jpg";
+import A2A5 from "../assets/A2A_5.jpg";
 
 import PDD1 from "../assets/PDD_1.jpg";
 import PDD2 from "../assets/PDD_2.jpg";
@@ -17,11 +19,15 @@ import PDD3 from "../assets/PDD_3.jpg";
 import CL1 from "../assets/CL_1.jpg";
 import CL2 from "../assets/CL_2.jpg";
 import CL3 from "../assets/CL_3.jpg";
+import CL4 from "../assets/CL_4.jpg";
+import CL5 from "../assets/CL_5.jpg";
 
 import RP1 from "../assets/RP_1.png";
 import RP2 from "../assets/RP_2.jpeg";
 
 import NL1 from "../assets/NL1.jpg";
+import NL2 from "../assets/NL2.jpg";
+import NL3 from "../assets/NL3.jpg";
 
 export default function AllProjectsPage({ darkMode, setDarkMode }) {
   const location = useLocation();
@@ -35,6 +41,8 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
           { src: A2A, credit: null },
           { src: A2A2, credit: null },
           { src: A2A3, credit: "Image © ACPV Architects" },
+          { src: A2A4, credit: "Image © Focchi" },
+          { src: A2A5, credit: "Image © Focchi" },
         ],
         location: "Milan, Italy",
         sector: "Mixed-use high-rise headquarters",
@@ -50,9 +58,9 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
       {
         id: "project-2",
         title: "Punggol Digital District",
-        images: [{ src: PDD1, credit: "Rachel Loh - monocle.com" }, 
-                { src: PDD2, credit: "JTC Corporation" },
-                { src: PDD3, credit: "FINNBAR FALLON - WOHA" }
+        images: [{ src: PDD1, credit: "Image © Rachel Loh - monocle.com" }, 
+                { src: PDD2, credit: "Image © JTC Corporation" },
+                { src: PDD3, credit: "Image © FINNBAR FALLON - WOHA" }
         ],
         location: "Singapore",
         sector: "Urban Development, Smart City Mixed-Use District",
@@ -67,8 +75,12 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
         title: "City Life",
         images: [
           { src: CL1, credit: null },
-          { src: CL2, credit: "Sonae Sierra" },
-          { src: CL3, credit: "ArchDaily" },
+          { src: CL2, credit: "Image © Sonae Sierra" },
+          { src: CL3, credit: "Image © ArchDaily" },
+          { src: CL4, credit: "Image © Wikipedia" },
+          { src: CL5, credit: "Image © StudioLibeskind" },
+
+
 
         ],
         location: "Milan, Italy",
@@ -83,7 +95,7 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
         id: "project-4",
         title: "Rajawali Place",
         images: [{ src: RP1, credit: null },
-          { src: RP2, credit: "Colliers" }
+          { src: RP2, credit: "Image ©Colliers" }
         ],
         location: "Jakarta, Indonesia",
         sector: "Commercial mixed-use development",
@@ -96,7 +108,9 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
       {
         id: "project-5",
         title: "Nimit Langsuan",
-        images: [{ src: NL1, credit: null }],
+        images: [{ src: NL1, credit: null },
+          { src: NL2, credit: null }
+        ],
         location: "Bangkok, Thailand",
         sector: "Project Director",
         role: "Project Director",
@@ -105,6 +119,20 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
           "Nimit Langsuan Residences project, located in Bangkok, Thailand, is a 210-meter-tall high end residence. WWM Director Shonn Mills, while at Ramboll, served as Project Director for Nimit Langsuan, a 210-meter tall high-rise residential development that sets a benchmark for luxury living in the central business district of Bangkok. The 55-storey tower featured a state-of-the-art three-dimensional glass façade, offering clear, unobstructed corner views of the city. The residential tower is supported by a deep reinforced concrete raft, anchored on bored piles. Its exterior design showcased an innovative glass façade characterized by curved and double-curved glass profiles, providing a unique aesthetic for all orientations.  The east and west façades incorporated a curtain wall design that extended in front of the slabs, while the north and south elevations included spacious balcony areas with floor-to-ceiling glazing and external glazed parapets. Atop the tower, a sky terrace was designed to seamlessly integrate with the tower design while providing high-end luxury leisure spaces. Ultimately, Nimit Langsuan exemplified a pioneering approach to high-end residential design, merging cutting-edge engineering innovation with exceptional architecture to create a striking addition to Bangkok's skyline.",
         details: { client: "Rajawali Corpora", collaborators: "Gensler, PDW Architects" },
       },
+
+      {
+            id: "project-coming-soon",
+            title: "More Projects Coming Soon",
+            scale: 1.0,
+            color: "#444444",
+            location: "—",
+            sector: "—",
+            role: "—",
+            status: "Under construction",
+            summary:
+              "We’re currently curating and publishing additional work. Check back soon for new case studies and project updates.",
+            isPlaceholder: true,
+          }
     ],
     []
   );
