@@ -10,6 +10,19 @@ import A2A from "../assets/A2A.png";
 import A2A2 from "../assets/A2A_2.jpg";
 import A2A3 from "../assets/A2A_3.jpg";
 
+import PDD1 from "../assets/PDD_1.jpg";
+import PDD2 from "../assets/PDD_2.jpg";
+import PDD3 from "../assets/PDD_3.jpg";
+
+import CL1 from "../assets/CL_1.jpg";
+import CL2 from "../assets/CL_2.jpg";
+import CL3 from "../assets/CL_3.jpg";
+
+import RP1 from "../assets/RP_1.png";
+import RP2 from "../assets/RP_2.jpeg";
+
+import NL1 from "../assets/NL1.jpg";
+
 export default function AllProjectsPage({ darkMode, setDarkMode }) {
   const location = useLocation();
 
@@ -36,42 +49,61 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
       },
       {
         id: "project-2",
-        title: "Project 2",
-        images: [{ src: pavilionImg, credit: null }],
-        location: "Location",
-        sector: "High-rise residential / mixed-use",
-        role: "Structural and façade engineering",
+        title: "Punggol Digital District",
+        images: [{ src: PDD1, credit: "Rachel Loh - monocle.com" }, 
+                { src: PDD2, credit: "JTC Corporation" },
+                { src: PDD3, credit: "FINNBAR FALLON - WOHA" }
+        ],
+        location: "Singapore",
+        sector: "Urban Development, Smart City Mixed-Use District",
+        role: "Civil Engineering, Structural Engineering, SMART Engineering, Sustainability",
         status: "Completed",
         overview:
-          "High-rise tower overlooking Dubai Marina, designed with optimised structural systems and coordinated with complex façade geometry.",
-        details: { client: "—", collaborators: "—" },
+          "The 50-hectare Punggol Digital District (PDD) in Singapore, developed by JTC Corporation and designed by WOHA Architects, is a cornerstone of the North Coast Innovation Corridor and a key driver of Singapore’s Smart Nation initiative. The district integrates a business park, the new Singapore Institute of Technology (SIT) campus, and an underground MRT station, creating a highly connected ecosystem that encourages collaboration between academia and industry. PDD was awarded the Green Mark Platinum for Districts (2024). While at Ramboll, Shonn Mills led the Smart City and smart technology design and implementation, including the development of the Open Digital Platform (ODP) concept. Sustainability underpins the district’s design; at Web Structures, Giovanni Viganò championed modern methods of construction to reduce embodied carbon and improve construction efficiency. He also contributed to Tower 86, a timber–concrete hybrid building within PDD, which recently received a CTBUH award. Life-centric features such as nature-based solutions, waterfront green linkages, and a campus boulevard with seamless access to amenities further enhance the district’s liveability. PDD has also been recognised with BCA Green Mark Platinum for Super Low Energy (2021).",
+        details: { client: "JTC Corporation", collaborators: "WOHA Architect" },
       },
       {
         id: "project-3",
-        title: "Project 3",
+        title: "City Life",
         images: [
-          { src: pavilionImg, credit: null },
-          { src: pavilionImg, credit: null },
+          { src: CL1, credit: null },
+          { src: CL2, credit: "Sonae Sierra" },
+          { src: CL3, credit: "ArchDaily" },
+
         ],
-        location: "Location",
-        sector: "Transport & infrastructure",
-        role: "Structural design, concourse integration",
-        status: "In Design",
+        location: "Milan, Italy",
+        sector: "Large-scale mixed-use urban redevelopment and public realm",
+        role: "Multi Discipline Engineering, Concept",
+        status: "Completed",
         overview:
-          "Transit hub connecting metro, public realm and retail podiums, with large-span structures and integrated passenger flows.",
-        details: { client: "—", collaborators: "—" },
+          "Whitby Wood Director Shonn Mills, while at Ramboll and in partnership with J&A Consultants (Milan), was appointed to provide project management, value engineering, and multi-disciplinary technical review services for the next design phases of CityLife Milan. The 37-hectare redevelopment comprises three landmark towers: Il Dritto by Arata Isozaki, Lo Storto by Zaha Hadid, and Il Curvo by Daniel Libeskind, collectively redefining the skyline of the historic Fiera Milano district as part of Europe’s largest urban renewal project. The scheme integrates commercial and office spaces with extensive public and private green areas, supported by a district heating network that delivers efficient winter heating and summer cooling, setting a benchmark for sustainable urban development.",
+        details: { client: "Generali Real Estate", collaborators: "Zaha Hadid, Daniel Leipskin, Arata Isozaki" },
       },
       {
         id: "project-4",
-        title: "Project 4",
-        images: [{ src: pavilionImg, credit: null }],
-        location: "Location",
-        sector: "Cultural / civic",
-        role: "Structural design, roof geometry",
-        status: "Concept",
+        title: "Rajawali Place",
+        images: [{ src: RP1, credit: null },
+          { src: RP2, credit: "Colliers" }
+        ],
+        location: "Jakarta, Indonesia",
+        sector: "Commercial mixed-use development",
+        role: "Project Director",
+        status: "Completed",
         overview:
-          "Cultural venue with expressive roof forms and flexible gallery spaces, integrating structure, daylight and public circulation.",
-        details: { client: "—", collaborators: "—" },
+          "Rajawali Place is a 31-storey commercial office building in Setiabudi, Jakarta, featuring six basement parking levels and part of a mixed-use development with the St. Regis Hotel and Residences. WWM Director Shonn Mills, while at Ramboll acted as Project Director for Rajawali Place Office Tower. The tower is a prestigious 31-storey commercial office building with 6 basement carpark space which form part of a mixed used superblock development comprising of the luxurious St Regis Hotel, St Regis Residence and is conveniently located in the heart of Jakarta Golden Triangle. Much attention has been paid to the quality and architectural detail of the finishes, from the impressive façade of blue-grey glass to the polished Italian marble floors and walls to its exquisite landscaping designed by the renowned designer Bill Bensley. The facade is designed to minimize solar gain and emphasize vertical layers giving the impression of a woven surface. The construction is headed by the architect firm Gensler. Rajawali Place has been awarded the BCA Green Mark Platinum, recognizing its commitment to environmentally sustainable construction design and operations. This accolade reflects the project's dedication to minimizing its ecological footprint while providing a premium workspace that meets the demands of modern business.",
+        details: { client: "Rajawali Corpora", collaborators: "Gensler, PDW Architects" },
+      },
+      {
+        id: "project-5",
+        title: "Nimit Langsuan",
+        images: [{ src: NL1, credit: null }],
+        location: "Bangkok, Thailand",
+        sector: "Project Director",
+        role: "Project Director",
+        status: "Completed",
+        overview:
+          "Nimit Langsuan Residences project, located in Bangkok, Thailand, is a 210-meter-tall high end residence. WWM Director Shonn Mills, while at Ramboll, served as Project Director for Nimit Langsuan, a 210-meter tall high-rise residential development that sets a benchmark for luxury living in the central business district of Bangkok. The 55-storey tower featured a state-of-the-art three-dimensional glass façade, offering clear, unobstructed corner views of the city. The residential tower is supported by a deep reinforced concrete raft, anchored on bored piles. Its exterior design showcased an innovative glass façade characterized by curved and double-curved glass profiles, providing a unique aesthetic for all orientations.  The east and west façades incorporated a curtain wall design that extended in front of the slabs, while the north and south elevations included spacious balcony areas with floor-to-ceiling glazing and external glazed parapets. Atop the tower, a sky terrace was designed to seamlessly integrate with the tower design while providing high-end luxury leisure spaces. Ultimately, Nimit Langsuan exemplified a pioneering approach to high-end residential design, merging cutting-edge engineering innovation with exceptional architecture to create a striking addition to Bangkok's skyline.",
+        details: { client: "Rajawali Corpora", collaborators: "Gensler, PDW Architects" },
       },
     ],
     []
