@@ -471,6 +471,28 @@ function HorizontalProjects({ projects = [], darkMode }) {
   );
 }
 
+function AndMoreStrip({ darkMode }) {
+  return (
+    <div
+      className={`mx-auto
+      w-full max-w-[240px] h-11
+      rounded-full border flex items-center justify-center gap-3
+      transition-all duration-300 ${
+        darkMode
+          ? "border-white/15 bg-white/[0.03] text-white/55 hover:border-white/30 hover:bg-white/[0.06]"
+          : "border-gray-900/15 bg-gray-900/[0.03] text-gray-900/55 hover:border-gray-900/30 hover:bg-gray-900/[0.06]"
+      }`}
+    >
+      <span className="text-lg leading-none">⋯</span>
+      <span className="text-[10px] tracking-[0.35em] uppercase">
+        And More
+      </span>
+    </div>
+  );
+}
+
+
+
 
 /* =======================================================================
    MAIN: Landing page
@@ -798,13 +820,6 @@ export default function WWMUnique() {
       name: "Saw Naing Dar",
       role: "Bimster",
       location: "Singapore",
-      linkedin: "",
-      photo: null,
-    },
-    {
-      name: "And More..",
-      role: "-",
-      location: "-",
       linkedin: "",
       photo: null,
     },
@@ -1239,152 +1254,197 @@ export default function WWMUnique() {
               </Link>
             </div>
           </section>
+{/* Team */}
+<section id="team" className="py-32 px-6 lg:px-12">
+  <div className="max-w-7xl mx-auto w-full">
+    <div className="text-center mb-20">
+      <div
+        className={`inline-block text-xs tracking-[0.3em] ${
+          darkMode ? "text-white/50" : "text-gray-900/50"
+        } mb-6`}
+      >
+        03 —
+      </div>
 
-          {/* Team */}
-          <section id="team" className="py-32 px-6 lg:px-12">
-            <div className="max-w-7xl mx-auto w-full">
-              <div className="text-center mb-20">
-                <div className={`inline-block text-xs tracking-[0.3em] ${darkMode ? "text-white/50" : "text-gray-900/50"} mb-6`}>03 —</div>
-                <h2 className="text-5xl lg:text-6xl font-bold mb-4">Our Team</h2>
-                <p className={`text-lg ${darkMode ? "text-white/50" : "text-gray-900/50"} max-w-2xl mx-auto`}>
-                  Meet the people behind the work
-                </p>
+      <h2 className="text-5xl lg:text-6xl font-bold mb-4">Our Team</h2>
 
-                <div className="mt-10 flex justify-center">
-                  <a
-                    href="/join-us"
-                    className={`group inline-flex items-center gap-3 px-8 py-4 border rounded-full text-xs tracking-widest transition-all duration-300 ${
-                      darkMode
-                        ? "border-white/30 text-white/80 hover:text-white hover:border-white"
-                        : "border-gray-900/30 text-gray-900/80 hover:text-gray-900 hover:border-gray-900"
-                    }`}
-                  >
-                    JOIN US
-                    <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </a>
-                </div>
-              </div>
+      <p
+        className={`text-lg ${
+          darkMode ? "text-white/50" : "text-gray-900/50"
+        } max-w-2xl mx-auto`}
+      >
+        Meet the people behind the work
+      </p>
 
-              <div className={`transition-all duration-1000 ${visibleSections.team ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
-                  {teamMembers.map((m, i) => {
-  const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-    m.name
-  )}&size=512&background=111111&color=ffffff&bold=true&format=png`;
+      <div className="mt-10 flex justify-center">
+        <a
+          href="/join-us"
+          className={`group inline-flex items-center gap-3 px-8 py-4 border rounded-full text-xs tracking-widest transition-all duration-300 ${
+            darkMode
+              ? "border-white/30 text-white/80 hover:text-white hover:border-white"
+              : "border-gray-900/30 text-gray-900/80 hover:text-gray-900 hover:border-gray-900"
+          }`}
+        >
+          JOIN US
+          <ArrowUpRight
+            size={16}
+            className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
+        </a>
+      </div>
+    </div>
 
-  return (
     <div
-      key={i}
-      className={`group relative rounded-2xl border overflow-hidden transition-all duration-500 hover:scale-[1.02] ${
-        darkMode
-          ? "border-white/10 bg-white/5 hover:border-white/25"
-          : "border-gray-900/10 bg-gray-900/5 hover:border-gray-900/25"
+      className={`transition-all duration-1000 ${
+        visibleSections.team
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-10"
       }`}
     >
-      {/* Image */}
-      <div className="relative aspect-[3/4] w-full">
-        <img
-          src={m.photo || avatarFallback}
-          alt={m.name}
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="lazy"
-          draggable={false}
-        />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
+        {teamMembers.map((m, i) => {
+          const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            m.name
+          )}&size=512&background=111111&color=ffffff&bold=true&format=png`;
 
-        {/* Base dim */}
-        <div className={`absolute inset-0 ${darkMode ? "bg-black/20" : "bg-white/10"}`} />
+          return (
+            <div
+              key={i}
+              className={`group relative rounded-2xl border overflow-hidden transition-all duration-500 hover:scale-[1.02] ${
+                darkMode
+                  ? "border-white/10 bg-white/5 hover:border-white/25"
+                  : "border-gray-900/10 bg-gray-900/5 hover:border-gray-900/25"
+              }`}
+            >
+              {/* Image */}
+              <div className="relative aspect-[3/4] w-full">
+                <img
+                  src={m.photo || avatarFallback}
+                  alt={m.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  draggable={false}
+                />
 
-        {/* ✅ Hover colour wash */}
-        <div
-          className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-            darkMode
-              ? "bg-gradient-to-t from-black/85 via-black/35 to-transparent"
-              : "bg-gradient-to-t from-white/90 via-white/55 to-transparent"
-          }`}
-        />
+                {/* Base dim */}
+                <div
+                  className={`absolute inset-0 ${
+                    darkMode ? "bg-black/20" : "bg-white/10"
+                  }`}
+                />
 
-        {/* ✅ Accent tint (adds “colour” without changing your brand) */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            background:
-              "radial-gradient(120% 80% at 20% 15%, rgba(80,160,255,0.35), transparent 55%), radial-gradient(90% 70% at 80% 30%, rgba(255,120,200,0.25), transparent 60%)",
-          }}
-        />
-      </div>
+                {/* Hover colour wash */}
+                <div
+                  className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                    darkMode
+                      ? "bg-gradient-to-t from-black/85 via-black/35 to-transparent"
+                      : "bg-gradient-to-t from-white/90 via-white/55 to-transparent"
+                  }`}
+                />
 
-      {/* ✅ Hover info (not black-on-black anymore) */}
-      <div
-        className={`absolute inset-0 p-4 flex flex-col justify-end transition-all duration-500 opacity-0 group-hover:opacity-100 ${
-          darkMode ? "text-white" : "text-gray-900"
-        }`}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="text-lg font-semibold leading-tight truncate drop-shadow-sm">
-              {m.name}
-            </div>
-            <div className={`text-xs mt-1 ${darkMode ? "text-white/80" : "text-gray-900/70"}`}>
-              {m.role}
-            </div>
-          </div>
-
-          <div
-            className={`text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap backdrop-blur-md ${
-              darkMode
-                ? "bg-white/12 text-white/85 border border-white/15"
-                : "bg-black/5 text-gray-900/80 border border-gray-900/10"
-            }`}
-          >
-            {m.location}
-          </div>
-        </div>
-
-        <div className={`mt-4 h-px ${darkMode ? "bg-white/15" : "bg-gray-900/15"}`} />
-
-        {m.linkedin ? (
-          <a
-            href={m.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`mt-4 inline-flex items-center gap-2 text-xs tracking-widest transition-colors ${
-              darkMode ? "text-white/80 hover:text-white" : "text-gray-900/70 hover:text-gray-900"
-            }`}
-          >
-            LinkedIn <ArrowUpRight size={14} className="opacity-70" />
-          </a>
-        ) : (
-          <div className={`mt-4 text-xs tracking-widest ${darkMode ? "text-white/45" : "text-gray-900/45"}`}>
-            —
-          </div>
-        )}
-      </div>
-
-      {/* ✅ Corner dot becomes a glow */}
-      <div
-        className={`absolute top-4 right-4 w-2 h-2 rounded-full transition-all duration-500 ${
-          darkMode ? "bg-white/35 group-hover:bg-white" : "bg-gray-900/35 group-hover:bg-gray-900"
-        }`}
-      />
-
-      {/* ✅ Soft glow ring on hover */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          boxShadow: darkMode
-            ? "0 0 0 1px rgba(255,255,255,0.18), 0 20px 60px rgba(80,160,255,0.12)"
-            : "0 0 0 1px rgba(0,0,0,0.12), 0 20px 60px rgba(0,0,0,0.08)",
-          borderRadius: "1rem",
-        }}
-      />
-    </div>
-  );
-})}
-
-                </div>
+                {/* Accent tint */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background:
+                      "radial-gradient(120% 80% at 20% 15%, rgba(80,160,255,0.35), transparent 55%), radial-gradient(90% 70% at 80% 30%, rgba(255,120,200,0.25), transparent 60%)",
+                  }}
+                />
               </div>
+
+              {/* Hover info */}
+              <div
+                className={`absolute inset-0 p-4 flex flex-col justify-end transition-all duration-500 opacity-0 group-hover:opacity-100 ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="text-lg font-semibold leading-tight truncate drop-shadow-sm">
+                      {m.name}
+                    </div>
+                    <div
+                      className={`text-xs mt-1 ${
+                        darkMode ? "text-white/80" : "text-gray-900/70"
+                      }`}
+                    >
+                      {m.role}
+                    </div>
+                  </div>
+
+                  <div
+                    className={`text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap backdrop-blur-md ${
+                      darkMode
+                        ? "bg-white/12 text-white/85 border border-white/15"
+                        : "bg-black/5 text-gray-900/80 border border-gray-900/10"
+                    }`}
+                  >
+                    {m.location}
+                  </div>
+                </div>
+
+                <div
+                  className={`mt-4 h-px ${
+                    darkMode ? "bg-white/15" : "bg-gray-900/15"
+                  }`}
+                />
+
+                {m.linkedin ? (
+                  <a
+                    href={m.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mt-4 inline-flex items-center gap-2 text-xs tracking-widest transition-colors ${
+                      darkMode
+                        ? "text-white/80 hover:text-white"
+                        : "text-gray-900/70 hover:text-gray-900"
+                    }`}
+                  >
+                    LinkedIn <ArrowUpRight size={14} className="opacity-70" />
+                  </a>
+                ) : (
+                  <div
+                    className={`mt-4 text-xs tracking-widest ${
+                      darkMode ? "text-white/45" : "text-gray-900/45"
+                    }`}
+                  >
+                    —
+                  </div>
+                )}
+              </div>
+
+              {/* Corner dot */}
+              <div
+                className={`absolute top-4 right-4 w-2 h-2 rounded-full transition-all duration-500 ${
+                  darkMode
+                    ? "bg-white/35 group-hover:bg-white"
+                    : "bg-gray-900/35 group-hover:bg-gray-900"
+                }`}
+              />
+
+              {/* Soft glow ring */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  boxShadow: darkMode
+                    ? "0 0 0 1px rgba(255,255,255,0.18), 0 20px 60px rgba(80,160,255,0.12)"
+                    : "0 0 0 1px rgba(0,0,0,0.12), 0 20px 60px rgba(0,0,0,0.08)",
+                  borderRadius: "1rem",
+                }}
+              />
             </div>
-          </section>
+          );
+        })}
+
+        {/* ✅ And More... (small bordered strip as a grid item) */}
+<div className="col-span-full flex justify-center">
+  <AndMoreStrip darkMode={darkMode} />
+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
           {/* Contact / Studios */}
           <section id="contact" className="py-32 px-6 lg:px-12">

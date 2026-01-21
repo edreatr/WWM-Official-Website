@@ -144,7 +144,7 @@ export default function AllProjectsPage({ darkMode, setDarkMode }) {
         location: "—",
         sector: "—",
         role: "—",
-
+   
         summary:
           "We’re currently curating and publishing additional work. Check back soon for new case studies and project updates.",
         isPlaceholder: true,
@@ -597,149 +597,141 @@ function InlineExpandedProject({ darkMode, project, onClose }) {
       {/* Make inner scroll (so morph container can be viewport-limited) */}
       <div className="h-[calc(100%-84px)] overflow-auto">
         {/* IMAGE LEFT + OVERVIEW BELOW IMAGE, DETAILS RIGHT */}
-        <div className="grid lg:grid-cols-[2.2fr_1fr] gap-0">
-          {/* LEFT: IMAGE + OVERVIEW */}
-          <div className="relative">
-            {/* IMAGE / CAROUSEL */}
-            <div className="p-4 sm:p-5">
-              <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden">
-                <img
-                  src={images[idx].src}
-                  alt={`${project.title} image ${idx + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+        {/* ✅ IMAGE FULL-WIDTH ON TOP, OVERVIEW + DETAILS ALIGNED BELOW */}
+<div className="grid gap-0">
+  {/* TOP: BIG IMAGE / CAROUSEL (spans full width) */}
+  <div className="relative px-3 sm:px-4 pt-3">
+    {/* Bigger image: use height instead of small aspect */}
+   <div className="relative w-full h-[50vh] sm:h-[60vh] rounded-2xl overflow-hidden">
 
-                {/* PHOTO CREDIT */}
-                {images[idx].credit && (
-                  <div className="absolute bottom-3 right-4 text-[10px] tracking-wide uppercase px-2 py-1 rounded-md bg-black/50 text-white/70 backdrop-blur">
-                    {images[idx].credit}
-                  </div>
-                )}
+      <img
+        src={images[idx].src}
+        alt={`${project.title} image ${idx + 1}`}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-                <div
-                  className={`absolute inset-0 ${
-                    darkMode ? "bg-black/20" : "bg-white/10"
-                  }`}
-                />
-              </div>
-            </div>
+      {/* PHOTO CREDIT */}
+      {images[idx].credit && (
+        <div className="absolute bottom-3 right-4 text-[10px] tracking-wide uppercase px-2 py-1 rounded-md bg-black/50 text-white/70 backdrop-blur">
+          {images[idx].credit}
+        </div>
+      )}
 
-            {images.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prev();
-                  }}
-                  className={`absolute left-6 top-[180px] sm:top-[200px] w-11 h-11 rounded-full border flex items-center justify-center ${
-                    darkMode
-                      ? "border-white/15 bg-black/40 hover:bg-black/55"
-                      : "border-gray-900/15 bg-white/50 hover:bg-white/70"
-                  }`}
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft size={18} />
-                </button>
+      <div className={`absolute inset-0 ${darkMode ? "bg-black/20" : "bg-white/10"}`} />
 
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    next();
-                  }}
-                  className={`absolute right-6 top-[180px] sm:top-[200px] w-11 h-11 rounded-full border flex items-center justify-center ${
-                    darkMode
-                      ? "border-white/15 bg-black/40 hover:bg-black/55"
-                      : "border-gray-900/15 bg-white/50 hover:bg-white/70"
-                  }`}
-                  aria-label="Next image"
-                >
-                  <ChevronRight size={18} />
-                </button>
+      {/* arrows INSIDE the image box */}
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border flex items-center justify-center ${
+              darkMode
+                ? "border-white/15 bg-black/40 hover:bg-black/55"
+                : "border-gray-900/15 bg-white/50 hover:bg-white/70"
+            }`}
+            aria-label="Previous image"
+          >
+            <ChevronLeft size={18} />
+          </button>
 
-                <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2">
-                  {images.map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-1.5 rounded-full transition-all ${
-                        i === idx ? "w-8 opacity-100" : "w-3 opacity-50"
-                      } ${darkMode ? "bg-white" : "bg-gray-900"}`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border flex items-center justify-center ${
+              darkMode
+                ? "border-white/15 bg-black/40 hover:bg-black/55"
+                : "border-gray-900/15 bg-white/50 hover:bg-white/70"
+            }`}
+            aria-label="Next image"
+          >
+            <ChevronRight size={18} />
+          </button>
 
-            {/* OVERVIEW BELOW IMAGE */}
-            <div className="px-4 sm:px-5 pb-6 sm:pb-7">
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+            {images.map((_, i) => (
               <div
-                className={`text-xs tracking-[0.3em] uppercase ${
-                  darkMode ? "text-white/55" : "text-gray-900/55"
-                }`}
-              >
-                Overview
-              </div>
-              <p
-                className={`mt-4 text-base leading-relaxed ${
-                  darkMode ? "text-white/75" : "text-gray-900/75"
-                }`}
-              >
-                {project.overview || project.summary}
-              </p>
-            </div>
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === idx ? "w-8 opacity-100" : "w-3 opacity-50"
+                } ${darkMode ? "bg-white" : "bg-gray-900"}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+
+  {/* BOTTOM: OVERVIEW (left) + DETAILS (right) aligned */}
+  <div className="grid lg:grid-cols-[minmax(0,1fr)_420px] gap-0">
+    {/* LEFT: OVERVIEW */}
+    <div className="px-4 sm:px-5 pb-6 sm:pb-7">
+      <div
+        className={`text-xs tracking-[0.3em] uppercase ${
+          darkMode ? "text-white/55" : "text-gray-900/55"
+        }`}
+      >
+        Overview
+      </div>
+      <p
+        className={`mt-4 text-base leading-relaxed text-justify ${
+          darkMode ? "text-white/75" : "text-gray-900/75"
+        }`}
+      >
+        {project.overview || project.summary}
+      </p>
+    </div>
+
+    {/* RIGHT: DETAILS (starts aligned with overview) */}
+    <div className="p-6 sm:p-7">
+      <div className="lg:sticky lg:top-6">
+        <div
+          className={`rounded-2xl border p-5 ${
+            darkMode
+              ? "border-white/10 bg-white/[0.03]"
+              : "border-gray-900/10 bg-gray-900/[0.03]"
+          }`}
+        >
+          <div
+            className={`text-xs tracking-[0.3em] uppercase ${
+              darkMode ? "text-white/55" : "text-gray-900/55"
+            }`}
+          >
+            Project Details
           </div>
 
-          {/* RIGHT: PROJECT DETAILS */}
-          <div className="p-6 sm:p-7">
-            <div className="lg:sticky lg:top-6">
-              <div
-                className={`rounded-2xl border p-5 ${
-                  darkMode
-                    ? "border-white/10 bg-white/[0.03]"
-                    : "border-gray-900/10 bg-gray-900/[0.03]"
-                }`}
-              >
-                <div
-                  className={`text-xs tracking-[0.3em] uppercase ${
-                    darkMode ? "text-white/55" : "text-gray-900/55"
-                  }`}
-                >
-                  Project Details
-                </div>
-
-                <div className="mt-5 space-y-4">
-                  <Row
-                    darkMode={darkMode}
-                    label="Status"
-                    value={project.status}
-                    pill
-                  />
-                  <Row darkMode={darkMode} label="Sector" value={project.sector || "—"} />
-                  <Row darkMode={darkMode} label="Our Role" value={project.role || "—"} />
-                  <Row
-                    darkMode={darkMode}
-                    label="Client"
-                    value={project.details?.client || "—"}
-                  />
-                  <Row
-                    darkMode={darkMode}
-                    label="Collaborations"
-                    value={project.details?.collaborators || "—"}
-                  />
-                </div>
-              </div>
-
-              <div
-                className={`mt-4 px-1 text-[11px] tracking-widest uppercase ${
-                  darkMode ? "text-white/40" : "text-gray-900/45"
-                }`}
-              >
-                Press ESC to close
-              </div>
-            </div>
+          <div className="mt-5 space-y-4">
+            <Row darkMode={darkMode} label="Status" value={project.status} pill />
+            <Row darkMode={darkMode} label="Sector" value={project.sector || "—"} />
+            <Row darkMode={darkMode} label="Our Role" value={project.role || "—"} />
+            <Row darkMode={darkMode} label="Client" value={project.details?.client || "—"} />
+            <Row
+              darkMode={darkMode}
+              label="Collaborations"
+              value={project.details?.collaborators || "—"}
+            />
           </div>
         </div>
+
+        <div
+          className={`mt-4 px-1 text-[11px] tracking-widest uppercase ${
+            darkMode ? "text-white/40" : "text-gray-900/45"
+          }`}
+        >
+          Press ESC to close
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   );
