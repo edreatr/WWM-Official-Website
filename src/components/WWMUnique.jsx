@@ -159,7 +159,8 @@ function StudiosMap({ darkMode }) {
   const highlightSrc = darkMode ? whitemaphighlight : blackmaphighlight;
 
   return (
-    <div className="relative w-[92vw] max-w-[1400px] mx-auto -translate-x-[2.5%]">
+    <div className="relative w-[98vw] max-w-[1700px] mx-auto -translate-x-[4%]">
+
       <img
         src={baseSrc}
         alt="WWM global map"
@@ -1267,54 +1268,119 @@ export default function WWMUnique() {
               <div className={`transition-all duration-1000 ${visibleSections.team ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
                   {teamMembers.map((m, i) => {
-                    const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      m.name
-                    )}&size=512&background=111111&color=ffffff&bold=true&format=png`;
+  const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    m.name
+  )}&size=512&background=111111&color=ffffff&bold=true&format=png`;
 
-                    return (
-                      <div
-                        key={i}
-                        className={`group relative rounded-2xl border overflow-hidden ${
-                          darkMode ? "border-white/10 bg-white/5" : "border-gray-900/10 bg-gray-900/5"
-                        } transition-all duration-500 hover:scale-[1.02]`}
-                      >
-                       <div className="relative aspect-[3/4] w-full"> 
-                          <img src={m.photo || avatarFallback} alt={m.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                          <div className={`absolute inset-0 ${darkMode ? "bg-black/15" : "bg-white/10"}`} />
-                        </div>
+  return (
+    <div
+      key={i}
+      className={`group relative rounded-2xl border overflow-hidden transition-all duration-500 hover:scale-[1.02] ${
+        darkMode
+          ? "border-white/10 bg-white/5 hover:border-white/25"
+          : "border-gray-900/10 bg-gray-900/5 hover:border-gray-900/25"
+      }`}
+    >
+      {/* Image */}
+      <div className="relative aspect-[3/4] w-full">
+        <img
+          src={m.photo || avatarFallback}
+          alt={m.name}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          draggable={false}
+        />
 
-                        <div
-                          className={`absolute inset-0 p-4 flex flex-col justify-end transition-all duration-500 ${
-                            darkMode ? "bg-black/75" : "bg-white/85"
-                          } opacity-0 group-hover:opacity-100`}
-                        >
-                          <div className="flex items-start justify-between gap-4">
-                            <div className="min-w-0">
-                              <div className="text-lg font-semibold leading-tight truncate">{m.name}</div>
-                              <div className={`text-xs mt-1 ${darkMode ? "text-white/70" : "text-gray-900/70"}`}>{m.role}</div>
-                            </div>
+        {/* Base dim */}
+        <div className={`absolute inset-0 ${darkMode ? "bg-black/20" : "bg-white/10"}`} />
 
-                            <div className={`text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap ${darkMode ? "bg-white/10 text-white/80" : "bg-gray-900/10 text-gray-900/80"}`}>
-                              {m.location}
-                            </div>
-                          </div>
+        {/* ✅ Hover colour wash */}
+        <div
+          className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+            darkMode
+              ? "bg-gradient-to-t from-black/85 via-black/35 to-transparent"
+              : "bg-gradient-to-t from-white/90 via-white/55 to-transparent"
+          }`}
+        />
 
-                          <div className={`mt-4 h-px ${darkMode ? "bg-white/10" : "bg-gray-900/10"}`} />
+        {/* ✅ Accent tint (adds “colour” without changing your brand) */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 20% 15%, rgba(80,160,255,0.35), transparent 55%), radial-gradient(90% 70% at 80% 30%, rgba(255,120,200,0.25), transparent 60%)",
+          }}
+        />
+      </div>
 
-                          <a
-                            href={m.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`mt-4 inline-block text-xs tracking-widest ${darkMode ? "text-white/70 hover:text-white" : "text-gray-900/70 hover:text-gray-900"} transition-colors`}
-                          >
-                            LinkedIn
-                          </a>
-                        </div>
+      {/* ✅ Hover info (not black-on-black anymore) */}
+      <div
+        className={`absolute inset-0 p-4 flex flex-col justify-end transition-all duration-500 opacity-0 group-hover:opacity-100 ${
+          darkMode ? "text-white" : "text-gray-900"
+        }`}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <div className="text-lg font-semibold leading-tight truncate drop-shadow-sm">
+              {m.name}
+            </div>
+            <div className={`text-xs mt-1 ${darkMode ? "text-white/80" : "text-gray-900/70"}`}>
+              {m.role}
+            </div>
+          </div>
 
-                        <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-white/40 group-hover:bg-white transition-colors duration-500" />
-                      </div>
-                    );
-                  })}
+          <div
+            className={`text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap backdrop-blur-md ${
+              darkMode
+                ? "bg-white/12 text-white/85 border border-white/15"
+                : "bg-black/5 text-gray-900/80 border border-gray-900/10"
+            }`}
+          >
+            {m.location}
+          </div>
+        </div>
+
+        <div className={`mt-4 h-px ${darkMode ? "bg-white/15" : "bg-gray-900/15"}`} />
+
+        {m.linkedin ? (
+          <a
+            href={m.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`mt-4 inline-flex items-center gap-2 text-xs tracking-widest transition-colors ${
+              darkMode ? "text-white/80 hover:text-white" : "text-gray-900/70 hover:text-gray-900"
+            }`}
+          >
+            LinkedIn <ArrowUpRight size={14} className="opacity-70" />
+          </a>
+        ) : (
+          <div className={`mt-4 text-xs tracking-widest ${darkMode ? "text-white/45" : "text-gray-900/45"}`}>
+            —
+          </div>
+        )}
+      </div>
+
+      {/* ✅ Corner dot becomes a glow */}
+      <div
+        className={`absolute top-4 right-4 w-2 h-2 rounded-full transition-all duration-500 ${
+          darkMode ? "bg-white/35 group-hover:bg-white" : "bg-gray-900/35 group-hover:bg-gray-900"
+        }`}
+      />
+
+      {/* ✅ Soft glow ring on hover */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          boxShadow: darkMode
+            ? "0 0 0 1px rgba(255,255,255,0.18), 0 20px 60px rgba(80,160,255,0.12)"
+            : "0 0 0 1px rgba(0,0,0,0.12), 0 20px 60px rgba(0,0,0,0.08)",
+          borderRadius: "1rem",
+        }}
+      />
+    </div>
+  );
+})}
+
                 </div>
               </div>
             </div>
@@ -1436,9 +1502,7 @@ export default function WWMUnique() {
           <footer className={`border-t ${darkMode ? "border-white/10" : "border-gray-900/10"} py-12 px-6 lg:px-12`}>
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
               <img src={darkMode ? wwmLogo : wwmLogoDark} alt="WWM Logo" className="h-8 w-auto opacity-90" />
-              <div className={`text-sm ${darkMode ? "text-white/50" : "text-gray-900/50"} absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0`}>
-                © 2025 WWM PTE.LTD. — Design Different
-              </div>
+             
 
               <div className="flex gap-8 text-sm">
                 <a
