@@ -159,38 +159,46 @@ function StudiosMap({ darkMode }) {
   const highlightSrc = darkMode ? whitemaphighlight : blackmaphighlight;
 
   return (
-    <div className="relative w-[98vw] max-w-[1700px] mx-auto -translate-x-[4%]">
+    // ✅ full-bleed wrapper centered to viewport (NOT the max-w container)
+    <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-visible">
+      <div className="relative mx-auto w-full max-w-[2400px]">
+        {/* Base */}
+        <img
+          src={baseSrc}
+          alt="WWM global map"
+          className="w-full h-auto block opacity-70 select-none"
+          draggable={false}
+        />
 
-      <img
-        src={baseSrc}
-        alt="WWM global map"
-        className="w-full h-auto block opacity-70 select-none"
-        draggable={false}
-      />
+        {/* Highlight */}
+        <img
+          src={highlightSrc}
+          alt="WWM global map highlight"
+          className={`pointer-events-none absolute inset-0 w-full h-auto transition-opacity duration-300 ${
+            hoveringSingapore ? "opacity-100" : "opacity-0"
+          }`}
+          draggable={false}
+        />
 
-      <img
-        src={highlightSrc}
-        alt="WWM global map highlight"
-        className={`pointer-events-none absolute inset-0 w-full h-auto transition-opacity duration-300 ${
-          hoveringSingapore ? "opacity-100" : "opacity-0"
-        }`}
-        draggable={false}
-      />
-
-      <div
-        className="absolute -translate-x-1/2 -translate-y-1/2"
-        style={{
-          left: `${singapore.x}%`,
-          top: `${singapore.y}%`,
-          width: singapore.radius * 2,
-          height: singapore.radius * 2,
-        }}
-        onMouseEnter={() => setHoveringSingapore(true)}
-        onMouseLeave={() => setHoveringSingapore(false)}
-      />
+        {/* Hover zone */}
+        <div
+          className="absolute -translate-x-1/2 -translate-y-1/2"
+          style={{
+            left: `${singapore.x}%`,
+            top: `${singapore.y}%`,
+            width: singapore.radius * 2,
+            height: singapore.radius * 2,
+          }}
+          onMouseEnter={() => setHoveringSingapore(true)}
+          onMouseLeave={() => setHoveringSingapore(false)}
+        />
+      </div>
     </div>
   );
 }
+
+
+
 
 
 function HorizontalProjects({ projects = [], darkMode }) {
@@ -734,14 +742,14 @@ export default function WWMUnique() {
     },
     {
       name: "Angelo Perini",
-      role: "Senior Associate",
+      role: "Associate Director - Design",
       location: "Singapore",
       linkedin: "https://www.linkedin.com/in/angelo-perini-745634ab/",
       photo: null,
     },
     {
       name: "Samuel Halim",
-      role: "Lead Designer",
+      role: "Associate - Design",
       location: "Singapore",
       linkedin: "https://www.linkedin.com/in/samuel-previano-halim-b98223167/",
       photo: null,
@@ -755,7 +763,7 @@ export default function WWMUnique() {
     },
     {
       name: "Jaimin Korat",
-      role: "Senior Structural Engineer",
+      role: "Lead Engineer",
       location: "Singapore",
       linkedin: "https://www.linkedin.com/in/jaiminkorat/",
       photo: null,
