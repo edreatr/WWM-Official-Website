@@ -134,7 +134,8 @@ function HeroLogo({ darkMode }) {
         // ✅ FIXED: removed the stray "n" that breaks the build
         src={darkMode ? WWMSHORTENEDWHITE : WWMSHORTENEDBLACK}
         alt="Whitby Wood Mills logo"
-        className="w-[42vw] md:w-[25vw] mx-auto opacity-90"
+        className="w-full max-w-[220px] sm:max-w-[320px] md:max-w-[420px] mx-auto opacity-90"
+
       />
     </div>
   );
@@ -523,6 +524,8 @@ export default function WWMUnique() {
   const [highlightAllCapabilities, setHighlightAllCapabilities] =
     useState(false);
   const [darkMode, setDarkMode] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
@@ -841,13 +844,8 @@ export default function WWMUnique() {
   ];
 
   return (
-    <div
-      className={`${
-        darkMode ? "bg-black text-white" : "bg-white text-gray-900"
-      } font-sans transition-colors duration-500 ${
-        INITIAL_PUBLISH ? "h-screen overflow-hidden" : "overflow-hidden"
-      }`}
-    >
+      <Page locked={INITIAL_PUBLISH} darkMode={darkMode}>
+
       <style>{`
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -889,10 +887,18 @@ export default function WWMUnique() {
       )}
 
       {/* Top-right actions: JOIN US + Dark/Light Toggle */}
-      <div className="fixed top-8 right-8 z-50 flex items-center gap-3">
+      <div
+  className="
+    fixed z-50
+    top-[calc(env(safe-area-inset-top)+12px)] right-4
+    sm:top-8 sm:right-8
+    flex items-center gap-2 sm:gap-3
+  "
+>
+
         <a
           href="/join-us"
-          className={`px-5 py-3 rounded-full text-xs tracking-widest border backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] ${
+          className={`px-3 py-2 sm:px-5 sm:py-3 rounded-full text-xs tracking-widest border backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] ${
             darkMode
               ? "bg-white/10 hover:bg-white/20 border-white/20 text-white/85 hover:text-white"
               : "bg-gray-900/10 hover:bg-gray-900/20 border-gray-900/20 text-gray-900/85 hover:text-gray-900"
@@ -903,7 +909,7 @@ export default function WWMUnique() {
 
         <button
           onClick={() => setDarkMode((v) => !v)}
-          className={`w-12 h-12 rounded-full ${
+          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${
             darkMode
               ? "bg-white/10 hover:bg-white/20"
               : "bg-gray-900/10 hover:bg-gray-900/20"
@@ -917,13 +923,32 @@ export default function WWMUnique() {
         </button>
       </div>
 
+      {/* Mobile MENU button (only on phones) */}
+{/* Mobile MENU button (only on phones) */}
+<div className="fixed z-[55] left-4 top-[calc(env(safe-area-inset-top)+12px)] sm:hidden">
+  <button
+    type="button"
+    onClick={() => setMobileMenuOpen(true)}
+    className={`px-4 py-2 rounded-full text-xs tracking-widest border backdrop-blur-xl transition-all ${
+      darkMode
+        ? "bg-white/10 border-white/20 text-white/85 hover:bg-white/15"
+        : "bg-gray-900/10 border-gray-900/20 text-gray-900/85 hover:bg-gray-900/15"
+    }`}
+  >
+    MENU
+  </button>
+</div>
+
+
+
       {/* Minimal Floating Navigation */}
       {!INITIAL_PUBLISH && (
         <nav
-          className={`fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ${
-            scrolled ? "scale-90" : "scale-100"
-          }`}
-        >
+  className={`hidden sm:block fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ${
+    scrolled ? "scale-90" : "scale-100"
+  }`}
+>
+
           <div className="flex flex-col items-center gap-3">
             {scrolled && (
               <a
@@ -997,6 +1022,49 @@ export default function WWMUnique() {
           </div>
         </nav>
       )}
+
+      {/* Mobile Menu Overlay */}
+{mobileMenuOpen && (
+  <div className="fixed inset-0 z-[60] sm:hidden">
+    {/* Backdrop */}
+    <div
+      className={`absolute inset-0 ${
+        darkMode ? "bg-black/70" : "bg-white/70"
+      } backdrop-blur-sm`}
+      onClick={() => setMobileMenuOpen(false)}
+    />
+
+    {/* Menu panel */}
+    <div
+      className={`absolute left-4 right-4
+        top-[calc(env(safe-area-inset-top)+64px)]
+        rounded-3xl border p-4 ${
+          darkMode
+            ? "bg-black/80 border-white/15 text-white"
+            : "bg-white/80 border-gray-900/10 text-gray-900"
+        }`}
+    >
+      {[
+        ["Capabilities", "#services"],
+        ["Projects", "#projects"],
+        ["Team", "#team"],
+        ["Contact", "#contact"],
+      ].map(([label, href]) => (
+        <a
+          key={href}
+          href={href}
+          onClick={() => setMobileMenuOpen(false)}
+          className={`block px-4 py-3 rounded-2xl text-sm tracking-widest uppercase transition-colors ${
+            darkMode ? "hover:bg-white/10" : "hover:bg-black/5"
+          }`}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
 
       {/* Hero */}
       <section
@@ -1168,12 +1236,14 @@ export default function WWMUnique() {
       <h2 className="text-5xl lg:text-6xl font-bold">Capabilities</h2>
 
       <div className="mt-5">
-        <div className={`text-sm font-semibold ${darkMode ? "text-white/80" : "text-gray-900/80"}`}>
-          Cross Disciplinary Design
-        </div>
-        <div className={`mt-2 text-sm ${darkMode ? "text-white/45" : "text-gray-900/50"}`}>
-          Integrated design solutions spanning disciplines, redefining engineering.
-        </div>
+        <div className={`text-base sm:text-lg font-semibold ${darkMode ? "text-white/80" : "text-gray-900/80"}`}>
+  Cross Disciplinary Design
+</div>
+
+<div className={`mt-2 text-sm sm:text-lg ${darkMode ? "text-white/45" : "text-gray-900/50"}`}>
+  Integrated design solutions spanning disciplines, redefining engineering.
+</div>
+
         <div className="mt-6 flex justify-center">
           <div className={`${darkMode ? "bg-white/15" : "bg-gray-900/15"} h-px w-20`} />
         </div>
@@ -1618,5 +1688,6 @@ export default function WWMUnique() {
 </Section>
       </>
     )}
-  </div>      
-);}
+    </Page>
+);
+}
