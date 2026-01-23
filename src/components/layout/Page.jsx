@@ -1,12 +1,10 @@
-export default function Page({ children, className = "", locked = false }) {
+export default function Page({ children, darkMode, locked }) {
   return (
     <div
-      className={`
-        min-h-screen w-full overflow-x-hidden
-        font-sans transition-colors duration-500
-        ${locked ? "h-screen overflow-hidden" : ""}
-        ${className}
-      `}
+      className={[
+        "min-h-screen w-full transition-colors duration-300",
+        darkMode ? "bg-black text-white" : "bg-white text-gray-900",
+      ].join(" ")}
     >
       {children}
     </div>
