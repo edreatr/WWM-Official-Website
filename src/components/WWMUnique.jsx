@@ -9,6 +9,13 @@ import {
 } from "lucide-react";
 import { Link, useNavigate} from "react-router-dom";
 
+import Page from "../components/layout/Page";
+import Container from "../components/layout/Container";
+import Section from "../components/layout/Section";
+import SectionHeader from "../components/layout/SectionHeader";
+import FullBleed from "../components/layout/FullBleed";
+
+
 import wwmLogo from "../assets/WWM_WHITELOGO_PNG.png";
 import wwmLogoDark from "../assets/WWM_BLACKTEXT.png";
 import WWMSHORTENEDBLACK from "../assets/WWMSHORTENEDBLACK.png";
@@ -1037,8 +1044,8 @@ export default function WWMUnique() {
       {!INITIAL_PUBLISH && (
         <>
           {/* About */}
-          <section id="about" className="py-32 px-6 lg:px-12">
-            <div className="max-w-6xl mx-auto w-full">
+          <Section id="about">
+            <Container className="max-w-6xl">
               <div
                 className={`transition-all duration-1000 ${
                   visibleSections.about
@@ -1141,16 +1148,18 @@ export default function WWMUnique() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </Container>
+</Section>
+
 
           {/* Services */}
           {/* (UNCHANGED from your file) */}
           {/* ... keep your Services / Team / Contact / Footer exactly as you had ... */}
 
           {/* Capabilities */}
-<section id="services" className="py-32 px-6 lg:px-12 relative">
-  <div className="max-w-7xl mx-auto w-full">
+<Section id="services" className="relative">
+  <Container>
+
     <div className="text-center mb-16">
       <div className={`inline-block text-xs tracking-[0.3em] ${darkMode ? "text-white/50" : "text-gray-900/50"} mb-6`}>
         01 —
@@ -1209,62 +1218,70 @@ export default function WWMUnique() {
         ))}
       </div>
     </div>
-  </div>
-</section>
+  </Container>
+</Section>
+
 
 
           {/* Projects */}
-          <section
-            id="projects"
-            className="py-32 px-0 sm:px-0 lg:px-0 relative overflow-hidden"
-          >
-            <div className="max-w-7xl mx-auto relative z-10 px-6 lg:px-12">
-              <div className="text-center mb-16">
-                <div
-                  className={`inline-block text-xs tracking-[0.3em] ${
-                    darkMode ? "text-white/50" : "text-gray-900/50"
-                  } mb-6`}
-                >
-                  02 —
-                </div>
-                <h2 className="text-5xl lg:text-6xl font-bold">
-                  Featured Projects
-                </h2>
-                <p
-                  className={`mt-5 text-lg ${
-                    darkMode ? "text-white/50" : "text-gray-900/50"
-                  } max-w-2xl mx-auto`}
-                >
-                  Transforming visions into reality
-                </p>
-              </div>
-            </div>
+<Section id="projects" className="overflow-hidden px-0">
 
-            <div className="max-w-7xl mx-auto">
-              <HorizontalProjects projects={projects} darkMode={darkMode} />
-            </div>
+  {/* Header */}
+  <Container className="relative z-10">
+    <div className="text-center mb-16">
+      <div
+        className={`inline-block text-xs tracking-[0.3em] ${
+          darkMode ? "text-white/50" : "text-gray-900/50"
+        } mb-6`}
+      >
+        02 —
+      </div>
 
-            <div className="mt-16 flex justify-center px-6 lg:px-12">
-              <Link
-                to="/projects"
-                aria-label="View all projects"
-                className={`group inline-flex items-center gap-3 px-10 py-4 rounded-full border backdrop-blur-xl text-xs tracking-widest transition-all duration-300 hover:scale-[1.03] ${
-                  darkMode
-                    ? "border-white/30 text-white/75 hover:text-white hover:border-white bg-white/5 hover:bg-white/10"
-                    : "border-gray-900/30 text-gray-900/75 hover:text-gray-900 hover:border-gray-900 bg-gray-900/5 hover:bg-gray-900/10"
-                }`}
-              >
-                VIEW ALL PROJECTS
-                <LayoutGrid
-                  size={16}
-                  className="opacity-70 group-hover:opacity-100 transition-opacity"
-                />
-              </Link>
-            </div>
-          </section>
+      <h2 className="text-5xl lg:text-6xl font-bold">
+        Featured Projects
+      </h2>
+
+      <p
+        className={`mt-5 text-lg ${
+          darkMode ? "text-white/50" : "text-gray-900/50"
+        } max-w-2xl mx-auto`}
+      >
+        Transforming visions into reality
+      </p>
+    </div>
+  </Container>
+
+  {/* Horizontal scroller */}
+  <Container>
+    <HorizontalProjects projects={projects} darkMode={darkMode} />
+  </Container>
+
+  {/* CTA */}
+  <Container className="mt-16 flex justify-center">
+    <Link
+      to="/projects"
+      aria-label="View all projects"
+      className={`group inline-flex items-center gap-3 px-10 py-4 rounded-full border backdrop-blur-xl text-xs tracking-widest transition-all duration-300 hover:scale-[1.03] ${
+        darkMode
+          ? "border-white/30 text-white/75 hover:text-white hover:border-white bg-white/5 hover:bg-white/10"
+          : "border-gray-900/30 text-gray-900/75 hover:text-gray-900 hover:border-gray-900 bg-gray-900/5 hover:bg-gray-900/10"
+      }`}
+    >
+      VIEW ALL PROJECTS
+      <LayoutGrid
+        size={16}
+        className="opacity-70 group-hover:opacity-100 transition-opacity"
+      />
+    </Link>
+  </Container>
+
+</Section>
+
+
+
 {/* Team */}
-<section id="team" className="py-32 px-6 lg:px-12">
-  <div className="max-w-7xl mx-auto w-full">
+<Section id="team">
+  <Container>
     <div className="text-center mb-20">
       <div
         className={`inline-block text-xs tracking-[0.3em] ${
@@ -1450,142 +1467,156 @@ export default function WWMUnique() {
 </div>
       </div>
     </div>
-  </div>
-</section>
+ </Container>
+</Section>
 
 
-          {/* Contact / Studios */}
-          <section id="contact" className="py-32 px-6 lg:px-12">
-            <div className="max-w-7xl mx-auto w-full">
-              <div className="flex flex-col items-center text-center mb-4">
-                <div className={`inline-block text-xs tracking-[0.3em] ${darkMode ? "text-white/50" : "text-gray-900/50"} mb-4`}>04 —</div>
-                <h2 className="text-5xl lg:text-6xl font-bold">Our Studios</h2>
-              </div>
 
-              <div className="w-full mb-6">
-                <StudiosMap darkMode={darkMode} />
-              </div>
+         {/* Contact / Studios */}
+<Section id="contact">
+  <Container>
 
-              <div className="grid lg:grid-cols-2 gap-20">
-                <div className={`transition-all duration-1000 ${visibleSections.contact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}>
-                  <h2 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
-                    Let&apos;s build
-                    <br />
-                    something
-                    <br />
-                    <span className={`${darkMode ? "text-white/40" : "text-gray-900/40"} italic`}>different</span>
-                  </h2>
-
-                  <div className="mt-4 flex items-center gap-6">
-                    <a
-                      href="/join-us"
-                      className={`group inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors ${
-                        darkMode ? "text-white/55 hover:text-white" : "text-gray-900/55 hover:text-gray-900"
-                      }`}
-                    >
-                      <Users size={18} className="opacity-70 group-hover:opacity-100 transition-opacity" />
-                      <span>Join Us</span>
-                      <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-
-                    <a
-                      href="https://www.linkedin.com/company/wwm-design/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors ${
-                        darkMode ? "text-white/55 hover:text-white" : "text-gray-900/55 hover:text-gray-900"
-                      }`}
-                    >
-                      <Linkedin size={18} className="opacity-70 group-hover:opacity-100 transition-opacity" />
-                      <span>Follow</span>
-                      <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className={`transition-all duration-1000 delay-300 ${visibleSections.contact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}>
-                  <div className="space-y-8">
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Name"
-                        value={contactName}
-                        onChange={(e) => setContactName(e.target.value)}
-                        className={`w-full bg-transparent border-b ${
-                          darkMode
-                            ? "border-white/20 focus:border-white placeholder:text-white/30"
-                            : "border-gray-900/20 focus:border-gray-900 placeholder:text-gray-900/30"
-                        } py-4 text-lg outline-none transition-colors`}
-                      />
-                    </div>
-
-                    <div>
-                      <input
-                        type="email"
-                        placeholder="Email"
-                        value={contactEmail}
-                        onChange={(e) => setContactEmail(e.target.value)}
-                        className={`w-full bg-transparent border-b ${
-                          darkMode
-                            ? "border-white/20 focus:border-white placeholder:text-white/30"
-                            : "border-gray-900/20 focus:border-gray-900 placeholder:text-gray-900/30"
-                        } py-4 text-lg outline-none transition-colors`}
-                      />
-                    </div>
-
-                    <div>
-                      <textarea
-                        rows={4}
-                        placeholder="Tell us about your inquiry"
-                        value={contactMessage}
-                        onChange={(e) => setContactMessage(e.target.value)}
-                        className={`w-full bg-transparent border-b ${
-                          darkMode
-                            ? "border-white/20 focus:border-white placeholder:text-white/30"
-                            : "border-gray-900/20 focus:border-gray-900 placeholder:text-gray-900/30"
-                        } py-4 text-lg outline-none transition-colors resize-none`}
-                      />
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={handleSendMessage}
-                      className={`group relative px-8 py-4 border ${
-                        darkMode ? "border-white/30 hover:border-white" : "border-gray-900/30 hover:border-gray-900"
-                      } transition-all duration-500 overflow-hidden`}
-                    >
-                      <span className="relative z-10 flex items-center gap-3 text-sm tracking-widest">
-                        SEND MESSAGE
-                        <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </span>
-                      <div className={`absolute inset-0 ${darkMode ? "bg-white" : "bg-gray-900"} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Footer */}
-          <footer className={`border-t ${darkMode ? "border-white/10" : "border-gray-900/10"} py-12 px-6 lg:px-12`}>
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-              <img src={darkMode ? wwmLogo : wwmLogoDark} alt="WWM Logo" className="h-8 w-auto opacity-90" />
-             
-
-              <div className="flex gap-8 text-sm">
-                <a
-                  href="https://www.linkedin.com/company/wwm-design/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${darkMode ? "hover:text-white/60" : "hover:text-gray-900/60"} transition-colors`}
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-          </footer>
-        </>
-      )}
+    <div className="flex flex-col items-center text-center mb-4">
+      <div
+        className={`inline-block text-xs tracking-[0.3em] ${
+          darkMode ? "text-white/50" : "text-gray-900/50"
+        } mb-4`}
+      >
+        04 —
+      </div>
+      <h2 className="text-5xl lg:text-6xl font-bold">Our Studios</h2>
     </div>
-  );
-}
+
+    <div className="w-full mb-6">
+      <StudiosMap darkMode={darkMode} />
+    </div>
+
+    <div className="grid lg:grid-cols-2 gap-20">
+      <div
+        className={`transition-all duration-1000 ${
+          visibleSections.contact
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-20"
+        }`}
+      >
+        <h2 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
+          Let&apos;s build
+          <br />
+          something
+          <br />
+          <span
+            className={`${
+              darkMode ? "text-white/40" : "text-gray-900/40"
+            } italic`}
+          >
+            different
+          </span>
+        </h2>
+
+        <div className="mt-4 flex items-center gap-6">
+          <a
+            href="/join-us"
+            className={`group inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors ${
+              darkMode
+                ? "text-white/55 hover:text-white"
+                : "text-gray-900/55 hover:text-gray-900"
+            }`}
+          >
+            <Users size={18} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+            <span>Join Us</span>
+            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/company/wwm-design/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase transition-colors ${
+              darkMode
+                ? "text-white/55 hover:text-white"
+                : "text-gray-900/55 hover:text-gray-900"
+            }`}
+          >
+            <Linkedin size={18} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+            <span>Follow</span>
+            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+        </div>
+      </div>
+
+      <div
+        className={`transition-all duration-1000 delay-300 ${
+          visibleSections.contact
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-20"
+        }`}
+      >
+        <div className="space-y-8">
+          <input
+            type="text"
+            placeholder="Name"
+            value={contactName}
+            onChange={(e) => setContactName(e.target.value)}
+            className={`w-full bg-transparent border-b ${
+              darkMode
+                ? "border-white/20 focus:border-white placeholder:text-white/30"
+                : "border-gray-900/20 focus:border-gray-900 placeholder:text-gray-900/30"
+            } py-4 text-lg outline-none transition-colors`}
+          />
+
+          <input
+            type="email"
+            placeholder="Email"
+            value={contactEmail}
+            onChange={(e) => setContactEmail(e.target.value)}
+            className={`w-full bg-transparent border-b ${
+              darkMode
+                ? "border-white/20 focus:border-white placeholder:text-white/30"
+                : "border-gray-900/20 focus:border-gray-900 placeholder:text-gray-900/30"
+            } py-4 text-lg outline-none transition-colors`}
+          />
+
+          <textarea
+            rows={4}
+            placeholder="Tell us about your inquiry"
+            value={contactMessage}
+            onChange={(e) => setContactMessage(e.target.value)}
+            className={`w-full bg-transparent border-b ${
+              darkMode
+                ? "border-white/20 focus:border-white placeholder:text-white/30"
+                : "border-gray-900/20 focus:border-gray-900 placeholder:text-gray-900/30"
+            } py-4 text-lg outline-none transition-colors resize-none`}
+          />
+
+          <button
+            type="button"
+            onClick={handleSendMessage}
+            className={`group relative px-8 py-4 border ${
+              darkMode
+                ? "border-white/30 hover:border-white"
+                : "border-gray-900/30 hover:border-gray-900"
+            } transition-all duration-500 overflow-hidden`}
+          >
+            <span className="relative z-10 flex items-center gap-3 text-sm tracking-widest">
+              SEND MESSAGE
+              <ArrowUpRight
+                size={16}
+                className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+              />
+            </span>
+            <div
+              className={`absolute inset-0 ${
+                darkMode ? "bg-white" : "bg-gray-900"
+              } opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </Container>
+</Section>
+      </>
+    )}
+  </div>      
+);}
